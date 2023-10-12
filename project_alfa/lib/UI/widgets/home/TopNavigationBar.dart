@@ -7,7 +7,7 @@ class TopNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-      height: 70.0,
+      height: 63.0,
       decoration: BoxDecoration(
           border: Border(
               bottom:
@@ -36,9 +36,9 @@ class TopNavigationBar extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
-                    elevation: 10,
-                    backgroundColor: const Color.fromRGBO(182, 24, 24, 100),
-                    padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                    elevation: 0,
+                    backgroundColor: Color.fromRGBO(182, 24, 24, 1),
+                    padding: EdgeInsets.fromLTRB(35, 14, 35, 14),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20))),
               ),
