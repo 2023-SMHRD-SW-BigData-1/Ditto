@@ -44,7 +44,7 @@ class TopNavigationBar extends StatelessWidget {
               ),
               SizedBox(
                 width: 50,
-              )
+              ),
             ],
           )
         ],
