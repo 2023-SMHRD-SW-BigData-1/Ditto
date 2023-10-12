@@ -7,7 +7,11 @@ class TopNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-      height: 100.0,
+      height: 70.0,
+      decoration: BoxDecoration(
+          border: Border(
+              bottom:
+                  BorderSide(color: const Color.fromRGBO(179, 179, 179, 80)))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -24,8 +28,13 @@ class TopNavigationBar extends StatelessWidget {
                 width: 20,
               ),
               ElevatedButton(
-                onPressed: () {},
-                child: Text("GET STARTED"),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/main');
+                },
+                child: Text(
+                  "GET STARTED",
+                  style: TextStyle(color: Colors.white),
+                ),
                 style: ElevatedButton.styleFrom(
                     elevation: 10,
                     backgroundColor: const Color.fromRGBO(182, 24, 24, 100),

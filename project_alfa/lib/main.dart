@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:project_alfa/UI/page/home/home.dart';
+import 'package:project_alfa/UI/page/main/Main.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  usePathUrlStrategy();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -17,7 +21,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "NotoSansKR",
       ),
       initialRoute: '/',
-      routes: {'/': (context) => Home()},
+      routes: {'/': (context) => Home(), '/main': (context) => Main()},
     );
   }
 }

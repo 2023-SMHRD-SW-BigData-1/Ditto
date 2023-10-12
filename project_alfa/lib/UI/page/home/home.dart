@@ -14,5 +14,13 @@ class Home extends StatelessWidget {
 
 HomeBody() => SafeArea(
         child: Column(
-      children: <Widget>[TopNavigationBar()],
+      children: <Widget>[
+        TopNavigationBar(),
+        Expanded(
+            child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[],
+          ),
+        ))
+      ],
     ));
