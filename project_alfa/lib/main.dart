@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:project_alfa/UI/page/home/home.dart';
-import 'package:project_alfa/UI/page/main/Main.dart';
+import 'package:get/get.dart';
+import 'package:project_alfa/getPages.dart';
 
 void main() {
   usePathUrlStrategy();
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "AL.F.A",
-      theme: ThemeData(
-        fontFamily: "NotoSansKR",
+  runApp(GetMaterialApp.router(
+    debugShowCheckedModeBanner: false,
+    title: "AL.F.A",
+    theme: ThemeData(
+      fontFamily: "NotoSansKR",
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        splashColor: Colors.transparent,
+        elevation: 0,
       ),
-      initialRoute: '/',
-      routes: {'/': (context) => Home(), '/main': (context) => Main()},
-    );
-  }
+      textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+        overlayColor:
+            MaterialStateColor.resolveWith((states) => Colors.transparent),
+      )),
+    ),
+    defaultTransition: Transition.fade,
+    getPages: AppPages.pages,
+  ));
 }

@@ -1,17 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_alfa/getPages.dart';
 
 class Home_first extends StatefulWidget {
   const Home_first({Key? key}) : super(key: key);
-
   @override
   State<Home_first> createState() => _Home_firstState();
 }
 
 int _current = 0;
-
 final CarouselController _controller = CarouselController();
-
 List imageList = ["assets/image/image9.png", "assets/image/first_img.jpg"];
 
 class _Home_firstState extends State<Home_first> {
@@ -52,9 +51,7 @@ class _Home_firstState extends State<Home_first> {
                       height: 140.0,
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/main');
-                      },
+                      onPressed: () => Get.rootDelegate.toNamed(Routes.MAIN),
                       child: Text(
                         "GET STARTED",
                         style: TextStyle(color: Colors.white, fontSize: 20),
@@ -74,7 +71,10 @@ class _Home_firstState extends State<Home_first> {
           SizedBox(
             height: 10.0,
           ),
-          ImageSlider(),
+          Container(
+            height: 500.0,
+            child: ImageSlider(),
+          ),
           SizedBox(
             height: 50.0,
           ),
@@ -116,7 +116,7 @@ class _ImageSliderState extends State<ImageSlider> {
             return Builder(builder: (context) {
               return SizedBox(
                 width: 1200.0,
-                child: Image(fit: BoxFit.fill, image: AssetImage(imgLink)),
+                child: Image(fit: BoxFit.cover, image: AssetImage(imgLink)),
               );
             });
           }).toList(),
@@ -142,7 +142,7 @@ class _ImageSliderState extends State<ImageSlider> {
                 width: 12,
                 height: 12,
                 margin:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                    const EdgeInsets.symmetric(vertical: 20.0, horizontal: 4.0),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white

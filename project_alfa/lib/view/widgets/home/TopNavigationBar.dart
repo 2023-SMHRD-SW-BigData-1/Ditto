@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_alfa/getPages.dart';
+import 'package:project_alfa/view/widgets/home/GoogleSign.dart';
 
 class TopNavigationBar extends StatelessWidget {
   const TopNavigationBar({super.key});
@@ -15,10 +18,10 @@ class TopNavigationBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          SizedBox(
-            height: 20.0,
-            width: 150.0,
-            child: Image.asset('assets/image/Logo.png'),
+          Image.asset(
+            'assets/image/Logo.png',
+            width: 200,
+            height: 200,
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -28,9 +31,7 @@ class TopNavigationBar extends StatelessWidget {
                 width: 20,
               ),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/main');
-                },
+                onPressed: () => Get.rootDelegate.toNamed(Routes.MAIN),
                 child: Text(
                   "GET STARTED",
                   style: TextStyle(color: Colors.white),
@@ -60,7 +61,17 @@ class NavBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                insetPadding: EdgeInsets.fromLTRB(0, 80, 0, 80),
+                content: GoogleSign(),
+              );
+            });
+      },
       child: Text(
         title,
         style: TextStyle(color: Colors.black, fontSize: 14),
