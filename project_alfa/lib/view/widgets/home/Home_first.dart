@@ -31,15 +31,15 @@ class _Home_firstState extends State<Home_first> {
               children: <Widget>[
                 Text.rich(TextSpan(children: <TextSpan>[
                   TextSpan(
-                    text: "ALLOY",
+                    text: "AL.F.A",
                     style: TextStyle(
-                      fontSize: 80,
+                      fontSize: 70,
                       color: Color.fromRGBO(182, 24, 24, 1),
                     ),
                   ),
                   TextSpan(
                     text:
-                        "\t\talloyalloyalloyalloyalloy\nalloyalloyalloyalloyalloy\nalloyalloyalloyalloyalloyalloyalloy",
+                        "\t\t: Heat Treatment Alloy\nthe key to innovation,\nStart AI technology now",
                     style: TextStyle(
                       fontSize: 30.0,
                     ),

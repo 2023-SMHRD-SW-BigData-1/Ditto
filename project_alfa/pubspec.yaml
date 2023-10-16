@@ -38,6 +38,10 @@ dependencies:
   carousel_slider: ^4.2.1
   mvc_pattern: ^8.12.0
   get: ^4.6.6
+  google_sign_in: ^6.1.5
+  google_sign_in_web: ^0.12.0+5
+  http: ^1.1.0
+  convert: ^3.1.1
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +72,9 @@ flutter:
     - assets/image/Logo_text.png
     - assets/image/image9.png
     - assets/image/first_img.jpg
+    - assets/image/btn_google_signin_light_focus_web.png
+    - assets/image/btn_google_signin_light_normal_web@2x.png
+    - assets/image/Google_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

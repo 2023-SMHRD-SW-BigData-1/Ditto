@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_alfa/getPages.dart';
-import 'package:project_alfa/view/widgets/home/GoogleSign.dart';
+import 'package:project_alfa/view/widgets/home/Login.dart';
 
 class TopNavigationBar extends StatelessWidget {
   const TopNavigationBar({super.key});
@@ -64,10 +64,10 @@ class NavBarItem extends StatelessWidget {
       onPressed: () {
         showDialog(
             context: context,
-            barrierDismissible: false,
+            barrierDismissible: true,
             builder: (BuildContext context) {
               return AlertDialog(
-                insetPadding: EdgeInsets.fromLTRB(0, 80, 0, 80),
+                insetPadding: EdgeInsets.fromLTRB(20, 0, 20, 250),
                 content: GoogleSign(),
               );
             });
