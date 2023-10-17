@@ -1,21 +1,30 @@
+import 'dart:ui';
+
 import 'package:file/memory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
 class Main_sidebar extends StatefulWidget {
-  const Main_sidebar({super.key});
+  Main_sidebar({
+    super.key,
+    required this.bar_width,
+    required this.triger,
+  });
+
+  double bar_width;
+  int triger;
 
   @override
   State<Main_sidebar> createState() => _Main_sidebarState();
 }
 
 class _Main_sidebarState extends State<Main_sidebar> {
-  bool acy = true;
-  double test = 300;
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: test,
+      width: widget.bar_width,
       decoration: BoxDecoration(
           color: Color.fromARGB(82, 158, 158, 158).withOpacity(0.15),
           border: Border(right: BorderSide(color: Colors.black))),
@@ -53,7 +62,11 @@ class _Main_sidebarState extends State<Main_sidebar> {
                         borderRadius: BorderRadius.circular(10))),
               ),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      widget.bar_width = 0;
+                    });
+                  },
                   icon: Icon(
                     Icons.menu,
                   ))
