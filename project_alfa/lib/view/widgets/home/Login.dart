@@ -19,14 +19,14 @@ GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: scopes,
 );
 
-class GoogleSign extends StatefulWidget {
-  const GoogleSign({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<GoogleSign> createState() => _GoogleSignState();
+  State<Login> createState() => _GoogleSignState();
 }
 
-class _GoogleSignState extends State<GoogleSign> {
+class _GoogleSignState extends State<Login> {
   GoogleSignInAccount? _currentUser;
   bool _isAuthorized = false; // has granted permissions?
   String _contactText = '';

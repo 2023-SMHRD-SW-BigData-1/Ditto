@@ -68,7 +68,7 @@ class NavBarItem extends StatelessWidget {
             builder: (BuildContext context) {
               return AlertDialog(
                 insetPadding: EdgeInsets.fromLTRB(20, 0, 20, 250),
-                content: GoogleSign(),
+                content: Login(),
               );
             });
       },
