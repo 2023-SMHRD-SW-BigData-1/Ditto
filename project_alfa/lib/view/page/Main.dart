@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:get/get.dart';
+import 'package:project_alfa/provider/bar.dart';
 import 'package:project_alfa/view/widgets/main/Main_sidebar.dart';
+import 'package:provider/provider.dart';
 
 class Main extends StatefulWidget {
   const Main({Key? key}) : super(key: key);
@@ -8,10 +10,6 @@ class Main extends StatefulWidget {
   @override
   State<Main> createState() => _MainState();
 }
-
-double bar_width = 300;
-int triger = 0;
-bool open = false;
 
 class _MainState extends State<Main> {
   @override
@@ -33,29 +31,55 @@ class MainBody extends StatefulWidget {
 
 class _MainBodyState extends State<MainBody> {
   @override
-  @override
   Widget build(BuildContext context) {
-    print(triger);
-    print(bar_width);
+    final _bar = Provider.of<bar>(context);
     return SafeArea(
         child: Container(
       child: Row(
         children: <Widget>[
-          Main_sidebar(bar_width: bar_width, triger: triger),
+          Main_sidebar(),
           Expanded(
               child: Container(
             color: Color.fromARGB(82, 158, 158, 158).withOpacity(0.15),
             child: Column(
               children: <Widget>[
-                Visibility(
-                  child: IconButton(
-                      onPressed: () {
-                        setState(() {});
-                      },
-                      icon: Icon(
-                        Icons.menu,
-                      )),
-                )
+                Container(
+                  padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+                  height: 50,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Visibility(
+                        // ignore: sort_child_properties_last
+                        child: Tooltip(
+                          message: 'Open',
+                          waitDuration: Duration(milliseconds: 300),
+                          child: IconButton(
+                              onPressed: () {
+                                _bar.bar_open();
+                              },
+                              icon: Icon(
+                                Icons.menu,
+                              )),
+                        ),
+                        visible: _bar.triger,
+                      ),
+                      Container(
+                        child: Row(
+                          children: [
+                            ElevatedButton(
+                                onPressed: () {}, child: Text('REF')),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            ElevatedButton(
+                                onPressed: () {}, child: Text('PDF')),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ))

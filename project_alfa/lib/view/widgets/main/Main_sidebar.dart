@@ -3,18 +3,14 @@ import 'dart:ui';
 import 'package:file/memory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:project_alfa/provider/bar.dart';
+import 'package:project_alfa/view/page/Main.dart';
+import 'package:provider/provider.dart';
 
 class Main_sidebar extends StatefulWidget {
-  Main_sidebar({
-    super.key,
-    required this.bar_width,
-    required this.triger,
-  });
-
-  double bar_width;
-  int triger;
+  Main_sidebar({super.key});
 
   @override
   State<Main_sidebar> createState() => _Main_sidebarState();
@@ -23,10 +19,11 @@ class Main_sidebar extends StatefulWidget {
 class _Main_sidebarState extends State<Main_sidebar> {
   @override
   Widget build(BuildContext context) {
+    final _bar = Provider.of<bar>(context);
     return Container(
-      width: widget.bar_width,
+      width: _bar.bar_width,
       decoration: BoxDecoration(
-          color: Color.fromARGB(82, 158, 158, 158).withOpacity(0.15),
+          color: Color.fromARGB(255, 106, 96, 96).withOpacity(0.15),
           border: Border(right: BorderSide(color: Colors.black))),
       child: Column(children: [
         Container(
@@ -61,15 +58,18 @@ class _Main_sidebarState extends State<Main_sidebar> {
                         side: BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.circular(10))),
               ),
-              IconButton(
+              Tooltip(
+                message: 'Close',
+                waitDuration: Duration(milliseconds: 300),
+                child: IconButton(
                   onPressed: () {
-                    setState(() {
-                      widget.bar_width = 0;
-                    });
+                    _bar.bar_close();
                   },
                   icon: Icon(
                     Icons.menu,
-                  ))
+                  ),
+                ),
+              )
             ],
           ),
         ),

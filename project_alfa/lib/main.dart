@@ -6,17 +6,21 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get/get.dart';
 import 'package:project_alfa/getPages.dart';
 import 'package:http/http.dart' as http;
+import 'package:project_alfa/provider/fetch.dart';
+import 'package:project_alfa/provider/bar.dart';
 import 'package:provider/provider.dart';
-
-Future fetch() async {
-  var res = await http.get(Uri.parse('http://172.30.1.29:8889/'));
-  return jsonDecode(res.body);
-}
 
 void main() {
   usePathUrlStrategy();
-  runApp(Provider<Future>(
-    create: (context) => fetch(),
+  runApp(MultiProvider(
+    providers: [
+      Provider<Future>(
+        create: (context) => fetch(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => bar(),
+      )
+    ],
     child: GetMaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: "AL.F.A",

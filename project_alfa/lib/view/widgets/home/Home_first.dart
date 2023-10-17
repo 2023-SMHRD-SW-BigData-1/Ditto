@@ -22,13 +22,6 @@ class _Home_firstState extends State<Home_first> {
       height: 900.0,
       child: Column(
         children: <Widget>[
-          FutureBuilder(
-            future: Provider.of<Future>(context),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) return CircularProgressIndicator();
-              return Text(snapshot.data[0]['user_id'].toString() + '님 안녕하세요');
-            },
-          ),
           SizedBox(
             height: 50.0,
           ),
