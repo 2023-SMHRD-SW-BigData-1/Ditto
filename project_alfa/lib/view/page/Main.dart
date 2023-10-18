@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_alfa/provider/bar.dart';
 import 'package:project_alfa/view/widgets/main/Main_sidebar.dart';
+import 'package:project_alfa/view/widgets/main/Pdf.dart';
 import 'package:provider/provider.dart';
 
 class Main extends StatefulWidget {
@@ -32,9 +33,13 @@ class MainBody extends StatefulWidget {
 class _MainBodyState extends State<MainBody> {
   @override
   Widget build(BuildContext context) {
+    MediaQueryData deviceData = MediaQuery.of(context);
+    Size screenSize = deviceData.size;
     final _bar = Provider.of<bar>(context);
     return SafeArea(
         child: Container(
+      width: screenSize.width,
+      height: screenSize.height,
       child: Row(
         children: <Widget>[
           Main_sidebar(),
@@ -49,12 +54,13 @@ class _MainBodyState extends State<MainBody> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Visibility(
+                      AnimatedOpacity(
                         // ignore: sort_child_properties_last
                         child: Tooltip(
                           message: 'Open',
                           waitDuration: Duration(milliseconds: 300),
                           child: IconButton(
+                              constraints: BoxConstraints(),
                               onPressed: () {
                                 _bar.bar_open();
                               },
@@ -62,18 +68,32 @@ class _MainBodyState extends State<MainBody> {
                                 Icons.menu,
                               )),
                         ),
-                        visible: _bar.triger,
+                        opacity: _bar.triger ? 1.0 : 0.0,
+                        duration: _bar.triger
+                            ? Duration(milliseconds: 500)
+                            : Duration(milliseconds: 100),
                       ),
                       Container(
                         child: Row(
                           children: [
+                            PDF_btn(),
                             ElevatedButton(
-                                onPressed: () {}, child: Text('REF')),
+                              onPressed: () {},
+                              child: Text(
+                                'REF',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  backgroundColor: Colors.white.withOpacity(0),
+                                  padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                                  shape: RoundedRectangleBorder(
+                                      side: BorderSide(color: Colors.black),
+                                      borderRadius: BorderRadius.circular(10))),
+                            ),
                             SizedBox(
                               width: 20,
                             ),
-                            ElevatedButton(
-                                onPressed: () {}, child: Text('PDF')),
                           ],
                         ),
                       ),
