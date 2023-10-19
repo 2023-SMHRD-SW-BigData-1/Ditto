@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class bar extends ChangeNotifier {
   double _bar_width = 300;

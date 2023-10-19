@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get/get.dart';
 import 'package:project_alfa/getPages.dart';
-import 'package:http/http.dart' as http;
 import 'package:project_alfa/provider/fetch.dart';
 import 'package:project_alfa/provider/bar.dart';
 import 'package:provider/provider.dart';

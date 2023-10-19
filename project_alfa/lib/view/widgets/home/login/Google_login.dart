@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:google_sign_in_web/google_sign_in_web.dart';
 import 'dart:convert' show json;
 
 const List<String> scopes = <String>[
@@ -19,14 +18,14 @@ GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: scopes,
 );
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Google_login extends StatefulWidget {
+  const Google_login({super.key});
 
   @override
-  State<Login> createState() => _GoogleSignState();
+  State<Google_login> createState() => _Google_loginState();
 }
 
-class _GoogleSignState extends State<Login> {
+class _Google_loginState extends State<Google_login> {
   GoogleSignInAccount? _currentUser;
   bool _isAuthorized = false; // has granted permissions?
   String _contactText = '';
@@ -167,6 +166,7 @@ class _GoogleSignState extends State<Login> {
             height: 50.0,
             child: ElevatedButton(
               onPressed: _handleSignIn,
+              // ignore: sort_child_properties_last
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -202,82 +202,6 @@ class _GoogleSignState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 350.0,
-      height: 500.0,
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(),
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: Icon(Icons.close),
-                iconSize: 18,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            width: 320.0,
-            child: Column(
-              children: <Widget>[
-                _buildBody(),
-                SizedBox(
-                  height: 20,
-                ),
-                Text('or'),
-                SizedBox(
-                  height: 20,
-                ),
-                TextField(
-                  autofocus: true,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(borderSide: BorderSide()),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.black, width: 2.0)),
-                      labelText: 'Email'),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.black, width: 2.0)),
-                      labelText: 'Password'),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  height: 50.0,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Log in',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black, elevation: 0),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+    return _buildBody();
   }
 }

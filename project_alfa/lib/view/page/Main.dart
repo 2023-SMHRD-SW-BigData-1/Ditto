@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:project_alfa/provider/bar.dart';
 import 'package:project_alfa/view/widgets/main/Main_sidebar.dart';
-import 'package:project_alfa/view/widgets/main/Pdf.dart';
+import 'package:project_alfa/view/widgets/main/PDF/Pdf.dart';
 import 'package:provider/provider.dart';
 
 class Main extends StatefulWidget {
@@ -77,6 +76,9 @@ class _MainBodyState extends State<MainBody> {
                         child: Row(
                           children: [
                             PDF_btn(),
+                            SizedBox(
+                              width: 20,
+                            ),
                             ElevatedButton(
                               onPressed: () {},
                               child: Text(
@@ -106,6 +108,5 @@ class _MainBodyState extends State<MainBody> {
         ],
       ),
     ));
-    ;
   }
 }

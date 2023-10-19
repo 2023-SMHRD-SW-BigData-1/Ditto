@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_alfa/getPages.dart';
-import 'package:provider/provider.dart';
 
 class Home_first extends StatefulWidget {
   const Home_first({Key? key}) : super(key: key);
@@ -53,6 +52,7 @@ class _Home_firstState extends State<Home_first> {
                     ),
                     ElevatedButton(
                       onPressed: () => Get.rootDelegate.toNamed(Routes.MAIN),
+                      // ignore: sort_child_properties_last
                       child: Text(
                         "GET STARTED",
                         style: TextStyle(color: Colors.white, fontSize: 20),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_alfa/getPages.dart';
-import 'package:project_alfa/view/widgets/home/Login.dart';
+import 'package:project_alfa/view/widgets/home/login/Login.dart';
 
 class TopNavigationBar extends StatelessWidget {
   const TopNavigationBar({super.key});

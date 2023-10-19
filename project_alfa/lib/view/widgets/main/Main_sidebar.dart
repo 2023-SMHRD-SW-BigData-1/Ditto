@@ -1,12 +1,6 @@
 import 'dart:ui';
-
-import 'package:file/memory.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:project_alfa/provider/bar.dart';
-import 'package:project_alfa/view/page/Main.dart';
 import 'package:provider/provider.dart';
 
 class Main_sidebar extends StatefulWidget {
