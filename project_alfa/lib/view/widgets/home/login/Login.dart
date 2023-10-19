@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_alfa/provider/fetch.dart';
 import 'package:project_alfa/view/widgets/home/login/Google_login.dart';
+import 'dart:html' as html;
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -122,6 +125,7 @@ class _Form_bulidState extends State<Form_build> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formkey.currentState!.validate()) {
+                    html.window.location.reload();
                     _formkey.currentState!.save();
                     FocusScope.of(context).unfocus();
                   }
