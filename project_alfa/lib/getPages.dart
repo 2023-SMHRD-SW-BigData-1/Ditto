@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:project_alfa/view/page/home/home.dart';
 import 'package:project_alfa/view/page/Main.dart';
+import 'package:project_alfa/view/page/test.dart';
 
 abstract class Routes {
   static const HOME = '/';
   static const MAIN = '/main';
+  static const LOGIN = '/login';
 }
 
 abstract class AppPages {
@@ -16,6 +18,7 @@ abstract class AppPages {
     GetPage(
       name: Routes.MAIN,
       page: () => Main(),
-    )
+    ),
+    GetPage(name: Routes.LOGIN, page: () => Test())
   ];
 }

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_alfa/provider/fetch.dart';
+import 'package:project_alfa/provider/dio_test.dart';
 import 'package:project_alfa/view/widgets/home/login/Google_login.dart';
 import 'dart:html' as html;
+import 'package:project_alfa/getPages.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -39,14 +43,14 @@ class _Login extends State<Login> {
             width: 320.0,
             child: Column(
               children: <Widget>[
-                Google_login(),
-                SizedBox(
-                  height: 20,
-                ),
-                Text('or'),
-                SizedBox(
-                  height: 20,
-                ),
+                // Google_login(),
+                // SizedBox(
+                //   height: 20,
+                // ),
+                // Text('or'),
+                // SizedBox(
+                //   height: 20,
+                // ),
                 Form_build(),
               ],
             ),
@@ -67,6 +71,9 @@ class Form_build extends StatefulWidget {
 class _Form_bulidState extends State<Form_build> {
   final _formkey = GlobalKey<FormState>();
   var isEnabled = false;
+  var user_id = '';
+  var user_pw = '';
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -81,19 +88,20 @@ class _Form_bulidState extends State<Form_build> {
                       borderSide: BorderSide(color: Colors.black, width: 2.0)),
                   labelText: 'Email'),
               onSaved: (value) {
-                print('$value');
+                user_id = value as String;
+                print('id : $user_id');
               },
               validator: (value) {
-                bool emailValid =
-                    RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
-                        .hasMatch(value!.toString());
+                // bool emailValid =
+                //     RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                //         .hasMatch(value!.toString());
                 if (value!.isEmpty) {
                   return 'Please provide your email.';
                 }
-                if (!emailValid) {
-                  return "'$value' \t Invalid email format";
-                }
-                return null;
+                // if (!emailValid) {
+                //   return "'$value' \t Invalid email format";
+                // }
+                // return null;
               },
             ),
             SizedBox(
@@ -107,7 +115,8 @@ class _Form_bulidState extends State<Form_build> {
                       borderSide: BorderSide(color: Colors.black, width: 2.0)),
                   labelText: 'Password'),
               onSaved: (value) {
-                print('$value');
+                user_pw = value as String;
+                print('pw : $user_pw');
               },
               validator: (value) {
                 if (value!.isEmpty) {
@@ -124,8 +133,10 @@ class _Form_bulidState extends State<Form_build> {
               height: 50.0,
               child: ElevatedButton(
                 onPressed: () {
+                  Get.rootDelegate.toNamed(Routes.LOGIN);
+                  server.login();
                   if (_formkey.currentState!.validate()) {
-                    html.window.location.reload();
+                    // html.window.location.reload();
                     _formkey.currentState!.save();
                     FocusScope.of(context).unfocus();
                   }

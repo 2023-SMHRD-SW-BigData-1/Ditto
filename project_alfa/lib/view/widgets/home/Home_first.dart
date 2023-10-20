@@ -26,7 +26,7 @@ class _Home_firstState extends State<Home_first> {
             future: fetch(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) return CircularProgressIndicator();
-              return Text(snapshot.data[0]['user_id'].toString() + '님 안녕하세요');
+              return Text(snapshot.data[0]['user_id'].toString() + '님 안녕하세요?');
             },
           ),
           SizedBox(

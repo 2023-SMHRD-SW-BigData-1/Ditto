@@ -51,7 +51,7 @@ dependencies:
   syncfusion_flutter_pdf: ^23.1.41
   file_saver: ^0.2.8
   open_file: ^3.3.2
-
+  dio: ^5.3.3
 
 
 dev_dependencies:
