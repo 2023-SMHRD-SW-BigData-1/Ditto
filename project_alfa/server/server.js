@@ -40,8 +40,25 @@ app.set('port',process.env.PORT || 8889)
 //     });
 // })
 
-app.get('/', (req, res) => {
-    conn.query('SELECT * FROM user_info', (err, rows) => {
+// app.get('/', (req, res) => { 
+//     let sql = "SELECT * FROM user_info"
+
+//     conn.query(sql, (err, rows) => {
+//         if (err) {
+//           console.error('쿼리 오류: ' + err);
+//           return;
+//         }
+//         // 쿼리 결과 처리
+//         console.log(rows);
+//         res.send(rows);
+//       });
+//   });
+
+  app.post('/login', (req, res) => { 
+    let sql = "SELECT * FROM user_info where user_id = ?"
+    console.log("req : " +[req.body.user_id]);
+
+    conn.query(sql, [req.body.user_id], (err, rows) => {
         if (err) {
           console.error('쿼리 오류: ' + err);
           return;
@@ -64,7 +81,6 @@ app.post('/login',(req,res)=>{
     })
   })
 })
-  
   
 
 server.listen(app.get('port'),()=>{
