@@ -2,7 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_alfa/getPages.dart';
-import 'package:project_alfa/provider/fetch.dart';
+import 'package:project_alfa/Model/fetch.dart';
+import 'package:provider/provider.dart';
 
 class Home_first extends StatefulWidget {
   const Home_first({Key? key}) : super(key: key);
@@ -22,13 +23,6 @@ class _Home_firstState extends State<Home_first> {
       height: 900.0,
       child: Column(
         children: <Widget>[
-          FutureBuilder(
-            future: fetch(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) return CircularProgressIndicator();
-              return Text(snapshot.data[0]['user_id'].toString() + '님 안녕하세요');
-            },
-          ),
           SizedBox(
             height: 50.0,
           ),

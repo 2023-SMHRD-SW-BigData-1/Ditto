@@ -9,13 +9,13 @@ class bar extends ChangeNotifier {
 
   bool get triger => _triger;
 
-  bar_open() {
+  bar_open<double, bool>() {
     _bar_width = 300;
     _triger = false;
     notifyListeners();
   }
 
-  bar_close() {
+  bar_close<double, bool>() {
     _bar_width = 0;
     _triger = true;
     notifyListeners();

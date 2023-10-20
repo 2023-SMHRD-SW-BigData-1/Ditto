@@ -67,7 +67,6 @@ class NavBarItem extends StatelessWidget {
             barrierDismissible: true,
             builder: (BuildContext context) {
               return AlertDialog(
-                insetPadding: EdgeInsets.fromLTRB(20, 0, 20, 250),
                 content: Login(),
               );
             });

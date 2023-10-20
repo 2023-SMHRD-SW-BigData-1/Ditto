@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get/get.dart';
+import 'package:project_alfa/Controller/triger.dart';
 import 'package:project_alfa/getPages.dart';
-import 'package:project_alfa/provider/fetch.dart';
-import 'package:project_alfa/provider/bar.dart';
+import 'package:project_alfa/Model/fetch.dart';
+import 'package:project_alfa/Controller/bar.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -16,6 +17,9 @@ void main() {
       ),
       ChangeNotifierProvider(
         create: (context) => bar(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => triger(),
       )
     ],
     child: GetMaterialApp.router(

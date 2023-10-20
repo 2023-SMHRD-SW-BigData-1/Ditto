@@ -52,9 +52,21 @@ app.get('/', (req, res) => {
       });
   });
   
+app.post('/login',(req,res)=>{
+  let{id,pw} = req.body
+
+  let sql = 'select user_id,user_pw from user_info where user_id=? and user_pw'
+  conn.query(sql,[id,pw],(err,rows,pields)=>{
+    print(err)
+    req.session.member = rows
+    req.session.save(()=>{
+      res.redirect('/')
+    })
+  })
+})
   
   
 
- server.listen(app.get('port'),()=>{
+server.listen(app.get('port'),()=>{
     console.log(app.get('port'),'번 포트에서 서버연결 대기중..');
   });
