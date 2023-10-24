@@ -3,6 +3,7 @@ import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:html' as html;
 
 class TopNavigationBar extends StatefulWidget {
   const TopNavigationBar({super.key});
@@ -53,6 +54,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
                   : TextButton(
                       onPressed: () {
                         clearAllData();
+                        html.window.location.reload();
                       },
                       child: Text('Log out')),
               SizedBox(
