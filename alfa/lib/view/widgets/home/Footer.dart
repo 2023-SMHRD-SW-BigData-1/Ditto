@@ -10,7 +10,7 @@ class Footer extends StatelessWidget {
       width: double.infinity,
       height: 200,
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: Color.fromRGBO(62, 68, 102, 1),
       ),
       child: Text(
         "Footer",

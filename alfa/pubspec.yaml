@@ -85,6 +85,9 @@ flutter:
     - assets/image/btn_google_signin_light_focus_web.png
     - assets/image/btn_google_signin_light_normal_web@2x.png
     - assets/image/Google_logo.png
+    - assets/image/macro-1452987_1280.jpg
+    - assets/image/macro-1452987_1920.jpg
+    - assets/image/typewriter-1248088.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

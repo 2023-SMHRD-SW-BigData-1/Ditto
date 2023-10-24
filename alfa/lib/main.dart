@@ -1,5 +1,5 @@
 import 'package:alfa/Controller/bar.dart';
-import 'package:alfa/Controller/triger.dart';
+import 'package:alfa/Controller/trigger.dart';
 import 'package:alfa/Model/Input_data.dart';
 import 'package:alfa/Model/fetch.dart';
 import 'package:alfa/getPages.dart';
@@ -27,7 +27,7 @@ void main() async {
         create: (context) => bar(),
       ),
       ChangeNotifierProvider(
-        create: (context) => triger(),
+        create: (context) => trigger(),
       ),
       ChangeNotifierProvider(
         create: (context) => Input_data(),

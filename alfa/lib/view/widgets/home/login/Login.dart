@@ -1,8 +1,9 @@
-import 'package:alfa/Controller/triger.dart';
-import 'package:alfa/view/widgets/home/login/Form_join.dart';
+import 'package:alfa/Controller/trigger.dart';
+import 'package:alfa/getPages.dart';
 import 'package:alfa/view/widgets/home/login/Form_login.dart';
 import 'package:alfa/view/widgets/home/login/Google_login.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,7 @@ class Login extends StatefulWidget {
 class _Login extends State<Login> {
   @override
   Widget build(BuildContext context) {
-    final _triger = Provider.of<triger>(context);
+    final _triger = Provider.of<trigger>(context);
     return Container(
       width: 350.0,
       height: 500.0,
@@ -51,21 +52,16 @@ class _Login extends State<Login> {
                   SizedBox(
                     height: 20,
                   ),
-                  _triger.triger_on ? Form_login() : Form_join(),
+                  Form_login(),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        _triger.triger_on
-                            ? Text('No account?')
-                            : Text('Already have an account?'),
+                        Text('No account?'),
                         TextButton(
-                            onPressed: () {
-                              _triger.triger_on_off();
-                            },
-                            child: _triger.triger_on
-                                ? Text('Create one')
-                                : Text('Log in'))
+                            onPressed: () =>
+                                Get.rootDelegate.toNamed(Routes.Join),
+                            child: Text('Create one'))
                       ],
                     ),
                   )
