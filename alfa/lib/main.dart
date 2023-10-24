@@ -5,6 +5,7 @@ import 'package:alfa/Model/fetch.dart';
 import 'package:alfa/getPages.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:url_strategy/url_strategy.dart';
 
@@ -20,6 +21,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(MultiProvider(
     providers: [
       Provider<Future>(
@@ -33,7 +35,7 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => Input_data(),
-      )
+      ),
     ],
     child: GetMaterialApp.router(
       debugShowCheckedModeBanner: false,

@@ -23,7 +23,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
   Future<void> loadUserId() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      userId = prefs.getString('id') ?? "id null";
+      userId = prefs.getString('id') ?? '';
     });
   }
 
@@ -48,15 +48,16 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              NavBarItem('Log in'),
+              userId == ''
+                  ? NavBarItem('Log in')
+                  : TextButton(
+                      onPressed: () {
+                        clearAllData();
+                      },
+                      child: Text('Log out')),
               SizedBox(
-                width: 20,
+                width: 10,
               ),
-              TextButton(
-                  onPressed: () {
-                    clearAllData();
-                  },
-                  child: Text('Log out')),
               ElevatedButton(
                 onPressed: () => Get.rootDelegate.toNamed(Routes.MAIN),
                 child: Text(
