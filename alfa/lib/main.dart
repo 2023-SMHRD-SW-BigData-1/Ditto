@@ -15,7 +15,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  // setPathUrlStrategy();
+  setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
