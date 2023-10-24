@@ -2,9 +2,30 @@ import 'package:alfa/getPages.dart';
 import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class TopNavigationBar extends StatelessWidget {
+class TopNavigationBar extends StatefulWidget {
   const TopNavigationBar({super.key});
+
+  @override
+  State<TopNavigationBar> createState() => _TopNavigationBarState();
+}
+
+class _TopNavigationBarState extends State<TopNavigationBar> {
+  String userId = '';
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserId(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
+  }
+
+  Future<void> loadUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('id') ?? "id null";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +44,7 @@ class TopNavigationBar extends StatelessWidget {
             width: 200,
             height: 200,
           ),
+          Text(userId),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -30,6 +52,11 @@ class TopNavigationBar extends StatelessWidget {
               SizedBox(
                 width: 20,
               ),
+              TextButton(
+                  onPressed: () {
+                    clearAllData();
+                  },
+                  child: Text('Log out')),
               ElevatedButton(
                 onPressed: () => Get.rootDelegate.toNamed(Routes.MAIN),
                 child: Text(
@@ -77,4 +104,9 @@ class NavBarItem extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> clearAllData() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.clear();
 }

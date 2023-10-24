@@ -3,6 +3,7 @@ import 'package:alfa/getPages.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home_first extends StatefulWidget {
   const Home_first({Key? key}) : super(key: key);
@@ -15,6 +16,26 @@ final CarouselController _controller = CarouselController();
 List imageList = ["assets/image/image9.png", "assets/image/first_img.jpg"];
 
 class _Home_firstState extends State<Home_first> {
+  String userId = '';
+  @override
+  void initState() {
+    super.initState();
+    // clearAllData();
+    loadUserId(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
+  }
+
+  Future<void> clearAllData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+
+  Future<void> loadUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('id') ?? "id null";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
