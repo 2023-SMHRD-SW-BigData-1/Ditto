@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "186697788898",
+    "firebase_url": "https://alfa-70c0a-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "alfa-70c0a",
+    "storage_bucket": "alfa-70c0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186697788898:android:fce3c8cfeacb8079489dbb",
+        "android_client_info": {
+          "package_name": "com.example.alfa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDa-dm4Z0KepEdBlzKf7LaSvrNY3Ci7B8A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
