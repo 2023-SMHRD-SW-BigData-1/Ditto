@@ -15,11 +15,32 @@ class Server {
     Dio dio = new Dio();
     response = await dio.post("$url/login",
         data: {"user_id": "$user_id", "user_pw": "$user_pw"});
-    if (response.data[0] != null) {
-      print('res : ' + response.data[0]['user_pw']);
-      print('res : ' + response.data[0].toString());
-    } else {
-      print('res : ' + response.data['result']);
+    // print(response.data['data'][0]);
+    if (response.data['result'] == "success") {
+      print('successRes : ' + response.data['data'][0]['user_id']);
+      // print('res : ' + response.data[0]['user_pw']);
+      // print('res : ' + response.data[0].toString());
+    } else if (response.data['result'] == "pw err") {
+      print('failedRes : 비밀번호를 잘못 입력함');
+    }
+    await DataManager.saveData('id', response.data['data'][0]['user_id']);
+  }
+
+  Future join(
+    String user_name,
+    String user_pw,
+  ) async {
+    Response response;
+    Dio dio = new Dio();
+    response = await dio.post("$url/join/:$user_name",
+        data: {"user_id": "$user_pw", "user_pw": "$user_pw"});
+    // print(response.data['data'][0]);
+    if (response.data['result'] == "success") {
+      print('successRes : ' + response.data['data'][0].toString());
+      // print('res : ' + response.data[0]['user_pw']);
+      // print('res : ' + response.data[0].toString());
+    } else if (response.data['result'] == "pw err") {
+      print('failedRes : 비밀번호를 잘못 입력함');
     }
     await DataManager.saveData('id', response.data[0]['user_id']);
   }
