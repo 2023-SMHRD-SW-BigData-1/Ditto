@@ -1,20 +1,33 @@
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-// final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+// 사용자 등록
+Future<void> registerUser() async {
+  try {
+    UserCredential userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+            email: 'user@example.com', password: 'password123');
+    User? user = userCredential.user;
+    print('User registered: ${user?.uid}');
+  } catch (e) {
+    print('Error registering user: $e');
+  }
+}
 
-// Future<void> createEmailAndPassword() async {
-  
-//   try{
-//       UserCredential _credential = await _firebaseAuth.createUserWithEmailAndPassword(
-//         email: "", password: "");
-//         if (_credential.user != null) {
-//           user = _credential.user
-//         }else{
-//           print("Server Error");
-//         }
-//   } on FirebaseAuthException catch (error){
-//     String? _err
-//   }
+// 사용자 로그인
+Future<void> loginUser() async {
+  try {
+    UserCredential userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: 'user@example.com', password: 'password123');
+    User? user = userCredential.user;
+    print('User logged in: ${user?.uid}');
+  } catch (e) {
+    print('Error logging in: $e');
+  }
+}
 
-
-// }
+// 사용자 로그아웃
+Future<void> logoutUser() async {
+  await FirebaseAuth.instance.signOut();
+  print('User logged out');
+}

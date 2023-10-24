@@ -3,6 +3,7 @@ import 'package:project_alfa/Controller/triger.dart';
 import 'package:project_alfa/view/widgets/home/login/Form_join.dart';
 import 'package:project_alfa/view/widgets/home/login/Form_login.dart';
 import 'package:project_alfa/view/widgets/home/login/Google_login.dart';
+import 'package:project_alfa/view/widgets/home/login/google_btn.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {

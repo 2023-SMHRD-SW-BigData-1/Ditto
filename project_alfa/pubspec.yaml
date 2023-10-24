@@ -52,6 +52,8 @@ dependencies:
   file_saver: ^0.2.8
   open_file: ^3.3.2
   webview_flutter: ^4.4.1
+  logger: ^2.0.2+1
+  cloud_firestore: ^4.11.0
   firebase_auth: ^4.11.1
   firebase_core: ^2.19.0
 

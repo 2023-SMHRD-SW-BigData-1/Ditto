@@ -1,4 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 // ignore: unused_import
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get/get.dart';
@@ -8,8 +10,11 @@ import 'package:project_alfa/Model/fetch.dart';
 import 'package:project_alfa/Controller/bar.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  usePathUrlStrategy();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MultiProvider(
     providers: [
       Provider<Future>(

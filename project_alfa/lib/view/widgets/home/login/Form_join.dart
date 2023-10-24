@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_alfa/Controller/Firebase.dart';
 import 'dart:html' as html;
 
 import 'package:project_alfa/Model/fetch.dart';
@@ -89,6 +90,7 @@ class _Form_bulidState extends State<Form_join> {
                   if (_formkey.currentState!.validate()) {
                     _formkey.currentState!.save();
                     FocusScope.of(context).unfocus();
+                    registerUser();
                     html.window.location.reload();
                   }
                 },
