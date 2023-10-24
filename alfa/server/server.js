@@ -1,12 +1,13 @@
 const express = require('express');
-const dbConfig = require('./config/database');
 const app = express();
+// const dbConfig = require('./config/database')
 const cors = require('cors');
 const http = require('http');
+const indexRouter = require('./routes/index')
 
-let conn = dbConfig.init();
+// let conn = dbConfig.init();
 
-dbConfig.connect(conn);
+// dbConfig.connect(conn);
 
 // const connection = mysql.createConnection(dbConfig);
 
@@ -26,61 +27,40 @@ app.use(cors());
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
-app.set('port',process.env.PORT || 8889)
+app.set('port',process.env.PORT || 8887)
 
+app.use('/', indexRouter)
 
-// app.use(express.static(path.join(__dirname, '../build')))
-// app.get('/', (req, res) =>{
-//    res.sendFile(path.join(__dirname, '../build/web/index.html'))
-// })
+  // app.post('/login', (req, res) => { 
+  //   let sql = "SELECT * FROM user_info where user_id = ?"
+  //   console.log("req : " +[req.body.user_id]);
 
-// app.get('/', (req, res) =>{
-//     res.json({
-//         "id": "testid"
-//     });
-// })
-
-// app.get('/', (req, res) => { 
-//     let sql = "SELECT * FROM user_info"
-
-//     conn.query(sql, (err, rows) => {
-//         if (err) {
-//           console.error('쿼리 오류: ' + err);
-//           return;
-//         }
-//         // 쿼리 결과 처리
-//         console.log(rows);
-//         res.send(rows);
-//       });
-//   });
-
-  app.post('/login', (req, res) => { 
-    let sql = "SELECT * FROM user_info where user_id = ?"
-    console.log("req : " +[req.body.user_id]);
-
-    conn.query(sql, [req.body.user_id], (err, rows) => {
-        if (err) {
-          console.error('쿼리 오류: ' + err);
-          return;
-        }
-        // 쿼리 결과 처리
-        console.log(rows);
-        res.send(rows);
-      });
-  });
+  //   conn.query(sql, [req.body.user_id], (err, rows) => {
+  //       if (err) {
+  //         console.error('쿼리 오류: ' + err);
+  //         return;
+  //       }
+  //       // 쿼리 결과 처리
+  //       console.log(rows);
+  //       res.send(rows);
+  //       // req.session.member = rows
+  //       // req.session.save(()=>{
+  //       // res.redirect('/')
+  //     });
+  // });
+// });
   
-app.post('/login',(req,res)=>{
-  let{id,pw} = req.body
+// app.post('/login',(req,res)=>{
+//   let{id,pw} = req.body
 
-  let sql = 'select user_id,user_pw from user_info where user_id=? and user_pw'
-  conn.query(sql,[id,pw],(err,rows,pields)=>{
-    print(err)
-    req.session.member = rows
-    req.session.save(()=>{
-      res.redirect('/')
-    })
-  })
-})
+//   let sql = 'select user_id,user_pw from user_info where user_id=? and user_pw'
+//   conn.query(sql,[id,pw],(err,rows,pields)=>{
+//     print(err)
+//     req.session.member = rows
+//     req.session.save(()=>{
+//       res.redirect('/')
+//     })
+//   })
   
 
 server.listen(app.get('port'),()=>{

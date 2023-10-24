@@ -18,6 +18,6 @@ abstract class AppPages {
       name: Routes.MAIN,
       page: () => Main(),
     ),
-    GetPage(name: Routes.LOGIN, page: () => Home())
+    GetPage(name: Routes.LOGIN, page: () => Home()),
   ];
 }
