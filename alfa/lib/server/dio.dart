@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 
 import '../provider/shared.dart';
 
-const url = "http://172.30.1.29:8887";
+const url = "http://172.30.1.29:8889";
 
 // String user_id = User.getText();
 
