@@ -1,5 +1,6 @@
 import 'package:alfa/Controller/bar.dart';
 import 'package:alfa/view/widgets/main/Main_input.dart';
+import 'package:alfa/view/widgets/main/Main_result.dart';
 import 'package:alfa/view/widgets/main/Main_sidebar.dart';
 import 'package:alfa/view/widgets/main/PDF/PDF_btn.dart';
 import 'package:alfa/view/widgets/main/REF/REF_btn.dart';
@@ -64,7 +65,7 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
                   height: 50,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,23 +105,38 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                   ),
                 ),
                 Expanded(
-                    child: AnimatedBuilder(
-                  animation: _controller,
-                  child: Container(
-                    child: Image.asset(
-                      'assets/image/Logo_icon.png',
-                      width: 300,
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.all(30),
+                        padding: EdgeInsets.all(50),
+                        width: double.infinity,
+                        height: 700,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 2),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Main_result(),
+                      )
+                    ],
                   ),
-                  builder: (BuildContext context, Widget? child) {
-                    return Transform.rotate(
-                      angle: _controller.value * 2.0 * 3.1415926535897932,
-                      child: child,
-                    );
-                  },
-                )
-                    //SingleChildScrollView(child: Column(children: [])),
-                    ),
+                  //     child: AnimatedBuilder(
+                  //   animation: _controller,
+                  //   child: Container(
+                  //     child: Image.asset(
+                  //       'assets/image/Logo_icon.png',
+                  //       width: 300,
+                  //     ),
+                  //   ),
+                  //   builder: (BuildContext context, Widget? child) {
+                  //     return Transform.rotate(
+                  //       angle: _controller.value * 2.0 * 3.1415926535897932,
+                  //       child: child,
+                  //     );
+                  //   },
+                  // )
+                  //SingleChildScrollView(child: Column(children: [])),
+                ),
                 Main_input()
               ],
             ),

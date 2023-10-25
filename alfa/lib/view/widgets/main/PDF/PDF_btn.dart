@@ -14,7 +14,7 @@ Widget PDF_btn() {
         backgroundColor: Colors.white.withOpacity(0),
         padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
         shape: RoundedRectangleBorder(
-            side: BorderSide(color: Colors.black),
+            side: BorderSide(color: Colors.black, width: 2),
             borderRadius: BorderRadius.circular(10))),
   );
 }

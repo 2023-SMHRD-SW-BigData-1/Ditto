@@ -44,9 +44,10 @@ void main() async {
       debugShowCheckedModeBanner: false,
       title: "AL.F.A",
       theme: ThemeData(
+        cardColor: Colors.white,
         fontFamily: "NotoSansKR",
         splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
+        highlightColor: const Color.fromARGB(0, 255, 255, 255),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           splashColor: Colors.transparent,
           elevation: 0,

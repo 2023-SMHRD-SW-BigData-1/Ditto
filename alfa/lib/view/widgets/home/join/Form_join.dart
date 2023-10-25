@@ -1,6 +1,3 @@
-import 'dart:js';
-import 'dart:math';
-
 import 'package:alfa/view/widgets/home/join/TextFromFieldComponent.dart';
 import 'package:alfa/view/widgets/home/join/consent.dart';
 import 'package:flutter/material.dart';

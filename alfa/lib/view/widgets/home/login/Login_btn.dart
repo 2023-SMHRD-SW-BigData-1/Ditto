@@ -31,7 +31,7 @@ class NavBarItem extends StatelessWidget {
         },
         child: Text(
           title,
-          style: TextStyle(color: Colors.black, fontSize: 14),
+          style: TextStyle(color: Colors.black, fontSize: 18),
         ),
       ),
     );
@@ -76,7 +76,7 @@ class _hoveringState extends State<hovering> {
                 children: <Widget>[
                   Text(
                     _userId.userId,
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(fontSize: 18),
                   ),
                   Icon(Icons.arrow_drop_down)
                 ],
@@ -99,12 +99,15 @@ class _hoveringState extends State<hovering> {
                                 : Colors.transparent)),
                     child: SingleChildScrollView(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          TextButton(onPressed: () {}, child: mintext('회원정보')),
                           TextButton(
                               onPressed: () =>
-                                  Get.rootDelegate.toNamed(Routes.HISTORY),
-                              child: mintext('결제내역')),
+                                  Get.rootDelegate.toNamed(Routes.INFO),
+                              child: mintext('회원정보')),
+                          SizedBox(
+                            height: 30,
+                          ),
                           Container(
                             width: double.infinity,
                             height: 1,
