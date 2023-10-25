@@ -60,7 +60,7 @@ class _Login extends State<Login> {
                         Text('No account?'),
                         TextButton(
                             onPressed: () =>
-                                Get.rootDelegate.toNamed(Routes.Join),
+                                Get.rootDelegate.toNamed(Routes.JOIN),
                             child: Text('Create one'))
                       ],
                     ),

@@ -7,7 +7,7 @@ abstract class Routes {
   static const HOME = '/';
   static const MAIN = '/main';
   static const LOGIN = '/login';
-  static const Join = '/join';
+  static const JOIN = '/join';
 }
 
 abstract class AppPages {
@@ -15,6 +15,6 @@ abstract class AppPages {
     GetPage(name: Routes.HOME, page: () => Home()),
     GetPage(name: Routes.MAIN, page: () => Main()),
     GetPage(name: Routes.LOGIN, page: () => Home()),
-    GetPage(name: Routes.Join, page: () => User_join())
+    GetPage(name: Routes.JOIN, page: () => User_join())
   ];
 }

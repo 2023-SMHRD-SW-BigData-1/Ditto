@@ -40,11 +40,11 @@ class _Home_firstState extends State<Home_first> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 900.0,
+      height: 1000.0,
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: 50.0,
+            height: 100.0,
           ),
           SizedBox(
             width: 1200,
