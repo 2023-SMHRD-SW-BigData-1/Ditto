@@ -16,18 +16,24 @@ class Form_join extends StatefulWidget {
 }
 
 class _Form_updateState extends State<Form_join> {
+  String joinRes = '';
+
   @override
   void initState() {
     super.initState();
-    loadJoinResult(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
+    // loadJoinResult(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
   }
 
-  String joinRes = '';
   Future<void> loadJoinResult() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      joinRes = prefs.getString('joinResult') ?? "null";
+      joinRes = prefs.getString('joinResult') ?? 'null';
     });
+  }
+
+  Future<void> removeRes(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove(key);
   }
 
   final _formkey = GlobalKey<FormState>();
@@ -113,8 +119,52 @@ class _Form_updateState extends State<Form_join> {
               Expanded(child: SizedBox()),
               Container(
                   width: double.infinity,
-                  child: joinBtn(_formkey, checked, _name.text, _pw.text,
-                      _email.text, _tel.text, joinRes))
+                  child:
+                      // joinBtn(_formkey, checked, _name.text, _pw.text,
+                      //     _email.text, _tel.text, joinRes)
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromRGBO(62, 68, 102, 1)),
+                          onPressed: () {
+                            // if (!checked) {}
+                            // if (_formkey.currentState!.validate()) {
+                            String user_id = _email.text;
+                            String user_pw = _pw.text;
+                            String user_name = _name.text;
+                            String user_num = _tel.text;
+                            // Get.rootDelegate.toNamed(Routes.JOINDB);
+
+                            Future<void> data() async {
+                              await server.join(
+                                  user_id, user_pw, user_name, user_num);
+                              await loadJoinResult();
+                              print('joinRes: $joinRes');
+
+                              // html.window.location.reload();
+                              // DataManager.removeData('flutter.joinResult');
+                              if (joinRes == 'failed') {
+                                print('joinRestest: $joinRes');
+                                removeRes('joinResult');
+
+                                // Get.rootDelegate.toNamed(Routes.JOIN);
+                                Future.delayed(Duration(milliseconds: 100), () {
+                                  html.window.location.reload();
+                                  // _formkey.currentState!.save();
+                                });
+                              } else if (joinRes == 'success') {
+                                Get.rootDelegate.toNamed(Routes.HOME);
+                                removeRes('joinResult');
+                                Future.delayed(Duration(milliseconds: 100), () {
+                                  html.window.location.reload();
+                                  // _formkey.currentState!.save();
+                                });
+                              }
+                            }
+
+                            data();
+                          },
+                          // },
+                          child: Text('회원가입'))),
             ],
           ),
         ),
@@ -138,39 +188,48 @@ Widget minText(String text) {
   );
 }
 
-Widget joinBtn(_formkey, checked, String _name, String _pw, String _email,
-    String _tel, String joinRes) {
-  Future<void> removeRes() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('joinResult');
-  }
+// Widget joinBtn(_formkey, checked, String _name, String _pw, String _email,
+//     String _tel, String joinRes) {
+//   void removeRes() async {
+//     final prefs = await SharedPreferences.getInstance();
+//     prefs.remove('joinResult');
+//   }
 
-  return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          backgroundColor: Color.fromRGBO(62, 68, 102, 1)),
-      onPressed: () {
-        if (!checked) {}
-        if (_formkey.currentState!.validate()) {
-          String user_id = _email;
-          String user_pw = _pw;
-          String user_name = _name;
-          String user_num = _tel;
-          Get.rootDelegate.toNamed(Routes.JOINDB);
-          server.join(user_id, user_pw, user_name, user_num);
+//   // return Builder(builder: (context) {
+//   //   final _User = Provider.of<User>(context);
+//   //   _User.result = joinRes;
+//     return ElevatedButton(
+//         style: ElevatedButton.styleFrom(
+//             backgroundColor: Color.fromRGBO(62, 68, 102, 1)),
+//         onPressed: () {
+//           if (!checked) {}
+//           if (_formkey.currentState!.validate()) {
+//             String user_id = _email;
+//             String user_pw = _pw;
+//             String user_name = _name;
+//             String user_num = _tel;
+//             // Get.rootDelegate.toNamed(Routes.JOINDB);
+//             Future<void> data() async {
+//               await server.join(user_id, user_pw, user_name, user_num);
+//               print('joinRes : ' + _User.result);
+//             }
 
-          if (joinRes != '') {
-            Get.rootDelegate.toNamed(Routes.JOIN);
-            // html.window.location.reload();
-            removeRes();
-          } else if (joinRes == 'success') {
-            Get.rootDelegate.toNamed(Routes.HOME);
-            Future.delayed(Duration(milliseconds: 300), () {
-              html.window.location.reload();
-              // _formkey.currentState!.save();
-              removeRes();
-            });
-          }
-        }
-      },
-      child: Text('회원가입'));
-}
+//             data();
+
+//             if (_User.result != '') {
+//               // Get.rootDelegate.toNamed(Routes.JOIN);
+//               // html.window.location.reload();
+//               removeRes();
+//             } else if (_User.result == 'success') {
+//               Get.rootDelegate.toNamed(Routes.HOME);
+//               Future.delayed(Duration(milliseconds: 300), () {
+//                 html.window.location.reload();
+//                 // _formkey.currentState!.save();
+//                 removeRes();
+//               });
+//             }
+//           }
+//         },
+//         child: Text('회원가입'));
+//   });
+// }

@@ -72,9 +72,9 @@ class _Form_bulidState extends State<Form_login> {
                   if (_formkey.currentState!.validate()) {
                     String user_id = _emailController.text;
                     String user_pw = _passwordController.text;
-                    Get.rootDelegate.toNamed(Routes.LOGIN);
+                    // Get.rootDelegate.toNamed(Routes.LOGIN);
                     server.login(user_id, user_pw);
-                    Get.rootDelegate.toNamed(Routes.HOME);
+                    // Get.rootDelegate.toNamed(Routes.HOME);
                     Navigator.of(context).pop();
                     Future.delayed(Duration(milliseconds: 300), () {
                       html.window.location.reload();

@@ -75,8 +75,8 @@ class _hoveringState extends State<hovering> {
               Row(
                 children: <Widget>[
                   Text(
-                    _userId.userId,
-                    style: TextStyle(fontSize: 18),
+                    _userId.userId + "님 안녕하세요",
+                    style: TextStyle(fontSize: 14),
                   ),
                   Icon(Icons.arrow_drop_down)
                 ],
