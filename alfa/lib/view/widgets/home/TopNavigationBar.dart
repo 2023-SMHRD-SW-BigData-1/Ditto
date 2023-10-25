@@ -62,7 +62,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
               ElevatedButton(
                 onPressed: () {
                   if (userId == '') {
-                    Get.rootDelegate.toNamed(Routes.Join);
+                    Get.rootDelegate.toNamed(Routes.JOIN);
                   } else {
                     Get.rootDelegate.toNamed(Routes.MAIN);
                   }

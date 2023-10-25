@@ -2,7 +2,7 @@ import 'package:alfa/getPages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:html' as html;
-import 'package:alfa/Server/dio.dart';
+import 'package:alfa/server/dio.dart';
 
 class Form_login extends StatefulWidget {
   const Form_login({super.key});
@@ -70,10 +70,10 @@ class _Form_bulidState extends State<Form_login> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formkey.currentState!.validate()) {
-                    String id = _emailController.text;
-                    String pw = _passwordController.text;
+                    String user_id = _emailController.text;
+                    String user_pw = _passwordController.text;
                     Get.rootDelegate.toNamed(Routes.LOGIN);
-                    server.login(id, pw);
+                    server.login(user_id, user_pw);
                     Get.rootDelegate.toNamed(Routes.HOME);
                     Navigator.of(context).pop();
                     Future.delayed(Duration(milliseconds: 300), () {

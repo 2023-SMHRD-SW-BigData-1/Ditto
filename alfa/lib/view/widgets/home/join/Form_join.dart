@@ -1,8 +1,15 @@
+import 'dart:js';
+import 'dart:math';
+
 import 'package:alfa/view/widgets/home/join/TextFromFieldComponent.dart';
 import 'package:alfa/view/widgets/home/join/consent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../../Server/dio.dart';
+import '../../../../server/dio.dart';
+import 'package:get/get.dart';
+import 'package:alfa/getPages.dart';
+import 'dart:html' as html;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Form_join extends StatefulWidget {
   const Form_join({super.key});
@@ -12,6 +19,20 @@ class Form_join extends StatefulWidget {
 }
 
 class _Form_updateState extends State<Form_join> {
+  @override
+  void initState() {
+    super.initState();
+    loadJoinResult(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
+  }
+
+  String joinRes = '';
+  Future<void> loadJoinResult() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      joinRes = prefs.getString('joinResult') ?? "null";
+    });
+  }
+
   final _formkey = GlobalKey<FormState>();
   TextEditingController _name = TextEditingController();
   TextEditingController _tel = TextEditingController();
@@ -94,7 +115,9 @@ class _Form_updateState extends State<Form_join> {
               ),
               Expanded(child: SizedBox()),
               Container(
-                  width: double.infinity, child: joinBtn(_formkey, checked))
+                  width: double.infinity,
+                  child: joinBtn(_formkey, checked, _name.text, _pw.text,
+                      _email.text, _tel.text, joinRes))
             ],
           ),
         ),
@@ -118,14 +141,38 @@ Widget minText(String text) {
   );
 }
 
-Widget joinBtn(_formkey, checked) {
+Widget joinBtn(_formkey, checked, String _name, String _pw, String _email,
+    String _tel, String joinRes) {
+  Future<void> removeRes() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('joinResult');
+  }
+
   return ElevatedButton(
       style: ElevatedButton.styleFrom(
           backgroundColor: Color.fromRGBO(62, 68, 102, 1)),
       onPressed: () {
         if (!checked) {}
         if (_formkey.currentState!.validate()) {
-          _formkey.currentState!.save();
+          String user_id = _email;
+          String user_pw = _pw;
+          String user_name = _name;
+          String user_num = _tel;
+          Get.rootDelegate.toNamed(Routes.JOINDB);
+          server.join(user_id, user_pw, user_name, user_num);
+
+          if (joinRes != '') {
+            Get.rootDelegate.toNamed(Routes.JOIN);
+            // html.window.location.reload();
+            removeRes();
+          } else if (joinRes == 'success') {
+            Get.rootDelegate.toNamed(Routes.HOME);
+            Future.delayed(Duration(milliseconds: 300), () {
+              html.window.location.reload();
+              // _formkey.currentState!.save();
+              removeRes();
+            });
+          }
         }
       },
       child: Text('회원가입'));

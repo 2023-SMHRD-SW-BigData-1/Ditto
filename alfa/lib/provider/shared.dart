@@ -18,4 +18,9 @@ class DataManager {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
   }
+
+  static Future<void> removeData(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(key);
+  }
 }
