@@ -1,6 +1,10 @@
+import 'dart:ui';
+
 import 'package:alfa/Model/User.dart';
+import 'package:alfa/getPages.dart';
 import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:html' as html;
@@ -54,7 +58,7 @@ class _hoveringState extends State<hovering> {
     final _userId = Provider.of<User>(context);
     return Positioned(
         right: 240,
-        top: 16,
+        top: 20,
         child: MouseRegion(
           onHover: (event) {
             setState(() {
@@ -70,39 +74,55 @@ class _hoveringState extends State<hovering> {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Text(_userId.userId),
+                  Text(
+                    _userId.userId,
+                    style: TextStyle(fontSize: 14),
+                  ),
                   Icon(Icons.arrow_drop_down)
                 ],
               ),
               SizedBox(
                 height: 20,
               ),
-              AnimatedContainer(
-                height: _hover ? 100 : 0,
-                width: 100,
-                duration: Duration(milliseconds: 100),
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(66, 255, 255, 255),
-                    border: Border.all(
-                        width: 3,
-                        color: _hover ? Colors.black : Colors.transparent)),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      TextButton(onPressed: () {}, child: mintext('회원정보')),
-                      TextButton(onPressed: () {}, child: mintext('결제내역')),
-                      Container(
-                        width: double.infinity,
-                        height: 3,
-                        color: Colors.black,
+              ClipRRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: AnimatedContainer(
+                    height: _hover ? 90 : 0,
+                    width: 100,
+                    duration: Duration(milliseconds: 100),
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(66, 255, 255, 255),
+                        border: Border.all(
+                            color: _hover
+                                ? const Color.fromRGBO(179, 179, 179, 80)
+                                : Colors.transparent)),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          TextButton(onPressed: () {}, child: mintext('회원정보')),
+                          TextButton(
+                              onPressed: () =>
+                                  Get.rootDelegate.toNamed(Routes.HISTORY),
+                              child: mintext('결제내역')),
+                          Container(
+                            width: double.infinity,
+                            height: 1,
+                            color: const Color.fromRGBO(179, 179, 179, 80),
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                clearAllData();
+                                Get.rootDelegate.toNamed(Routes.HOME);
+                                Navigator.of(context).pop();
+                                Future.delayed(Duration(milliseconds: 300), () {
+                                  html.window.location.reload();
+                                });
+                              },
+                              child: mintext('Log out'))
+                        ],
                       ),
-                      TextButton(
-                          onPressed: () {
-                            clearAllData();
-                            html.window.location.reload();
-                          },
-                          child: mintext('Log out'))
-                    ],
+                    ),
                   ),
                 ),
               )
@@ -115,6 +135,6 @@ class _hoveringState extends State<hovering> {
 Widget mintext(String title) {
   return Text(
     title,
-    style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+    style: TextStyle(color: Colors.black),
   );
 }

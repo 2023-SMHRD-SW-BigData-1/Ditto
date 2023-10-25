@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:alfa/Model/User.dart';
 import 'package:alfa/getPages.dart';
 import 'package:flutter/material.dart';
@@ -16,45 +18,48 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
   Widget build(BuildContext context) {
     final userId = Provider.of<User>(context);
     return Stack(children: <Widget>[
-      Container(
-        padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
-        height: 63.0,
-        decoration: BoxDecoration(
-            color: const Color.fromARGB(87, 255, 255, 255),
-            border: Border(
-                bottom: BorderSide(
-                    color: const Color.fromRGBO(179, 179, 179, 80)))),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Image.asset(
-              'assets/image/Logo.png',
-              width: 200,
-              height: 200,
+      ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(
+            padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
+            height: 63.0,
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(87, 255, 255, 255),
             ),
-            SizedBox(
-              width: 10,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Image.asset(
+                  'assets/image/Logo.png',
+                  width: 200,
+                  height: 200,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (userId.userId == '') {
+                      Get.rootDelegate.toNamed(Routes.JOIN);
+                    } else {
+                      Get.rootDelegate.toNamed(Routes.MAIN);
+                    }
+                  },
+                  child: Text(
+                    "GET STARTED",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      backgroundColor: Color.fromRGBO(182, 24, 24, 1),
+                      padding: EdgeInsets.fromLTRB(35, 14, 35, 14),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                ),
+              ],
             ),
-            ElevatedButton(
-              onPressed: () {
-                if (userId.userId == '') {
-                  Get.rootDelegate.toNamed(Routes.JOIN);
-                } else {
-                  Get.rootDelegate.toNamed(Routes.MAIN);
-                }
-              },
-              child: Text(
-                "GET STARTED",
-                style: TextStyle(color: Colors.white),
-              ),
-              style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: Color.fromRGBO(182, 24, 24, 1),
-                  padding: EdgeInsets.fromLTRB(35, 14, 35, 14),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20))),
-            ),
-          ],
+          ),
         ),
       ),
     ]);

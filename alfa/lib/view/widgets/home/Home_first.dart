@@ -1,9 +1,9 @@
-import 'package:alfa/Model/fetch.dart';
+import 'package:alfa/Model/User.dart';
 import 'package:alfa/getPages.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 class Home_first extends StatefulWidget {
   const Home_first({Key? key}) : super(key: key);
@@ -16,28 +16,9 @@ final CarouselController _controller = CarouselController();
 List imageList = ["assets/image/image9.png", "assets/image/first_img.jpg"];
 
 class _Home_firstState extends State<Home_first> {
-  String userId = '';
-  @override
-  void initState() {
-    super.initState();
-    // clearAllData();
-    loadUserId(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
-  }
-
-  Future<void> clearAllData() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
-  }
-
-  Future<void> loadUserId() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      userId = prefs.getString('id') ?? "id null";
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final _userId = Provider.of<User>(context);
     return Container(
       width: double.infinity,
       height: 1000.0,
@@ -73,7 +54,13 @@ class _Home_firstState extends State<Home_first> {
                       height: 140.0,
                     ),
                     ElevatedButton(
-                      onPressed: () => Get.rootDelegate.toNamed(Routes.MAIN),
+                      onPressed: () {
+                        if (_userId.userId == '') {
+                          Get.rootDelegate.toNamed(Routes.JOIN);
+                        } else {
+                          Get.rootDelegate.toNamed(Routes.MAIN);
+                        }
+                      },
                       // ignore: sort_child_properties_last
                       child: Text(
                         "GET STARTED",
