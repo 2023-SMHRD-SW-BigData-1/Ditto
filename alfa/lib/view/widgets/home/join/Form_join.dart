@@ -1,4 +1,5 @@
 import 'package:alfa/view/widgets/home/join/TextFromFieldComponent.dart';
+import 'package:alfa/view/widgets/home/join/consent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../../Server/dio.dart';
@@ -28,18 +29,6 @@ class _Form_updateState extends State<Form_join> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TitleText('이름'),
-              TextFromFieldComponent(
-                  1, false, '이름을 입력해주세요.', 10, '다시입력해주세요', true, _name),
-              SizedBox(
-                height: 10,
-              ),
-              TitleText('휴대폰 번호'),
-              TextFromFieldComponent(2, false, '(Ex)01012341234', 11,
-                  '잘못된 전화번호 형식입니다.', false, _tel),
-              SizedBox(
-                height: 10,
-              ),
               TitleText('계정 이메일'),
               TextFromFieldComponent(3, false, '계정 이메일을 입력해주세요.', 30,
                   '잘못된 이메일 형식입니다.', false, _email),
@@ -57,6 +46,18 @@ class _Form_updateState extends State<Form_join> {
               TextFromFieldComponent(5, true, '비밀번호를 다시 한번 입력해주세요', 20,
                   '비밀번호가 일치하지 않습니다.', false, _pwt),
               SizedBox(height: 20),
+              TitleText('이름'),
+              TextFromFieldComponent(
+                  1, false, '이름을 입력해주세요.', 10, '다시입력해주세요', true, _name),
+              SizedBox(
+                height: 10,
+              ),
+              TitleText('휴대폰 번호'),
+              TextFromFieldComponent(2, false, '(Ex)01012341234', 11,
+                  '잘못된 전화번호 형식입니다.', false, _tel),
+              SizedBox(
+                height: 10,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -70,7 +71,16 @@ class _Form_updateState extends State<Form_join> {
                   ),
                   minText('개인정보 수집 및 이용 동의(필수)'),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: consent(),
+                              );
+                            });
+                      },
                       child: Text(
                         '보기',
                         style: TextStyle(

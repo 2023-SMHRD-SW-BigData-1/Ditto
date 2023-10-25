@@ -31,16 +31,16 @@ class _Form_bulidState extends State<Form_login> {
                   labelText: 'Email'),
               controller: _emailController,
               validator: (value) {
-                // bool emailValid =
-                //     RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
-                //         .hasMatch(value!.toString());
-                // if (value!.isEmpty) {
-                //   return 'Please provide your email.';
-                // }
+                bool emailValid =
+                    RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                        .hasMatch(value!.toString());
+                if (value!.isEmpty) {
+                  return 'Please provide your email.';
+                }
                 // if (!emailValid) {
                 //   return "'$value' \t Invalid email format";
                 // }
-                // return null;
+                return null;
               },
             ),
             SizedBox(
@@ -69,22 +69,17 @@ class _Form_bulidState extends State<Form_login> {
               height: 50.0,
               child: ElevatedButton(
                 onPressed: () {
-                  String id = _emailController.text;
-                  String pw = _passwordController.text;
-                  Get.rootDelegate.toNamed(Routes.LOGIN);
-                  server.login(id, pw);
-                  Get.rootDelegate.toNamed(Routes.HOME);
-
                   if (_formkey.currentState!.validate()) {
-                    // _formkey.currentState!.save();
-                    // FocusScope.of(context).unfocus();
-                    // Get.offAllNamed(Routes.HOME);
-                    // html.window.location.reload();
+                    String id = _emailController.text;
+                    String pw = _passwordController.text;
+                    Get.rootDelegate.toNamed(Routes.LOGIN);
+                    server.login(id, pw);
+                    Get.rootDelegate.toNamed(Routes.HOME);
                     Navigator.of(context).pop();
+                    Future.delayed(Duration(milliseconds: 300), () {
+                      html.window.location.reload();
+                    });
                   }
-                  Future.delayed(Duration(milliseconds: 300), () {
-                    html.window.location.reload();
-                  });
                 },
                 child: Text(
                   'Log in',

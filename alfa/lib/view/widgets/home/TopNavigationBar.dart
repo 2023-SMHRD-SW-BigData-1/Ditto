@@ -45,7 +45,6 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
             width: 200,
             height: 200,
           ),
-          Text(userId),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -56,12 +55,18 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
                         clearAllData();
                         html.window.location.reload();
                       },
-                      child: Text('Log out')),
+                      child: Text(userId)),
               SizedBox(
                 width: 10,
               ),
               ElevatedButton(
-                onPressed: () => Get.rootDelegate.toNamed(Routes.MAIN),
+                onPressed: () {
+                  if (userId == '') {
+                    Get.rootDelegate.toNamed(Routes.Join);
+                  } else {
+                    Get.rootDelegate.toNamed(Routes.MAIN);
+                  }
+                },
                 child: Text(
                   "GET STARTED",
                   style: TextStyle(color: Colors.white),
