@@ -1,21 +1,20 @@
 import 'package:alfa/Model/User.dart';
 import 'package:alfa/view/widgets/home/Footer.dart';
-import 'package:alfa/view/widgets/home/Home_first.dart';
-import 'package:alfa/view/widgets/home/Home_second.dart';
 import 'package:alfa/view/widgets/home/TopNavigationBar.dart';
+import 'package:alfa/view/widgets/home/history/HistoryContent.dart';
 import 'package:alfa/view/widgets/home/login/Login_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class User_history extends StatefulWidget {
+  const User_history({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<User_history> createState() => _User_historyState();
 }
 
-class _HomeState extends State<Home> {
+class _User_historyState extends State<User_history> {
   String userId = '';
 
   @override
@@ -42,18 +41,19 @@ class _HomeState extends State<Home> {
         width: screenSize.width,
         height: screenSize.height,
         child: SafeArea(
-            child: Stack(
-          children: <Widget>[
-            Expanded(
-                child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[Home_first(), Home_second(), Footer()],
-              ),
-            )),
-            TopNavigationBar(),
-            _userId.userId == '' ? NavBarItem('Log in') : hovering(),
-          ],
-        )),
+          child: Stack(
+            children: <Widget>[
+              Expanded(
+                  child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[HistoryContent(), Footer()],
+                ),
+              )),
+              TopNavigationBar(),
+              _userId.userId == '' ? NavBarItem('Log in') : hovering(),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -1,11 +1,11 @@
 import 'package:alfa/Controller/bar.dart';
 import 'package:alfa/Controller/trigger.dart';
 import 'package:alfa/Model/Input_data.dart';
+import 'package:alfa/Model/User.dart';
 import 'package:alfa/Model/fetch.dart';
 import 'package:alfa/getPages.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:url_strategy/url_strategy.dart';
 
@@ -36,6 +36,9 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => Input_data(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => User(),
+      )
     ],
     child: GetMaterialApp.router(
       debugShowCheckedModeBanner: false,
