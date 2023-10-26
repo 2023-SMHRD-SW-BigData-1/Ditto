@@ -18,6 +18,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String userId = '';
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      loadUserId();
+    });
+  }
+
   Future<void> loadUserId() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
