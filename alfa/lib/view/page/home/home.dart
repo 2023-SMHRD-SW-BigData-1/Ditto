@@ -18,6 +18,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   String userId = '';
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      loadUserId();
+    });
+  }
+
   Future<void> loadUserId() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -32,6 +40,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final userId = Provider.of<User>(context);
+    userId.userId = this.userId;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -42,7 +52,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
             ),
             TopNavigationBar(),
-            userId == '' ? NavBarItem('Log in') : hovering(),
+            userId.userId == '' ? NavBarItem('Log in') : hovering(),
           ],
         ),
       ),
