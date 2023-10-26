@@ -55,30 +55,30 @@ class _Form_updateState extends State<Form_join> {
             children: <Widget>[
               TitleText('계정 이메일'),
               TextFromFieldComponent(3, false, '계정 이메일을 입력해주세요.', 30,
-                  '잘못된 이메일 형식입니다.', false, _email),
+                  '잘못된 이메일 형식입니다.', false, _email, false),
               SizedBox(
                 height: 10,
               ),
               TitleText('비밀번호'),
               minText('영문,숫자,특수문자를 1개 이상 조합하여 8자 이상 15자 이내로 입력하세요.'),
-              TextFromFieldComponent(
-                  4, true, '비밀번호를 입력해주세요.', 20, '비밀번호를 확인해주세요.', false, _pw),
+              TextFromFieldComponent(4, true, '비밀번호를 입력해주세요.', 20,
+                  '비밀번호를 확인해주세요.', false, _pw, false),
               SizedBox(
                 height: 10,
               ),
               TitleText('비밀번호 확인'),
               TextFromFieldComponent(5, true, '비밀번호를 다시 한번 입력해주세요', 20,
-                  '비밀번호가 일치하지 않습니다.', false, _pwt),
+                  '비밀번호가 일치하지 않습니다.', false, _pwt, false),
               SizedBox(height: 20),
               TitleText('이름'),
               TextFromFieldComponent(
-                  1, false, '이름을 입력해주세요.', 10, '다시입력해주세요', true, _name),
+                  1, false, '이름을 입력해주세요.', 10, '다시입력해주세요', true, _name, false),
               SizedBox(
                 height: 10,
               ),
               TitleText('휴대폰 번호'),
               TextFromFieldComponent(2, false, '(Ex)01012341234', 11,
-                  '잘못된 전화번호 형식입니다.', false, _tel),
+                  '잘못된 전화번호 형식입니다.', false, _tel, false),
               SizedBox(
                 height: 10,
               ),
