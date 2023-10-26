@@ -64,7 +64,7 @@ class Server {
     });
 
     String result = response.data['modifyRes'];
-    await DataManager.saveData('joinResult', result);
+
     if (result == "success") {
       print('modifyRes : $result');
       String user_name = response.data['data'][0]['user_name'];
