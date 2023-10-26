@@ -39,7 +39,7 @@ class _HomeBodyState extends State<HomeBody> {
   Future<void> loadUserId() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      userId = prefs.getString('id') ?? '';
+      userId = prefs.getString('name') ?? '';
     });
   }
 

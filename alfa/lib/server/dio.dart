@@ -20,7 +20,11 @@ class Server {
       print('failedRes : 비밀번호를 잘못 입력함');
     }
     String user_name = response.data['data'][0]['user_name'];
-    await DataManager.saveData('id', user_name);
+    String user_email = response.data['data'][0]['user_id'];
+    String user_num = response.data['data'][0]['user_num'];
+    await DataManager.saveData('name', user_name);
+    await DataManager.saveData('id', user_email);
+    await DataManager.saveData('num', user_num);
   }
 
   Future join(

@@ -14,14 +14,24 @@ class _InfoContentState extends State<InfoContent> {
   @override
   void initState() {
     super.initState();
-    loadJoinResult(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
+    loadEmail(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
+    loadName();
   }
 
-  String joinRes = '';
-  Future<void> loadJoinResult() async {
+  String email = '';
+  String name = '';
+
+  Future<void> loadEmail() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      joinRes = prefs.getString('joinResult') ?? "null";
+      email = prefs.getString('id') ?? "null";
+    });
+  }
+
+  Future<void> loadName() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('name') ?? "null";
     });
   }
 
@@ -40,8 +50,9 @@ class _InfoContentState extends State<InfoContent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TitleText('계정 이메일'),
-          TextFromFieldComponent(
-              3, false, '계정 이메일을 입력해주세요.', 30, '잘못된 이메일 형식입니다.', false, _email),
+          Text(email),
+          // TextFromFieldComponent(
+          //     3, false, '계정 이메일을 입력해주세요.', 30, '잘못된 이메일 형식입니다.', false, _email),
           SizedBox(
             height: 10,
           ),
@@ -57,11 +68,12 @@ class _InfoContentState extends State<InfoContent> {
               '비밀번호가 일치하지 않습니다.', false, _pwt),
           SizedBox(height: 20),
           TitleText('이름'),
-          TextFromFieldComponent(
-              1, false, '이름을 입력해주세요.', 10, '다시입력해주세요', true, _name),
-          SizedBox(
-            height: 10,
-          ),
+          Text(name),
+          // TextFromFieldComponent(
+          //     1, false, '이름을 입력해주세요.', 10, '다시입력해주세요', true, _name),
+          // SizedBox(
+          //   height: 10,
+          // ),
           TitleText('휴대폰 번호'),
           TextFromFieldComponent(
               2, false, '(Ex)01012341234', 11, '잘못된 전화번호 형식입니다.', false, _tel),
