@@ -2,6 +2,9 @@ import 'package:alfa/view/widgets/home/join/TextFromFieldComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:alfa/server/dio.dart';
+import 'dart:html' as html;
+import 'package:alfa/Provider/shared.dart';
 
 class InfoContent extends StatefulWidget {
   const InfoContent({super.key});
@@ -16,10 +19,13 @@ class _InfoContentState extends State<InfoContent> {
     super.initState();
     loadEmail(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
     loadName();
+    loadNum();
   }
 
   String email = '';
   String name = '';
+  String num = '';
+  String pw = '';
 
   Future<void> loadEmail() async {
     final prefs = await SharedPreferences.getInstance();
@@ -32,6 +38,13 @@ class _InfoContentState extends State<InfoContent> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       name = prefs.getString('name') ?? "null";
+    });
+  }
+
+  Future<void> loadNum() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      num = prefs.getString('num') ?? "null";
     });
   }
 
@@ -76,13 +89,33 @@ class _InfoContentState extends State<InfoContent> {
           // ),
           TitleText('휴대폰 번호'),
           TextFromFieldComponent(
-              2, false, '(Ex)01012341234', 11, '잘못된 전화번호 형식입니다.', false, _tel),
+              2,
+              false,
+              '여기 힌트 말고 num 변수 값이 입력된 상태로 시작하게 해주셈',
+              11,
+              '잘못된 전화번호 형식입니다.',
+              false,
+              _tel),
           SizedBox(
             height: 10,
           ),
           SizedBox(
-            height: 20,
+            height: 40,
           ),
+          TextButton(
+            onPressed: () {
+              num = _tel.text;
+              pw = _pw.text;
+              void modify() async {
+                await server.modify(email, num, pw);
+
+                html.window.location.reload();
+              }
+
+              modify();
+            },
+            child: TitleText('수정'),
+          )
         ],
       ),
     );

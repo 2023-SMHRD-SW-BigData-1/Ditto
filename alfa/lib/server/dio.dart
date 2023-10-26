@@ -9,7 +9,7 @@ class Server {
   Future login(String user_id, String user_pw) async {
     Response response;
     Dio dio = Dio();
-    response = await dio.post("$url/login",
+    response = await dio.post("$url/user/login",
         data: {"user_id": "$user_id", "user_pw": "$user_pw"});
     // print(response.data['data'][0]);
     if (response.data['result'] == "success") {
@@ -34,7 +34,7 @@ class Server {
       String user_id, String user_pw, String user_name, String user_num) async {
     Response response;
     Dio dio = Dio();
-    response = await dio.post("$url/join/create", data: {
+    response = await dio.post("$url/user/create", data: {
       "user_id": "$user_id",
       "user_pw": "$user_pw",
       "user_name": "$user_name",
@@ -49,6 +49,36 @@ class Server {
       //   print('failedRes : 비밀번호를 잘못 입력함');
     } else if (result == "failed") {
       print('successRes : $result');
+    }
+
+    // User user = Provider.of<User>(context, listen: false);
+  }
+
+  Future modify(String user_id, String user_num, String user_pw) async {
+    Response response;
+    Dio dio = Dio();
+    response = await dio.post("$url/user/modify", data: {
+      "user_id": "$user_id",
+      "user_pw": "$user_pw",
+      "user_num": "$user_num"
+    });
+
+    String result = response.data['modifyRes'];
+    await DataManager.saveData('joinResult', result);
+    if (result == "success") {
+      print('modifyRes : $result');
+      String user_name = response.data['data'][0]['user_name'];
+      String user_email = response.data['data'][0]['user_id'];
+      String user_num = response.data['data'][0]['user_num'];
+      // print('res : ' + response.data[0]['user_pw']);
+      // print('res : ' + response.data[0].toString());
+      await DataManager.saveData('name', user_name);
+      await DataManager.saveData('id', user_email);
+      await DataManager.saveData('num', user_num);
+      // } else if (response.data['result'] == "pw err") {
+      //   print('failedRes : 비밀번호를 잘못 입력함');
+    } else if (result == "failed") {
+      print('modifyRes : $result');
     }
 
     // User user = Provider.of<User>(context, listen: false);

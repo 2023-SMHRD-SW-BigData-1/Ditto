@@ -12,7 +12,7 @@ dbConfig.connect(conn);
 //     res.send({ response: "I am alive" }).status(200)
 //   })
 
-router.post('/login', (req, res) => {
+router.post('/user/login', (req, res) => {
     let sql = "SELECT * FROM user_info where user_id = ?"
     console.log("req : " + [req.body.user_id]);
 
@@ -27,7 +27,7 @@ router.post('/login', (req, res) => {
                 }
             }
         } else {
-            res.json({ result: 'empty id'})
+            res.json({ result: 'empty id' })
         }
         // 쿼리 결과 처리
         console.log(rows);
@@ -39,7 +39,7 @@ router.post('/login', (req, res) => {
     });
 });
 
-router.post('/join/create', (req, res) => {
+router.post('/user/create', (req, res) => {
     let sql2 = "select user_id from user_info where user_id = ?";
     conn.query(sql2, [req.body.user_id], (err, rows) => {
         console.log(rows, req.body.user_id);
@@ -58,7 +58,7 @@ router.post('/join/create', (req, res) => {
                     console.log('success');
                     res.json({ result: 'success' })
                     // } else if (rows[0].user_pw !== req.body.user_pw) {
-                        // res.json({ result: 'pw err' })
+                    // res.json({ result: 'pw err' })
                 } else {
                     res.json({ result: 'failed' })
                 }
@@ -73,5 +73,31 @@ router.post('/join/create', (req, res) => {
 
 });
 // });
+
+router.post('/user/modify', (req, res) => {
+    let sql = "update user_info set user_pw = ?, user_num = ? where user_id = ?;"
+    console.log("req : " + [req.body.user_id]);
+
+    conn.query(sql, [req.body.user_pw, req.body.user_num, req.body.user_id], (err, rows) => {
+        if (rows != undefined) {
+            let sql2 = "select * from user_info where user_id = ?";
+            conn.query(sql, [req.body.user_id], (err, rows) => {
+                console.log(rows);
+                res.json({ modifyRes: 'success', data: rows })
+
+            })
+
+        } else {
+            res.json({ modifyRes: 'failed' })
+        }
+        // 쿼리 결과 처리
+        // console.log(rows);
+        // res.send(rows);
+        //     req.session.member = rows
+        //     req.session.save(()=>{
+        //     res.redirect('/')
+        //   });
+    });
+});
 
 module.exports = router;
