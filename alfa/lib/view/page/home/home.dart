@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class _HomeState extends State<Home> {
   String userId = '';
 
   Future<void> loadUserId() async {
@@ -32,6 +32,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final userId = Provider.of<User>(context);
+    userId.userId = this.userId;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -42,7 +44,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
             ),
             TopNavigationBar(),
-            userId == '' ? NavBarItem('Log in') : hovering(),
+            userId.userId == '' ? NavBarItem('Log in') : hovering(),
           ],
         ),
       ),

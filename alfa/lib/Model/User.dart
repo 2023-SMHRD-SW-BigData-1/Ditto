@@ -8,8 +8,6 @@ class User extends ChangeNotifier {
 
   set userId(String value) {
     _userId = value;
-    SharedPreferences.getInstance();
-
     notifyListeners();
   }
 
