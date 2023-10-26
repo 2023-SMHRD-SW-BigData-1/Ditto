@@ -48,54 +48,46 @@ class _InfoContentState extends State<InfoContent> {
     });
   }
 
-  final _formkey = GlobalKey<FormState>();
-  TextEditingController _name = TextEditingController();
-  TextEditingController _tel = TextEditingController();
-  TextEditingController _email = TextEditingController();
-  TextEditingController _pw = TextEditingController();
-  TextEditingController _pwt = TextEditingController();
-  bool? checked = false;
   @override
   Widget build(BuildContext context) {
+    final _formkey = GlobalKey<FormState>();
+    final TextEditingController _name = TextEditingController(text: name);
+    final TextEditingController _tel = TextEditingController(text: num);
+    final TextEditingController _email = TextEditingController(text: email);
+    final TextEditingController _pw = TextEditingController();
+    final TextEditingController _pwt = TextEditingController();
+    bool? checked = false;
     return Form(
       key: _formkey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TitleText('계정 이메일'),
-          Text(email),
-          // TextFromFieldComponent(
-          //     3, false, '계정 이메일을 입력해주세요.', 30, '잘못된 이메일 형식입니다.', false, _email),
+          TextFromFieldComponent(3, false, '계정 이메일을 입력해주세요.', 30,
+              '잘못된 이메일 형식입니다.', false, _email, true),
           SizedBox(
             height: 10,
           ),
           TitleText('비밀번호'),
           minText('영문,숫자,특수문자를 1개 이상 조합하여 8자 이상 15자 이내로 입력하세요.'),
           TextFromFieldComponent(
-              4, true, '비밀번호를 입력해주세요.', 20, '비밀번호를 확인해주세요.', false, _pw),
+              4, true, '비밀번호를 입력해주세요.', 20, '비밀번호를 확인해주세요.', false, _pw, false),
           SizedBox(
             height: 10,
           ),
           TitleText('비밀번호 확인'),
           TextFromFieldComponent(5, true, '비밀번호를 다시 한번 입력해주세요', 20,
-              '비밀번호가 일치하지 않습니다.', false, _pwt),
+              '비밀번호가 일치하지 않습니다.', false, _pwt, false),
           SizedBox(height: 20),
           TitleText('이름'),
-          Text(name),
-          // TextFromFieldComponent(
-          //     1, false, '이름을 입력해주세요.', 10, '다시입력해주세요', true, _name),
-          // SizedBox(
-          //   height: 10,
-          // ),
-          TitleText('휴대폰 번호'),
           TextFromFieldComponent(
-              2,
-              false,
-              '여기 힌트 말고 num 변수 값이 입력된 상태로 시작하게 해주셈',
-              11,
-              '잘못된 전화번호 형식입니다.',
-              false,
-              _tel),
+              1, false, '이름을 입력해주세요.', 10, '다시입력해주세요', true, _name, true),
+          SizedBox(
+            height: 10,
+          ),
+          TitleText('휴대폰 번호'),
+          TextFromFieldComponent(2, false, '휴대폰 번호를 입력해주세요', 11,
+              '잘못된 전화번호 형식입니다.', false, _tel, false),
           SizedBox(
             height: 10,
           ),
