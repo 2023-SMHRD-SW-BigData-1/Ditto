@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:alfa/Model/User.dart';
 import 'package:alfa/get_pages.dart';
+import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +42,14 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
                 ElevatedButton(
                   onPressed: () {
                     if (userId.userId == '') {
-                      Get.rootDelegate.toNamed(Routes.JOIN);
+                      showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: Login(),
+                            );
+                          });
                     } else {
                       Get.rootDelegate.toNamed(Routes.MAIN);
                     }

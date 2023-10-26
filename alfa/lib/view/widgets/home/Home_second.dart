@@ -8,7 +8,6 @@ class Home_second extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 900,
-      color: Colors.red,
     );
   }
 }

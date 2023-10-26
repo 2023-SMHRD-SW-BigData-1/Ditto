@@ -23,7 +23,6 @@ class _Main_sidebarState extends State<Main_sidebar> {
 
     return GestureDetector(
       child: AnimatedContainer(
-        clipBehavior: Clip.hardEdge,
         width: _bar.bar_width,
         duration: Duration(milliseconds: 500),
         curve: Curves.fastOutSlowIn,

@@ -7,35 +7,16 @@ import 'package:alfa/view/widgets/home/login/Login_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:html' as html;
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: HomeBody(),
-    );
-  }
+  State<Home> createState() => _HomeState();
 }
 
-class HomeBody extends StatefulWidget {
-  const HomeBody({Key? key}) : super(key: key);
-  @override
-  _HomeBodyState createState() => _HomeBodyState();
-}
-
-class _HomeBodyState extends State<HomeBody> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   String userId = '';
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      loadUserId();
-    });
-  }
 
   Future<void> loadUserId() async {
     final prefs = await SharedPreferences.getInstance();
@@ -51,20 +32,19 @@ class _HomeBodyState extends State<HomeBody> {
 
   @override
   Widget build(BuildContext context) {
-    final userId = Provider.of<User>(context);
-    userId.userId = this.userId;
-
-    return SafeArea(
-      child: Stack(
-        children: <Widget>[
-          SingleChildScrollView(
-            child: Column(
-              children: <Widget>[Home_first(), Home_second(), Footer()],
+    return Scaffold(
+      body: SafeArea(
+        child: Stack(
+          children: <Widget>[
+            SingleChildScrollView(
+              child: Column(
+                children: <Widget>[Home_first(), Home_second(), Footer()],
+              ),
             ),
-          ),
-          TopNavigationBar(),
-          userId.userId == '' ? NavBarItem('Log in') : hovering(),
-        ],
+            TopNavigationBar(),
+            userId == '' ? NavBarItem('Log in') : hovering(),
+          ],
+        ),
       ),
     );
   }
