@@ -1,11 +1,6 @@
 import 'package:alfa/view/widgets/home/join/TextFromFieldComponent.dart';
-import 'package:alfa/view/widgets/home/join/consent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../../server/dio.dart';
-import 'package:get/get.dart';
-import 'package:alfa/getPages.dart';
-import 'dart:html' as html;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InfoContent extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:alfa/Model/User.dart';
-import 'package:alfa/getPages.dart';
+import 'package:alfa/get_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';

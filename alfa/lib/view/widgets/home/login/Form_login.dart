@@ -1,6 +1,4 @@
-import 'package:alfa/getPages.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'dart:html' as html;
 import 'package:alfa/server/dio.dart';
 

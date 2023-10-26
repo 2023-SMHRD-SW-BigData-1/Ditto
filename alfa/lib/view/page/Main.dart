@@ -3,10 +3,7 @@ import 'package:alfa/view/widgets/main/Main_input.dart';
 import 'package:alfa/view/widgets/main/Main_result.dart';
 import 'package:alfa/view/widgets/main/Main_sidebar.dart';
 import 'package:alfa/view/widgets/main/PDF/PDF_btn.dart';
-import 'package:alfa/view/widgets/main/REF/REF_btn.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-
 import 'package:provider/provider.dart';
 
 class Main extends StatefulWidget {
@@ -26,9 +23,7 @@ class _MainState extends State<Main> {
 }
 
 class MainBody extends StatefulWidget {
-  const MainBody({
-    super.key,
-  });
+  const MainBody({Key? key}) : super(key: key);
 
   @override
   State<MainBody> createState() => _MainBodyState();
@@ -65,7 +60,7 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                  padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
                   height: 50,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,16 +86,20 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                             : Duration(milliseconds: 100),
                       ),
                       Container(
+                        width: 400,
                         child: Row(
-                          children: [
-                            PDF_btn(),
+                          children: <Widget>[
                             SizedBox(
-                              width: 20,
+                              width: 74,
                             ),
-                            REF_btn()
+                            Image.asset(
+                              'assets/image/Logo_text.png',
+                              width: 300,
+                            ),
                           ],
                         ),
                       ),
+                      PDF_btn(),
                     ],
                   ),
                 ),
@@ -108,19 +107,23 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.all(30),
-                        padding: EdgeInsets.all(50),
-                        width: double.infinity,
-                        height: 700,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 2),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Main_result(),
+                      Center(
+                        child: Container(
+                            margin: EdgeInsets.all(30),
+                            padding: EdgeInsets.all(50),
+                            width: 1500,
+                            height: 700,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Color.fromRGBO(62, 68, 102, 1),
+                                    width: 2),
+                                borderRadius: BorderRadius.circular(10)),
+                            child:
+                                resultTabel(generateRowData(planets.length))),
                       )
                     ],
                   ),
-                  //     child: AnimatedBuilder(
+                  // child: AnimatedBuilder(
                   //   animation: _controller,
                   //   child: Container(
                   //     child: Image.asset(
@@ -134,8 +137,7 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                   //       child: child,
                   //     );
                   //   },
-                  // )
-                  //SingleChildScrollView(child: Column(children: [])),
+                  // ),
                 ),
                 Main_input()
               ],
@@ -145,4 +147,12 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
       ),
     ));
   }
+}
+
+List<SampleRowData> generateRowData(int rows) {
+  return List.generate(rows, (index) {
+    return SampleRowData(
+      planet: planets[index],
+    );
+  });
 }

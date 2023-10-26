@@ -1,5 +1,5 @@
 import 'package:alfa/Controller/trigger.dart';
-import 'package:alfa/getPages.dart';
+import 'package:alfa/get_pages.dart';
 import 'package:alfa/view/widgets/home/login/Form_login.dart';
 import 'package:alfa/view/widgets/home/login/Google_login.dart';
 import 'package:flutter/material.dart';

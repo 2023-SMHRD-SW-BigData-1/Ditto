@@ -52,7 +52,6 @@ Widget Main_input() {
                   },
                   child: Text(
                     'Research',
-                    textAlign: TextAlign.center,
                   ),
                   style: ElevatedButton.styleFrom(
                       alignment: Alignment.center,

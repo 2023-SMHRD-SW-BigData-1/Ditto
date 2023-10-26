@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:alfa/Model/User.dart';
-import 'package:alfa/getPages.dart';
+import 'package:alfa/get_pages.dart';
 import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -88,7 +88,7 @@ class _hoveringState extends State<hovering> {
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                   child: AnimatedContainer(
-                    height: _hover ? 90 : 0,
+                    height: _hover ? 60 : 0,
                     width: 100,
                     duration: Duration(milliseconds: 100),
                     decoration: BoxDecoration(
@@ -105,9 +105,6 @@ class _hoveringState extends State<hovering> {
                               onPressed: () =>
                                   Get.rootDelegate.toNamed(Routes.INFO),
                               child: mintext('회원정보')),
-                          SizedBox(
-                            height: 30,
-                          ),
                           Container(
                             width: double.infinity,
                             height: 1,
