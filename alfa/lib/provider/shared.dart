@@ -10,7 +10,7 @@ class DataManager {
   // 데이터 불러오기
   static Future<String> loadData(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key) ?? "데이터 없음";
+    return prefs.getString(key) ?? "null";
   }
 
 // 데이터 삭제하기

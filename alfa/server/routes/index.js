@@ -26,6 +26,8 @@ router.post('/login', (req, res) => {
                     res.json({ result: 'pw err' })
                 }
             }
+        } else {
+            res.json({ result: 'empty id'})
         }
         // 쿼리 결과 처리
         console.log(rows);
