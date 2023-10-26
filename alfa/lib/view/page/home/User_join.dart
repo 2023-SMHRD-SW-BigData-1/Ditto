@@ -1,5 +1,3 @@
-import 'package:alfa/view/widgets/home/Footer.dart';
-import 'package:alfa/view/widgets/home/TopNavigationBar.dart';
 import 'package:alfa/view/widgets/home/join/Form_join.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
 import 'package:alfa/Model/User.dart';
-import 'package:alfa/getPages.dart';
+import 'package:alfa/get_pages.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

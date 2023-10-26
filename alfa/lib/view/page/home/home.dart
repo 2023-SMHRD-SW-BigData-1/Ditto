@@ -9,20 +9,32 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:html' as html;
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: HomeBody(),
+    );
+  }
 }
 
-class _HomeState extends State<Home> {
+class HomeBody extends StatefulWidget {
+  const HomeBody({Key? key}) : super(key: key);
+  @override
+  _HomeBodyState createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
   String userId = '';
 
   @override
   void initState() {
     super.initState();
-    loadUserId(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      loadUserId();
+    });
   }
 
   Future<void> loadUserId() async {
@@ -39,28 +51,20 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData deviceData = MediaQuery.of(context);
-    Size screenSize = deviceData.size;
-    final _userId = Provider.of<User>(context);
-    _userId.userId = userId;
+    final userId = Provider.of<User>(context);
+    userId.userId = this.userId;
 
-    return Scaffold(
-      body: Container(
-        width: screenSize.width,
-        height: screenSize.height,
-        child: SafeArea(
-            child: Stack(
-          children: <Widget>[
-            Expanded(
-                child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[Home_first(), Home_second(), Footer()],
-              ),
-            )),
-            TopNavigationBar(),
-            _userId.userId == '' ? NavBarItem('Log in') : hovering(),
-          ],
-        )),
+    return SafeArea(
+      child: Stack(
+        children: <Widget>[
+          SingleChildScrollView(
+            child: Column(
+              children: <Widget>[Home_first(), Home_second(), Footer()],
+            ),
+          ),
+          TopNavigationBar(),
+          userId.userId == '' ? NavBarItem('Log in') : hovering(),
+        ],
       ),
     );
   }

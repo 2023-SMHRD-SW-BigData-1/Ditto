@@ -1,9 +1,6 @@
-import 'package:alfa/Model/User.dart';
 import 'package:dio/dio.dart';
 // import 'dart:convert';
 // import 'package:alfa/view/widgets/home/login/Form_login.dart';
-import 'package:provider/provider.dart';
-import '../Model/User.dart';
 import '../provider/shared.dart';
 
 const url = "http://172.30.1.29:8889";
