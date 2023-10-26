@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
   Future<void> loadUserId() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      userId = prefs.getString('id') ?? '';
+      userId = prefs.getString('name') ?? '';
     });
   }
 

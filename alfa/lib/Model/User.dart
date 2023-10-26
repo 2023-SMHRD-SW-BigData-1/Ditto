@@ -9,7 +9,7 @@ class User extends ChangeNotifier {
     _userId = value;
     notifyListeners();
   }
-
+  
   String _result = '';
 
   String get result => _result;
