@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:html' as html;
 import 'package:alfa/server/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Form_login extends StatefulWidget {
   const Form_login({super.key});
@@ -13,11 +14,21 @@ class Form_login extends StatefulWidget {
 
 class _Form_bulidState extends State<Form_login> {
   var isEnabled = false;
+  String prefId = '';
+
+  Future<void> loadUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefId = prefs.getString('name') ?? 'null';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final _formkey = GlobalKey<FormState>();
     final _emailController = TextEditingController();
     final _passwordController = TextEditingController();
+
     return Form(
         key: _formkey,
         child: Column(
@@ -73,12 +84,21 @@ class _Form_bulidState extends State<Form_login> {
                     String user_id = _emailController.text;
                     String user_pw = _passwordController.text;
                     // Get.rootDelegate.toNamed(Routes.LOGIN);
-                    server.login(user_id, user_pw);
                     // Get.rootDelegate.toNamed(Routes.HOME);
-                    Navigator.of(context).pop();
-                    Future.delayed(Duration(milliseconds: 300), () {
-                      html.window.location.reload();
-                    });
+                    void serverData() async {
+                      await server.login(user_id, user_pw);
+                      await loadUserId();
+                      print('id' + prefId);
+
+                      if (prefId != 'null') {
+                        Navigator.of(context).pop();
+                        Future.delayed(Duration(milliseconds: 300), () {
+                          html.window.location.reload();
+                        });
+                      } else {}
+                    }
+
+                    serverData();
                   }
                 },
                 child: Text(

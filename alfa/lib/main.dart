@@ -8,11 +8,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'package:url_strategy/url_strategy.dart';
-
 // ignore: unused_import
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get/get.dart';
-
 import 'package:provider/provider.dart';
 
 void main() async {

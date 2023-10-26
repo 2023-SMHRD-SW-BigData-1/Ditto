@@ -7,6 +7,7 @@ import 'package:alfa/view/widgets/home/login/Login_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:html' as html;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -31,12 +32,18 @@ class _HomeState extends State<Home> {
     });
   }
 
+  void clearData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear(); // 모든 SharedPreferences 데이터 삭제
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData deviceData = MediaQuery.of(context);
     Size screenSize = deviceData.size;
     final _userId = Provider.of<User>(context);
     _userId.userId = userId;
+
     return Scaffold(
       body: Container(
         width: screenSize.width,

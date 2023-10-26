@@ -115,12 +115,17 @@ class _hoveringState extends State<hovering> {
                           ),
                           TextButton(
                               onPressed: () {
+                                //   .listen((html.BeforeUnloadEvent event) {
+                                // // 여기에 로직을 추가
+                                // event.returnValue = '커스텀 메시지'; // 사용자에게 경고 메시지를 표시할 수도 있음
+                                // }
+                                // );
                                 clearAllData();
                                 Get.rootDelegate.toNamed(Routes.HOME);
                                 Navigator.of(context).pop();
-                                Future.delayed(Duration(milliseconds: 300), () {
-                                  html.window.location.reload();
-                                });
+                                // Future.delayed(Duration(milliseconds: 300), () {
+                                //   html.window.location.reload();
+                                // });
                               },
                               child: mintext('Log out'))
                         ],

@@ -17,17 +17,20 @@ class Server {
     // print(response.data['data'][0]);
     if (response.data['result'] == "success") {
       print('successRes : ' + response.data['data'][0]['user_id']);
+      String user_name = response.data['data'][0]['user_name'];
+      String user_email = response.data['data'][0]['user_id'];
+      String user_num = response.data['data'][0]['user_num'];
       // print('res : ' + response.data[0]['user_pw']);
       // print('res : ' + response.data[0].toString());
+      await DataManager.saveData('name', user_name);
+      await DataManager.saveData('id', user_email);
+      await DataManager.saveData('num', user_num);
     } else if (response.data['result'] == "pw err") {
+      await DataManager.saveData('id', 'null');
       print('failedRes : 비밀번호를 잘못 입력함');
+    } else if (response.data['result'] == 'empty id') {
+      print('failedRes : 아이디가 없음');
     }
-    String user_name = response.data['data'][0]['user_name'];
-    String user_email = response.data['data'][0]['user_id'];
-    String user_num = response.data['data'][0]['user_num'];
-    await DataManager.saveData('name', user_name);
-    await DataManager.saveData('id', user_email);
-    await DataManager.saveData('num', user_num);
   }
 
   Future join(
