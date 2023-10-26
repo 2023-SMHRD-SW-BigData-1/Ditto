@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class User extends ChangeNotifier {
   String _userId = '';
@@ -7,9 +8,11 @@ class User extends ChangeNotifier {
 
   set userId(String value) {
     _userId = value;
+    SharedPreferences.getInstance();
+
     notifyListeners();
   }
-  
+
   String _result = '';
 
   String get result => _result;
