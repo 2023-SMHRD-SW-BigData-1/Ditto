@@ -1,5 +1,6 @@
 import 'package:alfa/Model/User.dart';
 import 'package:alfa/get_pages.dart';
+import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -56,7 +57,14 @@ class _Home_firstState extends State<Home_first> {
                     ElevatedButton(
                       onPressed: () {
                         if (_userId.userId == '') {
-                          Get.rootDelegate.toNamed(Routes.JOIN);
+                          showDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: Login(),
+                                );
+                              });
                         } else {
                           Get.rootDelegate.toNamed(Routes.MAIN);
                         }
