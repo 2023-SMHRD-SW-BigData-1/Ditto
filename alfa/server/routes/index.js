@@ -75,8 +75,7 @@ router.post('/user/create', (req, res) => {
 // });
 
 router.post('/user/modify', (req, res) => {
-    let sql = "update user_info set user_pw = ?, user_num = ? where user_id = ?;"
-
+    let sql = "update user_info set user_pw = ?, user_num = ? , user_update = DEFAULT where user_id = ?;"
 
     conn.query(sql, [req.body.user_pw, req.body.user_num, req.body.user_id], (err, rows) => {
         if (rows != undefined) {
