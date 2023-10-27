@@ -1,9 +1,10 @@
-import 'package:alfa/Model/fetch.dart';
-import 'package:alfa/getPages.dart';
+import 'package:alfa/Model/User.dart';
+import 'package:alfa/get_pages.dart';
+import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 class Home_first extends StatefulWidget {
   const Home_first({Key? key}) : super(key: key);
@@ -16,38 +17,19 @@ final CarouselController _controller = CarouselController();
 List imageList = ["assets/image/image9.png", "assets/image/first_img.jpg"];
 
 class _Home_firstState extends State<Home_first> {
-  String userId = '';
-  @override
-  void initState() {
-    super.initState();
-    // clearAllData();
-    loadUserId(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
-  }
-
-  Future<void> clearAllData() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
-  }
-
-  Future<void> loadUserId() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      userId = prefs.getString('id') ?? "id null";
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final _userId = Provider.of<User>(context);
     return Container(
       width: double.infinity,
-      height: 900.0,
+      height: 1000.0,
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: 50.0,
+            height: 100.0,
           ),
           SizedBox(
-            width: 1200,
+            width: 1400,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -55,16 +37,15 @@ class _Home_firstState extends State<Home_first> {
                   TextSpan(
                     text: "AL.F.A",
                     style: TextStyle(
-                      fontSize: 70,
-                      color: Color.fromRGBO(182, 24, 24, 1),
-                    ),
+                        fontSize: 70,
+                        color: Color.fromRGBO(182, 24, 24, 1),
+                        fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
                         "\t\t: Heat Treatment Alloy\nthe key to innovation,\nStart AI technology now",
-                    style: TextStyle(
-                      fontSize: 30.0,
-                    ),
+                    style:
+                        TextStyle(fontSize: 30.0, fontWeight: FontWeight.w700),
                   )
                 ])),
                 Column(
@@ -73,16 +54,32 @@ class _Home_firstState extends State<Home_first> {
                       height: 140.0,
                     ),
                     ElevatedButton(
-                      onPressed: () => Get.rootDelegate.toNamed(Routes.MAIN),
+                      onPressed: () {
+                        if (_userId.userId == '') {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: Login(),
+                                );
+                              });
+                        } else {
+                          Get.rootDelegate.toNamed(Routes.MAIN);
+                        }
+                      },
                       // ignore: sort_child_properties_last
                       child: Text(
                         "GET STARTED",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
                       ),
                       style: ElevatedButton.styleFrom(
                           elevation: 5,
                           backgroundColor: Colors.black,
-                          padding: EdgeInsets.fromLTRB(35, 20, 35, 20),
+                          padding: EdgeInsets.fromLTRB(40, 25, 40, 25),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                     ),
@@ -106,16 +103,19 @@ class _Home_firstState extends State<Home_first> {
           SizedBox(
             height: 10.0,
           ),
-          Container(
-            height: 1.0,
-            width: 1200.0,
-            color: const Color.fromRGBO(217, 217, 217, 100),
-          ),
           SizedBox(
             height: 10.0,
           ),
           Text(
-              "And a heaven full of stars Over my head, White and topaz And misty red Myriads with beating Hearts of fire That aeons")
+              "And a heaven full of stars Over my head, White and topaz And misty red Myriads with beating Hearts of fire That aeons"),
+          SizedBox(
+            height: 30.0,
+          ),
+          Container(
+            height: 1.5,
+            width: double.infinity,
+            color: const Color.fromRGBO(217, 217, 217, 100),
+          ),
         ],
       ),
     );
@@ -138,7 +138,7 @@ class _ImageSliderState extends State<ImageSlider> {
           items: imageList.map((imgLink) {
             return Builder(builder: (context) {
               return SizedBox(
-                width: 1200.0,
+                width: 1400.0,
                 child: Image(fit: BoxFit.cover, image: AssetImage(imgLink)),
               );
             });

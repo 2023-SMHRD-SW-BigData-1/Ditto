@@ -1,48 +1,89 @@
 import 'package:dio/dio.dart';
 // import 'dart:convert';
 // import 'package:alfa/view/widgets/home/login/Form_login.dart';
-// import 'package:provider/provider.dart';
-
 import '../provider/shared.dart';
 
 const url = "http://172.30.1.29:8889";
 
-// String user_id = User.getText();
-
 class Server {
   Future login(String user_id, String user_pw) async {
     Response response;
-    Dio dio = new Dio();
-    response = await dio.post("$url/login",
+    Dio dio = Dio();
+    response = await dio.post("$url/user/login",
         data: {"user_id": "$user_id", "user_pw": "$user_pw"});
     // print(response.data['data'][0]);
     if (response.data['result'] == "success") {
       print('successRes : ' + response.data['data'][0]['user_id']);
+      String user_name = response.data['data'][0]['user_name'];
+      String user_email = response.data['data'][0]['user_id'];
+      String user_num = response.data['data'][0]['user_num'];
+      String user_type = response.data['data'][0]['user_type'];
       // print('res : ' + response.data[0]['user_pw']);
       // print('res : ' + response.data[0].toString());
+      await DataManager.saveData('name', user_name);
+      await DataManager.saveData('id', user_email);
+      await DataManager.saveData('num', user_num);
+      await DataManager.saveData('type', user_type);
     } else if (response.data['result'] == "pw err") {
+      await DataManager.saveData('id', 'null');
       print('failedRes : 비밀번호를 잘못 입력함');
+    } else if (response.data['result'] == 'empty id') {
+      print('failedRes : 아이디가 없음');
     }
-    await DataManager.saveData('id', response.data['data'][0]['user_id']);
   }
 
   Future join(
-    String user_name,
-    String user_pw,
-  ) async {
+      String user_id, String user_pw, String user_name, String user_num) async {
     Response response;
-    Dio dio = new Dio();
-    response = await dio.post("$url/join/:$user_name",
-        data: {"user_id": "$user_pw", "user_pw": "$user_pw"});
-    // print(response.data['data'][0]);
-    if (response.data['result'] == "success") {
-      print('successRes : ' + response.data['data'][0].toString());
+    Dio dio = Dio();
+    response = await dio.post("$url/user/create", data: {
+      "user_id": "$user_id",
+      "user_pw": "$user_pw",
+      "user_name": "$user_name",
+      "user_num": "$user_num"
+    });
+    String result = response.data['result'];
+    await DataManager.saveData('joinResult', result);
+    if (result == "success") {
+      print('successRes : $result');
+
+      // } else if (response.data['result'] == "pw err") {
+      //   print('failedRes : 비밀번호를 잘못 입력함');
+    } else if (result == "failed") {
+      print('successRes : $result');
+    }
+
+    // User user = Provider.of<User>(context, listen: false);
+  }
+
+  Future modify(String user_id, String user_num, String user_pw) async {
+    Response response;
+    Dio dio = Dio();
+    response = await dio.post("$url/user/modify", data: {
+      "user_id": "$user_id",
+      "user_pw": "$user_pw",
+      "user_num": "$user_num"
+    });
+
+    String result = response.data['modifyRes'];
+
+    if (result == "success") {
+      print('modifyRes : $result');
+      String user_name = response.data['data'][0]['user_name'];
+      String user_email = response.data['data'][0]['user_id'];
+      String user_num = response.data['data'][0]['user_num'];
       // print('res : ' + response.data[0]['user_pw']);
       // print('res : ' + response.data[0].toString());
-    } else if (response.data['result'] == "pw err") {
-      print('failedRes : 비밀번호를 잘못 입력함');
+      await DataManager.saveData('name', user_name);
+      await DataManager.saveData('id', user_email);
+      await DataManager.saveData('num', user_num);
+      // } else if (response.data['result'] == "pw err") {
+      //   print('failedRes : 비밀번호를 잘못 입력함');
+    } else if (result == "failed") {
+      print('modifyRes : $result');
     }
-    await DataManager.saveData('id', response.data[0]['user_id']);
+
+    // User user = Provider.of<User>(context, listen: false);
   }
 }
 

@@ -1,7 +1,7 @@
 import 'package:alfa/Controller/trigger.dart';
-import 'package:alfa/getPages.dart';
+import 'package:alfa/get_pages.dart';
 import 'package:alfa/view/widgets/home/login/Form_login.dart';
-import 'package:alfa/view/widgets/home/login/Google_login.dart';
+import 'package:alfa/view/widgets/home/login/Google_login2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -44,7 +44,7 @@ class _Login extends State<Login> {
               width: 320.0,
               child: Column(
                 children: <Widget>[
-                  Google_login(),
+                  Google_login2(),
                   SizedBox(
                     height: 20,
                   ),
@@ -60,7 +60,7 @@ class _Login extends State<Login> {
                         Text('No account?'),
                         TextButton(
                             onPressed: () =>
-                                Get.rootDelegate.toNamed(Routes.Join),
+                                Get.rootDelegate.toNamed(Routes.JOIN),
                             child: Text('Create one'))
                       ],
                     ),

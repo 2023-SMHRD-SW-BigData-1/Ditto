@@ -8,13 +8,15 @@ Widget TextFromFieldComponent(
     int maxSize,
     String errorMassage,
     bool autofocus,
-    TextEditingController controller) {
+    TextEditingController controller,
+    bool read) {
   List<TextInputFormatter> inputFormatters = [];
   if (trigger == 2) {
     inputFormatters.add(FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')));
   }
   return Container(
     child: TextFormField(
+      readOnly: read,
       controller: controller,
       autofocus: true,
       obscureText: obscureText,
