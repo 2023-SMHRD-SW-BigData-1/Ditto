@@ -76,18 +76,16 @@ router.post('/user/create', (req, res) => {
 
 router.post('/user/modify', (req, res) => {
     let sql = "update user_info set user_pw = ?, user_num = ? where user_id = ?;"
-    console.log("req : " + [req.body.user_id]);
+
 
     conn.query(sql, [req.body.user_pw, req.body.user_num, req.body.user_id], (err, rows) => {
         if (rows != undefined) {
             let sql2 = "select * from user_info where user_id = ?";
-            conn.query(sql, [req.body.user_id], (err, rows) => {
-                console.log(rows);
+            conn.query(sql2, [req.body.user_id], (err, rows) => {
                 res.json({ modifyRes: 'success', data: rows })
-
             })
-
-        } else {
+        } else if (err) {
+            console.log('err')
             res.json({ modifyRes: 'failed' })
         }
         // 쿼리 결과 처리
