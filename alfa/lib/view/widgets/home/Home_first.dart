@@ -29,7 +29,7 @@ class _Home_firstState extends State<Home_first> {
             height: 100.0,
           ),
           SizedBox(
-            width: 1200,
+            width: 1400,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -37,16 +37,15 @@ class _Home_firstState extends State<Home_first> {
                   TextSpan(
                     text: "AL.F.A",
                     style: TextStyle(
-                      fontSize: 70,
-                      color: Color.fromRGBO(182, 24, 24, 1),
-                    ),
+                        fontSize: 70,
+                        color: Color.fromRGBO(182, 24, 24, 1),
+                        fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
                         "\t\t: Heat Treatment Alloy\nthe key to innovation,\nStart AI technology now",
-                    style: TextStyle(
-                      fontSize: 30.0,
-                    ),
+                    style:
+                        TextStyle(fontSize: 30.0, fontWeight: FontWeight.w700),
                   )
                 ])),
                 Column(
@@ -72,12 +71,15 @@ class _Home_firstState extends State<Home_first> {
                       // ignore: sort_child_properties_last
                       child: Text(
                         "GET STARTED",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
                       ),
                       style: ElevatedButton.styleFrom(
                           elevation: 5,
                           backgroundColor: Colors.black,
-                          padding: EdgeInsets.fromLTRB(35, 20, 35, 20),
+                          padding: EdgeInsets.fromLTRB(40, 25, 40, 25),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                     ),
@@ -101,16 +103,19 @@ class _Home_firstState extends State<Home_first> {
           SizedBox(
             height: 10.0,
           ),
-          Container(
-            height: 1.0,
-            width: 1200.0,
-            color: const Color.fromRGBO(217, 217, 217, 100),
-          ),
           SizedBox(
             height: 10.0,
           ),
           Text(
-              "And a heaven full of stars Over my head, White and topaz And misty red Myriads with beating Hearts of fire That aeons")
+              "And a heaven full of stars Over my head, White and topaz And misty red Myriads with beating Hearts of fire That aeons"),
+          SizedBox(
+            height: 30.0,
+          ),
+          Container(
+            height: 1.5,
+            width: double.infinity,
+            color: const Color.fromRGBO(217, 217, 217, 100),
+          ),
         ],
       ),
     );
@@ -133,7 +138,7 @@ class _ImageSliderState extends State<ImageSlider> {
           items: imageList.map((imgLink) {
             return Builder(builder: (context) {
               return SizedBox(
-                width: 1200.0,
+                width: 1400.0,
                 child: Image(fit: BoxFit.cover, image: AssetImage(imgLink)),
               );
             });
