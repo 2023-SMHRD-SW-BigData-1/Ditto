@@ -31,7 +31,7 @@ class NavBarItem extends StatelessWidget {
         },
         child: Text(
           title,
-          style: TextStyle(color: Colors.black, fontSize: 18),
+          style: TextStyle(color: Colors.black, fontSize: 14),
         ),
       ),
     );

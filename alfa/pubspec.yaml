@@ -58,6 +58,7 @@ dependencies:
   vtable: ^0.4.0
   data_tables: ^1.4.0
   path: any
+  video_player: ^2.7.2
   
 dev_dependencies:
   flutter_test:
@@ -95,6 +96,10 @@ flutter:
     - assets/image/macro-1452987_1280.jpg
     - assets/image/macro-1452987_1920.jpg
     - assets/image/typewriter-1248088.jpg
+    - assets/image/gear_icon.png
+    - assets/image/Logo2_icon.png
+    - assets/image/AdobeStock_579036350.png
+    - assets/video/AdobeStock_500673637.mov
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

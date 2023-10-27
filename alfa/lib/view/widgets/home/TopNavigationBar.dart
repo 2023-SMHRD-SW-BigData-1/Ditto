@@ -31,10 +31,21 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Image.asset(
-                  'assets/image/Logo.png',
+                Container(
                   width: 200,
                   height: 200,
+                  child: IconButton(
+                    hoverColor: Colors.transparent,
+                    onPressed: () {
+                      Get.rootDelegate.toNamed(Routes.HOME);
+                    },
+                    icon: Image.asset(
+                      'assets/image/Logo.png',
+                      width: 120,
+                      height: 120,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 SizedBox(
                   width: 10,
