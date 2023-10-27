@@ -1,7 +1,10 @@
+import 'package:alfa/provider/scrollPosition%20.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Home_second extends StatefulWidget {
-  const Home_second({Key? key}) : super(key: key);
+  final double position;
+  const Home_second({required this.position});
 
   @override
   State<Home_second> createState() => _Home_secondState();
@@ -10,6 +13,7 @@ class Home_second extends StatefulWidget {
 class _Home_secondState extends State<Home_second> {
   @override
   Widget build(BuildContext context) {
+    final position = Provider.of<scrollPosition>(context);
     return Container(
       height: 800,
       width: double.infinity,
@@ -19,20 +23,25 @@ class _Home_secondState extends State<Home_second> {
         ),
         SizedBox(
           width: 1400,
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Technology',
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text.rich(TextSpan(children: <TextSpan>[
-                  TextSpan(
-                    text: "Overcome the limitations of technology",
-                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.w700),
+          child: AnimatedOpacity(
+            duration: Duration(milliseconds: 400),
+            opacity: widget.position >= 400 ? 1 : 0.0,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Technology',
+                    style: TextStyle(fontSize: 18),
                   ),
-                ])),
-              ]),
+                  Text.rich(TextSpan(children: <TextSpan>[
+                    TextSpan(
+                      text: "Overcome the limitations of technology",
+                      style:
+                          TextStyle(fontSize: 50, fontWeight: FontWeight.w700),
+                    ),
+                  ])),
+                ]),
+          ),
         ),
         SizedBox(
           width: double.infinity,
@@ -44,23 +53,27 @@ class _Home_secondState extends State<Home_second> {
         ),
         SizedBox(
           width: 1400,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text.rich(TextSpan(children: <TextSpan>[
-                TextSpan(
-                  text: "Find",
-                  style: TextStyle(
-                      fontSize: 40,
-                      color: Color.fromRGBO(62, 68, 102, 1),
-                      fontWeight: FontWeight.w700),
-                ),
-                TextSpan(
-                  text: "\ta more accurate result",
-                  style: TextStyle(fontSize: 40.0),
-                )
-              ])),
-            ],
+          child: AnimatedOpacity(
+            duration: Duration(milliseconds: 400),
+            opacity: widget.position >= 700 ? 1 : 0.0,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text.rich(TextSpan(children: <TextSpan>[
+                  TextSpan(
+                    text: "Find",
+                    style: TextStyle(
+                        fontSize: 40,
+                        color: Color.fromRGBO(62, 68, 102, 1),
+                        fontWeight: FontWeight.w700),
+                  ),
+                  TextSpan(
+                    text: "\ta more accurate result",
+                    style: TextStyle(fontSize: 40.0),
+                  )
+                ])),
+              ],
+            ),
           ),
         ),
         SizedBox(

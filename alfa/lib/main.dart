@@ -5,6 +5,7 @@ import 'package:alfa/Model/User.dart';
 import 'package:alfa/Model/fetch.dart';
 import 'package:alfa/build_app_theme.dart';
 import 'package:alfa/get_pages.dart';
+import 'package:alfa/provider/scrollPosition%20.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
@@ -59,6 +60,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (context) => User(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => scrollPosition(),
         )
       ],
       child: GetMaterialApp.router(
