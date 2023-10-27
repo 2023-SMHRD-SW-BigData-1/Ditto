@@ -14,9 +14,21 @@ import 'package:provider/provider.dart';
 
 void main() async {
   setPathUrlStrategy();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyC1e9kIvssbuNWk1EV4XOvVBETFppinkOY",
+      appId: 'test2-75a63',
+      messagingSenderId: "186697788898",
+      projectId: 'test2-75a63',
+      storageBucket: 'test2-75a63.appspot.com',
+      authDomain: 'test2-75a63.firebaseapp.com',
+    ),
   );
 
   runApp(MyApp());

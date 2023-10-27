@@ -17,11 +17,13 @@ class Server {
       String user_name = response.data['data'][0]['user_name'];
       String user_email = response.data['data'][0]['user_id'];
       String user_num = response.data['data'][0]['user_num'];
+      String user_type = response.data['data'][0]['user_type'];
       // print('res : ' + response.data[0]['user_pw']);
       // print('res : ' + response.data[0].toString());
       await DataManager.saveData('name', user_name);
       await DataManager.saveData('id', user_email);
       await DataManager.saveData('num', user_num);
+      await DataManager.saveData('type', user_type);
     } else if (response.data['result'] == "pw err") {
       await DataManager.saveData('id', 'null');
       print('failedRes : 비밀번호를 잘못 입력함');
