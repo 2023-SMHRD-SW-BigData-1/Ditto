@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final userId = Provider.of<User>(context);
-    // userId.userId = this.userId;
+    userId.userId = this.userId;
     return Scaffold(
       body: SafeArea(
         child: Stack(

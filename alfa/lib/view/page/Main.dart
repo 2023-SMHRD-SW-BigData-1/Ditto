@@ -104,40 +104,40 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                   ),
                 ),
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Center(
-                        child: Container(
-                            margin: EdgeInsets.all(30),
-                            padding: EdgeInsets.all(50),
-                            width: 1500,
-                            height: 700,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Color.fromRGBO(62, 68, 102, 1),
-                                    width: 2),
-                                borderRadius: BorderRadius.circular(10)),
-                            child:
-                                resultTabel(generateRowData(planets.length))),
-                      )
-                    ],
-                  ),
-                  // child: AnimatedBuilder(
-                  //   animation: _controller,
-                  //   child: Container(
-                  //     child: Image.asset(
-                  //       'assets/image/Logo_icon.png',
-                  //       width: 300,
-                  //     ),
-                  //   ),
-                  //   builder: (BuildContext context, Widget? child) {
-                  //     return Transform.rotate(
-                  //       angle: _controller.value * 2.0 * 3.1415926535897932,
-                  //       child: child,
-                  //     );
-                  //   },
+                  // child: Column(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: <Widget>[
+                  //     Center(
+                  //       child: Container(
+                  //           margin: EdgeInsets.all(30),
+                  //           padding: EdgeInsets.all(50),
+                  //           width: 1500,
+                  //           height: 700,
+                  //           decoration: BoxDecoration(
+                  //               border: Border.all(
+                  //                   color: Color.fromRGBO(62, 68, 102, 1),
+                  //                   width: 2),
+                  //               borderRadius: BorderRadius.circular(10)),
+                  //           child:
+                  //               resultTabel(generateRowData(planets.length))),
+                  //     )
+                  //   ],
                   // ),
+                  child: AnimatedBuilder(
+                    animation: _controller,
+                    child: Container(
+                      child: Image.asset(
+                        'assets/image/Logo_icon.png',
+                        width: 300,
+                      ),
+                    ),
+                    builder: (BuildContext context, Widget? child) {
+                      return Transform.rotate(
+                        angle: _controller.value * 2.0 * 3.1415926535897932,
+                        child: child,
+                      );
+                    },
+                  ),
                 ),
                 Main_input()
               ],

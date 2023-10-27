@@ -39,7 +39,7 @@ class _Home_thirddState extends State<Home_third> {
                   children: <Widget>[
                     SizedBox(
                       width: 800,
-                      height: 600,
+                      height: 400,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -59,7 +59,7 @@ class _Home_thirddState extends State<Home_third> {
                     ),
                     SizedBox(
                       width: 600,
-                      height: 600,
+                      height: 400,
                       child: Image.asset(
                         'assets/image/AdobeStock_540804731.jpeg',
                         fit: BoxFit.cover,
@@ -70,7 +70,7 @@ class _Home_thirddState extends State<Home_third> {
               ]),
         ),
         SizedBox(
-          height: 50,
+          height: 100,
         ),
         Container(
           height: 1.5,
