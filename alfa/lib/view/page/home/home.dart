@@ -1,6 +1,6 @@
 import 'package:alfa/Model/User.dart';
-import 'package:alfa/provider/scrollPosition%20.dart';
 import 'package:alfa/view/widgets/home/Footer.dart';
+import 'package:alfa/view/widgets/home/Home_%20fourth.dart';
 import 'package:alfa/view/widgets/home/Home_first.dart';
 import 'package:alfa/view/widgets/home/Home_second.dart';
 import 'package:alfa/view/widgets/home/Home_third.dart';
@@ -21,7 +21,6 @@ class _HomeState extends State<Home> {
   String userId = '';
   ScrollController _controller = ScrollController();
   double _scrollPosition = 0.0;
-  double _previousPosition = 0.0;
 
   @override
   void initState() {
@@ -71,7 +70,8 @@ class _HomeState extends State<Home> {
                 children: <Widget>[
                   Home_first(),
                   Home_second(position: _scrollPosition),
-                  Home_third(),
+                  Home_third(position: _scrollPosition),
+                  Home_fourth(position: _scrollPosition),
                   Footer()
                 ],
               ),

@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:alfa/Model/User.dart';
 import 'package:alfa/get_pages.dart';
 import 'package:alfa/view/widgets/home/login/Login.dart';
@@ -7,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:html' as html;
 
 class NavBarItem extends StatelessWidget {
   final String title;

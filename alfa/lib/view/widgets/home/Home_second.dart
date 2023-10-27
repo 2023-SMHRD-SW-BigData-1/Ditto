@@ -1,6 +1,4 @@
-import 'package:alfa/provider/scrollPosition%20.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Home_second extends StatefulWidget {
   final double position;
@@ -13,7 +11,6 @@ class Home_second extends StatefulWidget {
 class _Home_secondState extends State<Home_second> {
   @override
   Widget build(BuildContext context) {
-    final position = Provider.of<scrollPosition>(context);
     return Container(
       height: 800,
       width: double.infinity,
@@ -24,7 +21,7 @@ class _Home_secondState extends State<Home_second> {
         SizedBox(
           width: 1400,
           child: AnimatedOpacity(
-            duration: Duration(milliseconds: 400),
+            duration: Duration(milliseconds: 500),
             opacity: widget.position >= 400 ? 1 : 0.0,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +51,7 @@ class _Home_secondState extends State<Home_second> {
         SizedBox(
           width: 1400,
           child: AnimatedOpacity(
-            duration: Duration(milliseconds: 400),
+            duration: Duration(milliseconds: 500),
             opacity: widget.position >= 700 ? 1 : 0.0,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,

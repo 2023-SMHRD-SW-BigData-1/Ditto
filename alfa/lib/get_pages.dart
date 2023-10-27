@@ -3,8 +3,6 @@ import 'package:alfa/view/page/home/Home.dart';
 import 'package:alfa/view/page/home/User_info.dart';
 import 'package:alfa/view/page/home/User_join.dart';
 import 'package:get/get.dart';
-import 'Provider/shared.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class Routes {
   static const HOME = '/';
