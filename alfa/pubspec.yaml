@@ -100,6 +100,7 @@ flutter:
     - assets/image/Logo2_icon.png
     - assets/image/AdobeStock_579036350.png
     - assets/video/AdobeStock_500673637.mov
+    - assets/image/AdobeStock_540804731.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

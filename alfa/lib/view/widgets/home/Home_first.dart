@@ -109,7 +109,7 @@ class _Home_firstState extends State<Home_first> {
           Text(
               "And a heaven full of stars Over my head, White and topaz And misty red Myriads with beating Hearts of fire That aeons"),
           SizedBox(
-            height: 10.0,
+            height: 30.0,
           ),
           Container(
             height: 1.5,

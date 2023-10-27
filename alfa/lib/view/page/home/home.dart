@@ -2,6 +2,7 @@ import 'package:alfa/Model/User.dart';
 import 'package:alfa/view/widgets/home/Footer.dart';
 import 'package:alfa/view/widgets/home/Home_first.dart';
 import 'package:alfa/view/widgets/home/Home_second.dart';
+import 'package:alfa/view/widgets/home/Home_third.dart';
 import 'package:alfa/view/widgets/home/TopNavigationBar.dart';
 import 'package:alfa/view/widgets/home/login/Login_btn.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,12 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             SingleChildScrollView(
               child: Column(
-                children: <Widget>[Home_first(), Home_second(), Footer()],
+                children: <Widget>[
+                  Home_first(),
+                  Home_second(),
+                  Home_third(),
+                  Footer()
+                ],
               ),
             ),
             TopNavigationBar(),

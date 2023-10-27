@@ -15,7 +15,7 @@ class _Home_secondState extends State<Home_second> {
       width: double.infinity,
       child: Column(children: <Widget>[
         SizedBox(
-          height: 50,
+          height: 20,
         ),
         SizedBox(
           width: 1400,
@@ -51,20 +51,20 @@ class _Home_secondState extends State<Home_second> {
                 TextSpan(
                   text: "Find",
                   style: TextStyle(
-                      fontSize: 50,
+                      fontSize: 40,
                       color: Color.fromRGBO(62, 68, 102, 1),
                       fontWeight: FontWeight.w700),
                 ),
                 TextSpan(
                   text: "\ta more accurate result",
-                  style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: 40.0),
                 )
               ])),
             ],
           ),
         ),
         SizedBox(
-          height: 20,
+          height: 50,
         ),
         Container(
           height: 1.5,
