@@ -30,14 +30,6 @@ class _MyAppState extends State<Google_login2> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  'assets/image/Google_logo.png',
-                  width: 20.0,
-                  height: 20.0,
-                ),
-                SizedBox(
-                  width: 20,
-                ),
                 Text(
                   'Sign in with Google',
                   style: TextStyle(

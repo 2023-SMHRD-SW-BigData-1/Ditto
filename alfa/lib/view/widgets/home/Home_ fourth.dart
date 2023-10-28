@@ -63,14 +63,14 @@ class _Home_fourthState extends State<Home_fourth> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Journey into the Fascinating World of Heat Treatment:\nUnveiling the Future of Precision and Quality.\nJoin us in Exploring the Art and Science of Heat Treatment Processes,\nWhere Innovation and Tradition Converge to Shape Tomorrow's Excellence.",
+                              'Hello! We are Team "Metamong." Our team consists of five dedicated individuals:\nKim TaeKyeong, Jo SeoHyeon, Park HeeJu, Park JiWon, and Lee SuHo.\nWe have spent six months honing our skills at the Smart Talent Development Institute.',
                               style: TextStyle(fontSize: 20),
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             Text(
-                              "At the Forefront of Heat Treatment Excellence,\nWe Strive to Enhance Your Products Beyond Expectations.\nDiscover the Power of Advanced Technologies,\nand Join Us in Shaping the Future of Industrial Heat Processing.",
+                              "We have dedicated 1800 hours to learning and growing at the Smart Talent Development Institute,\nand now we are preparing for real-world projects.\nWe are enhancing our development skills and problem-solving abilities,\nstriving to complete exciting projects.\nStay tuned for our journey of growth together!",
                               style: TextStyle(fontSize: 20),
                             )
                           ],

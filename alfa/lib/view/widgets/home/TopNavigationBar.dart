@@ -1,11 +1,9 @@
 import 'dart:ui';
-
-import 'package:alfa/Model/User.dart';
+import 'package:alfa/Controller/userState.dart';
 import 'package:alfa/get_pages.dart';
 import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 class TopNavigationBar extends StatefulWidget {
   const TopNavigationBar({super.key});
@@ -17,7 +15,6 @@ class TopNavigationBar extends StatefulWidget {
 class _TopNavigationBarState extends State<TopNavigationBar> {
   @override
   Widget build(BuildContext context) {
-    final userId = Provider.of<User>(context);
     return Stack(children: <Widget>[
       ClipRRect(
         child: BackdropFilter(
@@ -52,7 +49,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (userId.userId == '') {
+                    if (loadUserId() == '') {
                       showDialog(
                           context: context,
                           barrierDismissible: true,

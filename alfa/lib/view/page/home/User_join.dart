@@ -16,14 +16,9 @@ class User_join extends StatelessWidget {
             child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
-              width: 50,
-            ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(
-                  height: 40,
-                ),
                 Image.asset(
                   'assets/image/Logo_text.png',
                   width: 200,
@@ -31,7 +26,7 @@ class User_join extends StatelessWidget {
                 SizedBox(
                   height: 40,
                 ),
-                Container(
+                SizedBox(
                   child: Form_join(),
                   height: 800,
                   width: 800,
@@ -41,15 +36,6 @@ class User_join extends StatelessWidget {
             SizedBox(
               width: 50,
             ),
-            Expanded(
-              child: OverflowBox(
-                minWidth: 1020,
-                child: Image.asset(
-                  'assets/image/macro-1452987_1920.jpg',
-                  fit: BoxFit.fill,
-                ),
-              ),
-            )
           ],
         )),
       ),

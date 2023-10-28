@@ -1,10 +1,9 @@
-import 'package:alfa/Model/User.dart';
+import 'package:alfa/Controller/userState.dart';
 import 'package:alfa/get_pages.dart';
 import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 class Home_first extends StatefulWidget {
   const Home_first({Key? key}) : super(key: key);
@@ -19,8 +18,7 @@ List imageList = ["assets/image/image9.png", "assets/image/first_img.jpg"];
 class _Home_firstState extends State<Home_first> {
   @override
   Widget build(BuildContext context) {
-    final _userId = Provider.of<User>(context);
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 1000.0,
       child: Column(
@@ -55,7 +53,7 @@ class _Home_firstState extends State<Home_first> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        if (_userId.userId == '') {
+                        if (loadUserId() == '') {
                           showDialog(
                               context: context,
                               barrierDismissible: true,
