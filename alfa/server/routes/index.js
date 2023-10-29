@@ -4,6 +4,23 @@ const app = express();
 const router = express.Router()
 const dbConfig = require('../config/database');
 
+// const bodyParser = require('body-parser');
+
+// const model = require('C:\\Users\\smhrd\\Desktop\\실전프로젝트\\데이터\\emsemble_model.pkl')
+
+// app.use(bodyParser.json());
+// // 모델 호츨 엔드포인트 설정
+// app.post('/predict', (req,res)=>{
+//     const inputData = req.body.data; // 클라이언트에서 전송된 데이터
+//     const prediction = model.predict(inputData); // 모델 호출
+
+//     // 결과 반환
+//     res.json({prediction});
+// })
+
+
+
+
 let conn = dbConfig.init();
 
 dbConfig.connect(conn);
