@@ -53,6 +53,7 @@ class Payment extends StatefulWidget {
 
 class _SecondRouteState extends State<Payment> {
   Payload payload = Payload();
+  Payload payload2 = Payload();
   //
   String webApplicationId = '653b6e9700c78a001c21b705';
   String androidApplicationId = '5b8f6a4d396fa665fdc2b5e8';
@@ -257,14 +258,16 @@ class _SecondRouteState extends State<Payment> {
     item1.id = "ITEM_CODE_ONCE"; // 해당 상품의 고유 키
     item1.price = 200000; // 상품의 가격
 
-    // Item item2 = Item();
-    // item2.name = "키보드"; // 주문정보에 담길 상품명
-    // item2.qty = 1; // 해당 상품의 주문 수량
-    // item2.id = "ITEM_CODE_KEYBOARD"; // 해당 상품의 고유 키
-    // item2.price = 5000.50; // 상품의 가격
-    List<Item> itemList = [item1];
+    Item item2 = Item();
+    item2.name = "라이센스"; // 주문정보에 담길 상품명
+    item2.qty = 1; // 해당 상품의 주문 수량
+    item2.id = "ITEM_CODE_license"; // 해당 상품의 고유 키
+    item2.price = 2000000; // 상품의 가격
+    List<Item> itemList1 = [item1];
+    List<Item> itemList2 = [item2];
 
     payload.webApplicationId = webApplicationId; // web application id
+    payload2.webApplicationId = webApplicationId; // web application id
     payload.androidApplicationId =
         androidApplicationId; // android application id
     payload.iosApplicationId = iosApplicationId; // ios application id
@@ -275,8 +278,13 @@ class _SecondRouteState extends State<Payment> {
     // payload.methods = ['카드', '휴대폰', '가상계좌', '계좌이체', '카카오페이'];
     payload.orderName = "1회용 결제"; //결제할 상품명
     payload.price = 200000; //정기결제시 0 혹은 주석
+    payload2.orderName = "라이센스 결제"; //결제할 상품명
+    payload2.price = 2000000; //정기결제시 0 혹은 주석
 
     payload.orderId = DateTime.now()
+        .millisecondsSinceEpoch
+        .toString(); //주문번호, 개발사에서 고유값으로 지정해야함
+    payload2.orderId = DateTime.now()
         .millisecondsSinceEpoch
         .toString(); //주문번호, 개발사에서 고유값으로 지정해야함
 
@@ -286,7 +294,15 @@ class _SecondRouteState extends State<Payment> {
       "callbackParam3": "value56",
       "callbackParam4": "value78",
     }; // 전달할 파라미터, 결제 후 되돌려 주는 값
-    payload.items = itemList; // 상품정보 배열
+    payload.items = itemList1; // 상품정보 배열
+
+    payload2.metadata = {
+      "callbackParam1": "value12",
+      "callbackParam2": "value34",
+      "callbackParam3": "value56",
+      "callbackParam4": "value78",
+    }; // 전달할 파라미터, 결제 후 되돌려 주는 값
+    payload2.items = itemList2; // 상품정보 배열
 
     // User user = User(); // 구매자 정보
     // user.id = "12341234";
@@ -307,6 +323,14 @@ class _SecondRouteState extends State<Payment> {
       payload.extra?.redirectUrl = 'https://api.bootpay.co.kr/v2';
     }
 
+    if (BootpayConfig.ENV == -1) {
+      payload2.extra?.redirectUrl = 'https://dev-api.bootpay.co.kr/v2';
+    } else if (BootpayConfig.ENV == -2) {
+      payload2.extra?.redirectUrl = 'https://stage-api.bootpay.co.kr/v2';
+    } else {
+      payload2.extra?.redirectUrl = 'https://api.bootpay.co.kr/v2';
+    }
+
     // extra.cardQuota = '3';
     // extra.openType = 'popup';
 
@@ -314,8 +338,10 @@ class _SecondRouteState extends State<Payment> {
     // extra.ageLimit = 20; // 본인인증시 제한할 최소 나이 ex) 20 -> 20살 이상만 인증이 가능
 
     // payload.user = user;
-    payload.items = itemList;
+    payload.items = itemList1;
     payload.extra = extra;
+    payload2.items = itemList2;
+    payload2.extra = extra;
     // payload.extra?.openType = "iframe";
   }
 
@@ -378,28 +404,7 @@ class _SecondRouteState extends State<Payment> {
         // checkQtyFromServer(data);
         return false;
       },
-      // onConfirmAsync: (String data) async {
-      //   print('------- onConfirmAsync11: $data');
-      //   /**
-      //       1. 바로 승인하고자 할 때
-      //       return true;
-      //    **/
-      //   /***
-      //       2. 비동기 승인 하고자 할 때
-      //       checkQtyFromServer(data);
-      //       return false;
-      //    ***/
-      //   /***
-      //       3. 서버승인을 하고자 하실 때 (클라이언트 승인 X)
-      //       return false; 후에 서버에서 결제승인 수행
-      //    */
-      //
-      //   await checkQtyFromServer(data);
-      //   print('------- onConfirmAsync22: $data');
-      //   // return true;
-      //   // return true;
-      //   return true;
-      // },
+
       onDone: (String data) {
         print('------- onDone: $data');
       },
@@ -409,19 +414,19 @@ class _SecondRouteState extends State<Payment> {
   void goBootpay2(BuildContext context) {
     if (kIsWeb) {
       //flutter web은 cors 이슈를 설정으로 먼저 해결해주어야 한다.
-      payload.extra?.openType = 'iframe';
+      payload2.extra?.openType = 'iframe';
     }
-    payload.extra?.browserOpenType = [
+    payload2.extra?.browserOpenType = [
       BrowserOpenType.fromJson({"browser": "naver", "open_type": 'popup'}),
     ];
 
     // print('popup');
     // payload.extra?.openType = 'popup';
 
-    payload.pg = '나이스페이';
-    payload.method = "";
+    payload2.pg = '나이스페이';
+    payload2.method = "";
 
-    payload.extra?.displayCashReceipt = false;
+    payload2.extra?.displayCashReceipt = false;
     // payload.extra?.escrow = true;
     // payload.extra?.locale = 'en'; //app locale
     // Bootpay().setLocale('en'); //web locale
@@ -430,7 +435,7 @@ class _SecondRouteState extends State<Payment> {
 
     Bootpay().requestPayment(
       context: context,
-      payload: payload,
+      payload: payload2,
       showCloseButton: false,
       // closeButton: Icon(Icons.close, size: 35.0, color: Colors.black54),
       onCancel: (String data) {
@@ -464,211 +469,9 @@ class _SecondRouteState extends State<Payment> {
         // checkQtyFromServer(data);
         return false;
       },
-      // onConfirmAsync: (String data) async {
-      //   print('------- onConfirmAsync11: $data');
-      //   /**
-      //       1. 바로 승인하고자 할 때
-      //       return true;
-      //    **/
-      //   /***
-      //       2. 비동기 승인 하고자 할 때
-      //       checkQtyFromServer(data);
-      //       return false;
-      //    ***/
-      //   /***
-      //       3. 서버승인을 하고자 하실 때 (클라이언트 승인 X)
-      //       return false; 후에 서버에서 결제승인 수행
-      //    */
-      //
-      //   await checkQtyFromServer(data);
-      //   print('------- onConfirmAsync22: $data');
-      //   // return true;
-      //   // return true;
-      //   return true;
-      // },
       onDone: (String data) {
         print('------- onDone: $data');
       },
     );
   }
-
-  //버튼클릭시 부트페이 정기결제 요청 실행
-  // void goBootpaySubscriptionTest(BuildContext context) {
-  //   payload.subscriptionId = DateTime.now()
-  //       .millisecondsSinceEpoch
-  //       .toString(); //주문번호, 개발사에서 고유값으로 지정해야함
-  //   // payload.pg = "토스";
-  //   // payload.method = "카드정기";
-  //   // payload.extra?.subscribeTestPayment = false;
-
-  //   Bootpay().requestSubscription(
-  //     context: context,
-  //     payload: payload,
-  //     showCloseButton: false,
-  //     // closeButton: Icon(Icons.close, size: 35.0, color: Colors.black54),
-  //     onCancel: (String data) {
-  //       print('------- onCancel 2: $data');
-  //     },
-  //     onError: (String data) {
-  //       print('------- onError 2: $data');
-  //     },
-  //     onClose: () {
-  //       print('------- onClose');
-  //       Bootpay().dismiss(context); //명시적으로 부트페이 뷰 종료 호출
-  //       //TODO - 원하시는 라우터로 페이지 이동
-  //     },
-  //     onIssued: (String data) {
-  //       print('------- onIssued: $data');
-  //     },
-  //     onConfirm: (String data) {
-  //       /**
-  //           1. 바로 승인하고자 할 때
-  //           return true;
-  //        **/
-  //       /***
-  //           2. 비동기 승인 하고자 할 때
-  //           checkQtyFromServer(data);
-  //           return false;
-  //        ***/
-  //       /***
-  //           3. 서버승인을 하고자 하실 때 (클라이언트 승인 X)
-  //           return false; 후에 서버에서 결제승인 수행
-  //        */
-  //       checkQtyFromServer(data);
-  //       return false;
-  //     },
-  //     onDone: (String data) {
-  //       print('------- onDone: $data');
-  //     },
-  //   );
-  // }
-
-  // void goBootpaySubscriptionUITest(BuildContext context) {
-  //   payload.subscriptionId = DateTime.now()
-  //       .millisecondsSinceEpoch
-  //       .toString(); //주문번호, 개발사에서 고유값으로 지정해야함
-  //   // payload.pg = 'kakao';
-  //   // payload.method = 'easy_rebill';
-
-  //   payload.pg = "나이스페이";
-  //   payload.method = "카드자동";
-  //   // payload.extra?.subscribeTestPayment = false;
-
-  //   payload.metadata = {
-  //     "callbackParam1": "value12",
-  //     "callbackParam2": "value34",
-  //     "callbackParam3": "value56",
-  //     "callbackParam4": "value78",
-  //   }; // 전달할 파라미터, 결제 후 되돌려 주는 값
-
-  //   Bootpay().requestSubscription(
-  //     context: context,
-  //     payload: payload,
-  //     showCloseButton: false,
-  //     // closeButton: Icon(Icons.close, size: 35.0, color: Colors.black54),
-  //     onCancel: (String data) {
-  //       print('------- onCancel 3: $data');
-  //     },
-  //     onError: (String data) {
-  //       print('------- onError 3: $data');
-  //       Bootpay().dismiss(context); //명시적으로 부트페이 뷰 종료 호출
-  //     },
-  //     onClose: () {
-  //       print('------- onClose');
-  //       Bootpay().dismiss(context); //명시적으로 부트페이 뷰 종료 호출
-  //       //TODO - 원하시는 라우터로 페이지 이동
-  //     },
-  //     onIssued: (String data) {
-  //       print('------- onIssued: $data');
-  //     },
-  //     onConfirm: (String data) {
-  //       /**
-  //           1. 바로 승인하고자 할 때
-  //           return true;
-  //        **/
-  //       /***
-  //           2. 비동기 승인 하고자 할 때
-  //           checkQtyFromServer(data);
-  //           return false;
-  //        ***/
-  //       /***
-  //           3. 서버승인을 하고자 하실 때 (클라이언트 승인 X)
-  //           return false; 후에 서버에서 결제승인 수행
-  //        */
-
-  //       checkQtyFromServer(data);
-  //       return false;
-  //     },
-  //     onDone: (String data) {
-  //       print('------- onDone: $data');
-  //     },
-  //   );
-  // }
-
-  // void goBootpayAuthTest(BuildContext context) {
-  //   payload.pg = "다날";
-  //   payload.method = "본인인증";
-  //   payload.authenticationId = DateTime.now()
-  //       .millisecondsSinceEpoch
-  //       .toString(); //주문번호, 개발사에서 고유값으로 지정해야함
-  //   payload.extra = Extra();
-  //   payload.extra?.openType = 'iframe';
-  //   payload.extra?.showCloseButton = true;
-  //   // payload.extra?.show
-  //   // payload.extra?.ageLimit = 40;
-
-  //   Bootpay().requestAuthentication(
-  //     context: context,
-  //     payload: payload,
-  //     showCloseButton: false,
-  //     // closeButton: Icon(Icons.close, size: 35.0, color: Colors.black54),
-  //     onCancel: (String data) {
-  //       print('------- onCancel: $data');
-  //     },
-  //     onError: (String data) {
-  //       print('------- onError: $data');
-  //     },
-  //     onClose: () {
-  //       print('------- onClose');
-  //       Bootpay().dismiss(context); //명시적으로 부트페이 뷰 종료 호출
-  //       //TODO - 원하시는 라우터로 페이지 이동
-  //     },
-  //     onIssued: (String data) {
-  //       print('------- onIssued: $data');
-  //     },
-  //     onConfirm: (String data) {
-  //       /**
-  //           1. 바로 승인하고자 할 때
-  //           return true;
-  //        **/
-  //       /***
-  //           2. 비동기 승인 하고자 할 때
-  //           checkQtyFromServer(data);
-  //           return false;
-  //        ***/
-  //       /***
-  //           3. 서버승인을 하고자 하실 때 (클라이언트 승인 X)
-  //           return false; 후에 서버에서 결제승인 수행
-  //        */
-
-  //       // Bootpay().dismiss(context);
-  //       // return false;
-  //       return true;
-  //     },
-  //     onDone: (String data) {
-  //       print('------- onDone: $data');
-  //     },
-  //   );
-  // }
-
-  // Future<void> checkQtyFromServer(String data) async {
-  //   //TODO 서버로부터 재고파악을 한다
-  //   print('checkQtyFromServer start: $data');
-  //   return Future.delayed(Duration(seconds: 1), () {
-  //     print('checkQtyFromServer end: $data');
-
-  //     Bootpay().transactionConfirm();
-  //     return true;
-  //   });
-  // }
 }
