@@ -20,7 +20,7 @@ version: 1.0.0+1
 
 environment:
   sdk: '>=3.1.4 <4.0.0'
-
+  flutter: ">=3.3.0"
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
@@ -51,7 +51,7 @@ dependencies:
   cloud_firestore: ^4.11.0
   firebase_auth: ^4.11.1
   firebase_core: ^2.19.0
-  shared_preferences: ^2.2.2
+  shared_preferences: ^2.1.1
   dio: ^5.3.3
   url_strategy: ^0.2.0
   editable: ^2.0.0
@@ -59,7 +59,27 @@ dependencies:
   data_tables: ^1.4.0
   path: any
   video_player: ^2.7.2
+  url_launcher: ^6.2.1
+
+  # bootpay
+  bootpay_webview_flutter: ^4.2.3
+
+
+
+  bootpay_webview_flutter_android: ^3.6.2
+  bootpay_webview_flutter_wkwebview: ^3.4.1
+  uuid: 3.0.7
   
+  js: ^0.6.7
+  fluttertoast: 8.2.1
+  
+  package_info_plus: ^4.0.2
+  encrypt: ^5.0.1
+  
+  intl: 0.18.1
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -121,3 +141,11 @@ flutter:
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  plugin:
+    platforms:
+      android:
+        default_package: bootpay_webview_flutter_android
+      ios:
+        default_package: bootpay_webview_flutter_wkwebview
+      web:

@@ -1,7 +1,11 @@
 import 'package:alfa/Model/Input_data.dart';
+import 'package:alfa/view/widgets/main/Payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:alfa/get_pages.dart';
+import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Widget Main_input() {
   return Builder(builder: (context) {
@@ -47,6 +51,19 @@ Widget Main_input() {
                           double.parse(hardnessController.text);
                       _Input_data.elongation =
                           double.parse(elongationController.text);
+                      // Get.rootDelegate.toNamed(Routes.PAY);
+                      showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: Payment(),
+                            );
+                          });
+
+                      print(_Input_data.yield);
+                      print(_Input_data.tensile);
+                      print(_Input_data.hardness);
                       print(_Input_data.elongation);
                     }
                   },

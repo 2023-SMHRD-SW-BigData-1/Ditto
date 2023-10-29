@@ -1,9 +1,9 @@
 import 'dart:ui';
 import 'package:alfa/Controller/userState.dart';
 import 'package:alfa/get_pages.dart';
+import 'package:get/get.dart';
 import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

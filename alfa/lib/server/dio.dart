@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 // import 'package:alfa/view/widgets/home/login/Form_login.dart';
 import '../provider/shared.dart';
 
-const url = "http://172.30.1.29:8889";
+const url = "http://192.168.35.224:8889";
 
 class Server {
   Future login(String user_id, String user_pw) async {
