@@ -14,37 +14,6 @@ import '../../../../deprecated/api_provider.dart';
 
 import 'package:intl/intl.dart';
 
-// void main() {
-//   runApp(MaterialApp(
-//     title: 'Navigation Basics',
-//     home: FirstRoute(),
-//   ));
-//   runApp(FirstRoute());
-// }
-
-// class FirstRoute extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('First Route'),
-//       ),
-//       body: Center(
-//         child: TextButton(
-//           child: Text('결제 route로 이동'),
-//           onPressed: () {
-//             // 눌렀을 때 두 번째 route로 이동합니다.
-//             Navigator.push(
-//               context,
-//               MaterialPageRoute(builder: (context) => SecondRoute()),
-//             );
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class Payment extends StatefulWidget {
   const Payment({super.key});
 
