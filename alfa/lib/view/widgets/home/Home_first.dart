@@ -4,6 +4,7 @@ import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home_first extends StatefulWidget {
   const Home_first({Key? key}) : super(key: key);
@@ -52,8 +53,10 @@ class _Home_firstState extends State<Home_first> {
                       height: 140.0,
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        if (loadUserId() == '') {
+                      onPressed: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        final userId = prefs.getString('name') ?? '';
+                        if (userId == '') {
                           showDialog(
                               context: context,
                               barrierDismissible: true,

@@ -7,7 +7,6 @@ import 'package:alfa/view/widgets/home/Home_third.dart';
 import 'package:alfa/view/widgets/home/TopNavigationBar.dart';
 import 'package:alfa/view/widgets/home/login/Login_btn.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,7 +16,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  ScrollController _controller = ScrollController();
+  final ScrollController _controller = ScrollController();
   double _scrollPosition = 0.0;
   @override
   void initState() {

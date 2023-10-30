@@ -63,7 +63,7 @@ class _Home_fourthState extends State<Home_fourth> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Hello! We are Team "Metamong." Our team consists of five dedicated individuals:\nKim TaeKyeong, Jo SeoHyeon, Park HeeJu, Park JiWon, and Lee SuHo.\nWe have spent six months honing our skills at the Smart Talent Development Institute.',
+                              'Hello! We are Team "Metamong." Our team consists of five dedicated individuals:\nKim TaeKyeong, Cho Seoyeon, Park HeeJoo, Park JiWon, and Lee SuHo.\nWe have spent six months honing our skills at the Smart Talent Development Institute.',
                               style: TextStyle(fontSize: 20),
                             ),
                             SizedBox(

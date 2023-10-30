@@ -5,7 +5,6 @@ import 'package:alfa/view/widgets/home/info/HistoryContent.dart';
 import 'package:alfa/view/widgets/home/info/InfoContent.dart';
 import 'package:alfa/view/widgets/home/login/Login_btn.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class User_info extends StatefulWidget {
   const User_info({super.key});

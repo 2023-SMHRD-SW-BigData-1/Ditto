@@ -4,6 +4,7 @@ import 'package:alfa/get_pages.dart';
 import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TopNavigationBar extends StatefulWidget {
   const TopNavigationBar({super.key});
@@ -48,8 +49,10 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
                   width: 10,
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    if (loadUserId() == '') {
+                  onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    final userId = prefs.getString('name') ?? '';
+                    if (userId == '') {
                       showDialog(
                           context: context,
                           barrierDismissible: true,
