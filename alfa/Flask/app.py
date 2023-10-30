@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pymysql
+import pandas as pd
 import joblib
 
 app = Flask(__name__)
@@ -17,7 +18,7 @@ db = pymysql.connect(host='project-db-campus.smhrd.com',
                      port=3307)
 
 # .pkl 파일 경로
-file_path = 'C:\\Users\\smhrd\\Desktop\\실전프로젝트\\데이터\\emsemble_model.pkl'
+file_path = 'C:/Users/smhrd/Desktop/dittoModel.pkl'
 
 # 머신러닝 모델 로드
 loaded_model = joblib.load(file_path)
@@ -25,35 +26,61 @@ loaded_model = joblib.load(file_path)
 # print(loaded_model)
 
 # 예측 함수
-def predict_value(alloy_info):
+alloy_info = [{'최대인장강도' : 200,
+'항복강도' : 175,
+'연신율' : 1.5,
+'경도' : 140}]
+
+data = pd.DataFrame(alloy_info)
+
+def predict_value(data):
     # 머신러닝 모델 호출 및 예측 수행
-    predicted_value = loaded_model.predict(alloy_info)
+    predicted_value = loaded_model.predict(data)
     return predicted_value
 
 # print(predict_value)
 
+# @app.route('/', methods=['GET'])
+# def get_data():
+#     cursor = db.cursor()
+#     cursor.execute("SELECT * FROM user_info")
+#     results = cursor.fetchall()
+#     cursor.close()
+    return jsonify(results)
+print('a' ,predict_value)
+
 # API 엔드포인트 등록
-@app.route('/api/user/predict', methods=['POST'])
+@app.route('/api/result', methods=['GET'])
 def predict():
     try:
-        data = request.get_json()
-        alloy_info = data['alloy_info']
+#         alloy_info = data[{'최대인장강도' : 200,
+# '항복강도' : 175,
+# '연신율' : 1.5,
+# '경도' : 140}]
 
+        # data = request.get_json()
+        alloy_info = [{'최대인장강도' : 200,
+'항복강도' : 175,
+'연신율' : 1.5,
+'경도' : 140}]
+
+        data = pd.DataFrame(alloy_info)
         # 예측 수행
-        prediction = predict_value(alloy_info)
+        prediction = predict_value(data)
 
         print(prediction)
 
         # 사용자 입력을 데이터베이스에 저장 (SQL 인젝션 방어)
-        cursor = db.cursor()
-        insert_query = "INSERT INTO alloy_info (input_value) VALUES (%s)"
-        cursor.execute(insert_query, (alloy_info,))
-        db.commit()
-        cursor.close()
-
-        return jsonify({'prediction': prediction})
+        # cursor = db.cursor()
+        # insert_query = "INSERT INTO alloy_info (input_value) VALUES (%s)"
+        # cursor.execute(insert_query, (alloy_info,))
+        # db.commit()
+        # cursor.close()
+        # return (prediction)
+        print('result', prediction)
+        # return jsonify({'prediction': prediction})
     except Exception as e:
         return jsonify({'error': str(e)})
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

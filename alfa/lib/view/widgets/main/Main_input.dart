@@ -50,7 +50,6 @@ Widget Main_input() {
                           double.parse(hardnessController.text);
                       _Input_data.elongation =
                           double.parse(elongationController.text);
-                      // Get.rootDelegate.toNamed(Routes.PAY);
                       showDialog(
                           context: context,
                           barrierDismissible: true,
@@ -76,7 +75,12 @@ Widget Main_input() {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
                 ),
-              )
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Get.rootDelegate.toNamed(Routes.MAIN);
+                  },
+                  child: Text('gogo'))
             ],
           ),
         ),

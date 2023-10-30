@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:alfa/provider/shared.dart';
 
 class Google_login2 extends StatefulWidget {
   const Google_login2({super.key});
@@ -13,7 +14,7 @@ class Google_login2 extends StatefulWidget {
 
 class _MyAppState extends State<Google_login2> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
-  String? name, imageUrl, userEmail, uid;
+  String? name, imageUrl, userEmail, uid, userNum;
 
   // This widget is the root of your application.
   @override
@@ -85,10 +86,11 @@ class _MyAppState extends State<Google_login2> {
       uid = user.uid;
       name = user.displayName;
       userEmail = user.email;
-      imageUrl = user.photoURL;
+      userNum = user.phoneNumber;
 
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool('auth', true);
+      // DataManager.saveData('google_name', name)
+      // SharedPreferences prefs = await SharedPreferences.getInstance();
+      // prefs.setBool('auth', true);
       print("name: $name");
       print("userEmail: $userEmail");
       print("imageUrl: $imageUrl");
