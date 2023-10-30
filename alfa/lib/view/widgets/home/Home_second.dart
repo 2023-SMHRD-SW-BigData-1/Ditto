@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class Home_second extends StatefulWidget {
@@ -9,6 +11,75 @@ class Home_second extends StatefulWidget {
 }
 
 class _Home_secondState extends State<Home_second> {
+  late ScrollController _scrollController;
+  late Timer _timer;
+
+  final List<Widget> items = [
+    Image.asset(
+      'assets/image/logo/flutter.png',
+      fit: BoxFit.cover,
+    ),
+    SizedBox(
+      width: 100,
+    ),
+    Image.asset(
+      'assets/image/logo/dart.png',
+      fit: BoxFit.cover,
+    ),
+    SizedBox(
+      width: 100,
+    ),
+    Image.asset(
+      'assets/image/logo/node.png',
+      fit: BoxFit.cover,
+    ),
+    SizedBox(
+      width: 100,
+    ),
+    Image.asset(
+      'assets/image/logo/python.png',
+      fit: BoxFit.cover,
+    ),
+    SizedBox(
+      width: 100,
+    ),
+    Image.asset(
+      'assets/image/logo/flask.png',
+      fit: BoxFit.cover,
+    ),
+    SizedBox(
+      width: 100,
+    ),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController()..addListener(_onScroll);
+    _startAutoScrolling();
+  }
+
+  _startAutoScrolling() {
+    _timer = Timer.periodic(Duration(milliseconds: 50), (timer) {
+      _scrollController.jumpTo(_scrollController.position.pixels + 2.0);
+    });
+  }
+
+  _onScroll() {
+    if (_scrollController.position.extentAfter < 100.0) {
+      // 100.0 픽셀이 남았을 때
+      _scrollController.jumpTo(_scrollController.position.pixels -
+          (items.length / 2) * 140.0); // 각 아이템과 스페이스의 폭 합산(예: 120 + 20)
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,9 +114,20 @@ class _Home_secondState extends State<Home_second> {
         SizedBox(
           width: double.infinity,
           height: 500,
-          child: Image.asset(
-            'assets/image/AdobeStock_579036350.png',
-            fit: BoxFit.cover,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 300,
+                child: ListView.builder(
+                  controller: _scrollController,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return items[index % items.length];
+                  },
+                ),
+              ),
+            ],
           ),
         ),
         SizedBox(
