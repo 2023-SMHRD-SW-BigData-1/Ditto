@@ -90,7 +90,7 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                         child: Row(
                           children: <Widget>[
                             SizedBox(
-                              width: 74,
+                              width: 65,
                             ),
                             Image.asset(
                               'assets/image/Logo_text.png',

@@ -9,10 +9,7 @@ import 'Bootpay/model/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../deprecated/api_provider.dart';
-
-import 'package:intl/intl.dart';
 
 class Payment extends StatefulWidget {
   const Payment({super.key});
@@ -49,53 +46,52 @@ class _SecondRouteState extends State<Payment> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Builder(builder: (BuildContext context) {
-        return Container(
-          child: SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(
-                  child: TextButton(
-                    onPressed: () => goBootpay1(context),
-                    child: Text('1회 결제'),
+    return Container(
+      child: SafeArea(
+        child: Row(
+          children: <Widget>[
+            Container(
+              width: 400.0,
+              height: 300.0,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 240,
+                    width: double.infinity,
+                    margin: EdgeInsets.all(10),
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.black)),
                   ),
-                ),
-                SizedBox(height: 10),
-                Center(
-                  child: TextButton(
+                  TextButton(
                     onPressed: () => goBootpay2(context),
                     child: Text('라이센스 결제'),
                   ),
-                ),
-                // SizedBox(height: 10),
-                // Center(
-                //   child: TextButton(
-                //     onPressed: () => goBootpaySubscriptionTest(context),
-                //     child: Text('인증 정기결제 테스트 (PG사 UI)'),
-                //   ),
-                // ),
-                // SizedBox(height: 10),
-                // Center(
-                //   child: TextButton(
-                //     onPressed: () => goBootpayAuthTest(context),
-                //     child: Text('본인인증 테스트'),
-                //   ),
-                // ),
-                // SizedBox(height: 10),
-                // Center(
-                //   child: TextButton(
-                //     onPressed: () => goBootpayPassword(context),
-                //     child: Text('비밀번호 결제테스트'),
-                //   ),
-                // ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
-      }),
+            SizedBox(height: 10),
+            Container(
+              width: 400.0,
+              height: 300.0,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 240,
+                    width: double.infinity,
+                    margin: EdgeInsets.all(10),
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.black)),
+                  ),
+                  TextButton(
+                    onPressed: () => goBootpay1(context),
+                    child: Text('1회 결제'),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
