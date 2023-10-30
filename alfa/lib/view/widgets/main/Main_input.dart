@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:alfa/get_pages.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 Widget Main_input() {
   return Builder(builder: (context) {

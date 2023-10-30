@@ -59,7 +59,7 @@ dependencies:
   data_tables: ^1.4.0
   path: any
   video_player: ^2.7.2
-  url_launcher: ^6.2.1
+  
 
   # bootpay
   bootpay_webview_flutter: ^4.2.3
