@@ -5,6 +5,23 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Flask",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            "env": {
+                "FLASK_APP": "app.py",
+                "FLASK_DEBUG": "1"
+            },
+            "args": [
+                "run",
+                "--no-debugger",
+                "--no-reload"
+            ],
+            "jinja": true,
+            "justMyCode": true
+        },
+        {
             "type": "chrome",
             "request": "launch",
             "name": "localhost에 대해 Chrome 시작",
@@ -15,7 +32,12 @@
             "type": "dart",
             "request": "launch",
             "name": "ditto 8889",
-            "args": ["-d", "chrome","--web-port", "8889"]
+            "args": [
+                "-d",
+                "chrome",
+                "--web-port",
+                "8889"
+            ]
         }
     ]
 }
