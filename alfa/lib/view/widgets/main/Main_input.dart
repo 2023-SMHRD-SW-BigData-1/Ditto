@@ -3,8 +3,6 @@ import 'package:alfa/view/widgets/main/Payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:alfa/get_pages.dart';
-import 'package:get/get.dart';
 
 Widget Main_input() {
   return Builder(builder: (context) {

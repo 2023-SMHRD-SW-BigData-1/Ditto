@@ -11,7 +11,7 @@ connection = pymysql.connect(host='project-db-campus.smhrd.com',
                             charset='utf8',
                             port=3307)
 
-@app.route('/api/data', methods=['GET'])
+@app.route('/', methods=['GET'])
 def get_data():
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM user_info")
@@ -20,4 +20,4 @@ def get_data():
     return jsonify(results)
 
 if __name__ == '__main__':
-    app.run()
+    app.run('0.0.0.0', port=5000, debug=True)

@@ -2,7 +2,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class DataManager {
   // 데이터 저장
-  static Future<void> saveData(String key, String value) async {
+  static Future<void> saveData(
+    String key,
+    String value,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(key, value);
   }
