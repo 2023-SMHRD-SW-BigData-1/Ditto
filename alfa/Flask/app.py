@@ -26,7 +26,7 @@ db = pymysql.connect(host='project-db-campus.smhrd.com',
                      port=3307)
 
 # .pkl 파일 경로
-file_path = 'C:/Users/smhrd/Desktop/dittoModel.pkl'
+file_path = 'C:/Users/smhrd/Desktop/ALFA_model.pkl'
 
 # 머신러닝 모델 로드
 loaded_model = joblib.load(file_path)
@@ -65,36 +65,42 @@ print('a' ,predict_value)
 @app.route('/result', methods=['POST'])
 
 def predict():
-    input_data = request.get_json('inputData')
-    print(input_data)
-    return '완료'
+    # input_data = request.get_json('inputData')
     
     
-    # try:
+    try:
+        alData = request.get_json()
+        tensA = alData.get('tens')
+        yieldB = alData.get('yield')
+        hardC = alData.get('hard')
+        elongationD = alData.get('elongation')
+    
+        print(tensA, yieldB, hardC, elongationD)
 
-    #     alloy_info = [{'최대인장강도' : 200,
-    #                 '항복강도' : 175,
-    #                 '연신율' : 1.5,
-    #                 '경도' : 140}]
+        alloy_info = [{'최대인장강도' : tensA,
+                    '항복강도' : yieldB,
+                    '연신율' : hardC,
+                    '경도' : elongationD}]
 
-    #     data = pd.DataFrame(alloy_info)
-    #     # 예측 수행
-    #     prediction = predict_value(data)
+        data = pd.DataFrame(alloy_info)
+        # 예측 수행
+        prediction = predict_value(data)
 
-    #     # print(prediction)
+        # print(prediction)
 
-    #     # 사용자 입력을 데이터베이스에 저장 (SQL 인젝션 방어)
-    #     # cursor = db.cursor()
-    #     # insert_query = "INSERT INTO alloy_info (input_value) VALUES (%s)"
-    #     # cursor.execute(insert_query, (alloy_info,))
-    #     # db.commit()
-    #     # cursor.close()
-    #     # return (prediction)
-    #     print('result', prediction)
-    #     # return jsonify({'prediction': prediction})
-    # except Exception as e:
-    #     # return jsonify({'error': str(e)})
-    #     return None
+        # 사용자 입력을 데이터베이스에 저장 (SQL 인젝션 방어)
+        # cursor = db.cursor()
+        # insert_query = "INSERT INTO alloy_info (input_value) VALUES (%s)"
+        # cursor.execute(insert_query, (alloy_info,))
+        # db.commit()
+        # cursor.close()
+        return '완료'
+        # return (prediction)
+        # print('result', prediction)
+        # return jsonify({'prediction': prediction})
+    except Exception as e:
+        # return jsonify({'error': str(e)})
+        return '오류'
 
 if __name__ == '__main__':
     app.run()

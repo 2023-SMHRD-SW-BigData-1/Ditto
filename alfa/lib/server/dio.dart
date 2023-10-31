@@ -119,7 +119,12 @@ class Server {
               // "Access-Control-Allow-Methods": "POST",
               "content-type": "application/json"
             },
-            body: jsonEncode({"inputData": "test please"}));
+            body: jsonEncode({
+              "tens": "$tens",
+              "yield": "$yiel",
+              "hard": "$hard",
+              "elongation": "$elongation"
+            }));
         if (response.statusCode == 200) {
           // 성공적으로 서버에서 응답을 받았을 때 실행할 코드
           print('서버 응답: ${response.body}');
