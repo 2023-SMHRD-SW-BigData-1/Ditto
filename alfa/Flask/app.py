@@ -5,17 +5,8 @@ import pandas as pd
 import joblib
 from selenium import webdriver
 
-# wd = webdriver.Chrome()
-# wd.get("http://localhost:5000")
-# data = wd.execute_script("return window.localStorage.getItem('flutter.id');")
-
-# print('localStorage' , data)
-
 app = Flask(__name__)
 CORS(app)
-
-# CORS 설정: 특정 출처에서의 요청만 허용
-# CORS(app, resources={r"/main": {"origins": "http://172.30.1.29:8889"}})
 
 # MySQL 데이터베이스 연결 설정
 db = pymysql.connect(host='project-db-campus.smhrd.com',
@@ -26,12 +17,11 @@ db = pymysql.connect(host='project-db-campus.smhrd.com',
                      port=3307)
 
 # .pkl 파일 경로
-file_path = 'C:/Users/smhrd/Desktop/dittoModel.pkl'
+file_path = 'C:/Users/smhrd/Desktop/ALFA_model.pkl'
 
 # 머신러닝 모델 로드
 loaded_model = joblib.load(file_path)
 
-# print(loaded_model)
 
 # 예측 함수
 alloy_info = [{'최대인장강도' : 200,
@@ -46,56 +36,52 @@ def predict_value(data):
     predicted_value = loaded_model.predict(data)
     return predicted_value
 
-# print(predict_value)
 
-# @app.route('/', methods=['GET'])
-# def get_data():
-#     cursor = db.cursor()
-#     cursor.execute("SELECT * FROM user_info")
-#     results = cursor.fetchall()
-#     cursor.close()
-    # return jsonify(results)
 print('a' ,predict_value)
 
-# API 엔드포인트 등록
-# @app.route('/test', method=['POST'])
-# def test():
-#     return print('test')
 
+# 8. dio.dart에서 보낸 4개 값을 받음
 @app.route('/result', methods=['POST'])
 
 def predict():
-    input_data = request.get_json('inputData')
-    print(input_data)
-    return '완료'
+ 
+    try:
+        alData = request.get_json()
+        tensA = alData.get('tens')
+        yieldB = alData.get('yield')
+        hardC = alData.get('hard')
+        elongationD = alData.get('elongation')
     
-    
-    # try:
+        print(tensA, yieldB, hardC, elongationD)
+        # 9. 여기까지 받아온 값 확인하기
+        
+        # 10. 여기부터 모델링 작업, 입력 받은 값 4개 넣어주기
+        alloy_info = [{'최대인장강도' : tensA,
+                    '항복강도' : yieldB,
+                    '연신율' : hardC,
+                    '경도' : elongationD}]
 
-    #     alloy_info = [{'최대인장강도' : 200,
-    #                 '항복강도' : 175,
-    #                 '연신율' : 1.5,
-    #                 '경도' : 140}]
+        data = pd.DataFrame(alloy_info)
+        # 예측 수행
+        prediction = predict_value(data)
 
-    #     data = pd.DataFrame(alloy_info)
-    #     # 예측 수행
-    #     prediction = predict_value(data)
+        # 결과 값 확인
+        print(prediction)
 
-    #     # print(prediction)
+        # 11. 여기부터 서버 연결시키기 
 
-    #     # 사용자 입력을 데이터베이스에 저장 (SQL 인젝션 방어)
-    #     # cursor = db.cursor()
-    #     # insert_query = "INSERT INTO alloy_info (input_value) VALUES (%s)"
-    #     # cursor.execute(insert_query, (alloy_info,))
-    #     # db.commit()
-    #     # cursor.close()
-    #     # return (prediction)
-    #     print('result', prediction)
-    #     # return jsonify({'prediction': prediction})
-    # except Exception as e:
-    #     # return jsonify({'error': str(e)})
-    #     return None
+        # 사용자 입력을 데이터베이스에 저장 (SQL 인젝션 방어)
+        # cursor = db.cursor()
+        # insert_query = "INSERT INTO alloy_info (input_value) VALUES (%s)"
+        # cursor.execute(insert_query, (alloy_info,))
+        # db.commit()
+        # cursor.close()
+        return '완료'
+   
+    except Exception as e:
+        # return jsonify({'error': str(e)})
+        return '오류'
 
 if __name__ == '__main__':
     app.run()
-    # app.run(host='0.0.0.0', port=5000, debug=True)
+    
