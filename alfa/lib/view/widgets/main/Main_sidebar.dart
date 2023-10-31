@@ -52,7 +52,7 @@ class _Main_sidebarState extends State<Main_sidebar> {
                                   width: 10,
                                 ),
                                 Text(
-                                  'Create a new folder',
+                                  'Create a new file',
                                   style: TextStyle(color: Colors.white),
                                   overflow: TextOverflow.ellipsis,
                                 )

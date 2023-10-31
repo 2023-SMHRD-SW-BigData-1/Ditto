@@ -21,28 +21,32 @@ class _Main_listviewState extends State<Main_listview> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 680,
-      child: ListView.builder(
-          itemCount: sortedElements.length,
-          itemBuilder: (context, index) {
-            final element = sortedElements[index];
+      child: OverflowBox(
+        minWidth: 200,
+        maxWidth: 300,
+        child: ListView.builder(
+            itemCount: sortedElements.length,
+            itemBuilder: (context, index) {
+              final element = sortedElements[index];
 
-            bool showDateHeader = true;
-            if (index > 0) {
-              final previousElement = sortedElements[index - 1];
-              if (previousElement.date.year == element.date.year &&
-                  previousElement.date.month == element.date.month &&
-                  previousElement.date.day == element.date.day) {
-                showDateHeader = false;
+              bool showDateHeader = true;
+              if (index > 0) {
+                final previousElement = sortedElements[index - 1];
+                if (previousElement.date.year == element.date.year &&
+                    previousElement.date.month == element.date.month &&
+                    previousElement.date.day == element.date.day) {
+                  showDateHeader = false;
+                }
               }
-            }
 
-            return Column(
-              children: [
-                if (showDateHeader) _getGroupSeparator(element),
-                _getItem(context, element)
-              ],
-            );
-          }),
+              return Column(
+                children: [
+                  if (showDateHeader) _getGroupSeparator(element),
+                  _getItem(context, element)
+                ],
+              );
+            }),
+      ),
     );
   }
 }
@@ -75,7 +79,8 @@ List<Element> _elements = <Element>[
 Widget _getGroupSeparator(Element element) {
   return SizedBox(
     child: Container(
-      width: 120,
+      width: double.infinity,
+      color: Color.fromRGBO(62, 68, 102, 1),
       child: Text(
         '${element.date.month}. ${element.date.day}',
         style: TextStyle(color: Color.fromRGBO(142, 142, 160, 1)),
@@ -88,12 +93,14 @@ Widget _getGroupSeparator(Element element) {
 Widget _getItem(BuildContext ctx, Element element) {
   return Container(
     width: double.infinity,
-    child: OutlinedButton(
+    child: ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: Color.fromRGBO(62, 68, 102, 1), elevation: 0),
       onPressed: () {},
       child: ListTile(
         title: Text(
           element.name,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontSize: 14),
         ),
       ),
     ),
