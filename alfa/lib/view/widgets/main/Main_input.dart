@@ -76,11 +76,6 @@ Widget Main_input() {
                           borderRadius: BorderRadius.circular(10))),
                 ),
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    Get.rootDelegate.toNamed(Routes.MAIN);
-                  },
-                  child: Text('gogo'))
             ],
           ),
         ),

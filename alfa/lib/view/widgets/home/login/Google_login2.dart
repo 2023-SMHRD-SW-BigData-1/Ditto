@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:alfa/provider/shared.dart';
+import 'package:alfa/server/dio.dart';
 
 class Google_login2 extends StatefulWidget {
   const Google_login2({super.key});
@@ -88,15 +88,25 @@ class _MyAppState extends State<Google_login2> {
       userEmail = user.email;
       userNum = user.phoneNumber;
 
-      // DataManager.saveData('google_name', name)
+      await DataManager.saveData('google_name', name!);
+      await DataManager.saveData('google_email', userEmail!);
+      await DataManager.saveData('google_pw', '0000');
+
       // SharedPreferences prefs = await SharedPreferences.getInstance();
       // prefs.setBool('auth', true);
-      print("name: $name");
-      print("userEmail: $userEmail");
-      print("imageUrl: $imageUrl");
-      print("user : $user");
-      print("uid : $uid");
+      // print("name:" + name!);
+      // print("userEmail: $userEmail");
+      // print("imageUrl: $imageUrl");
+      // print("user : $user");
+      // print("uid : $uid");
+
+      await server.join(userEmail!, '0000', name!, '01000000000');
+      var result = DataManager.loadData('joinResult');
+
+      if (result == 'success') {
+        Navigator.of(context).pop();
+      }
     }
-    return user;
+    // return user;
   }
 }

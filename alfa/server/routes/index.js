@@ -61,7 +61,7 @@ router.post('/user/create', (req, res) => {
     conn.query(sql2, [req.body.user_id], (err, rows) => {
         console.log(rows, req.body.user_id);
         if (rows[0] == undefined) {
-            let sql = "insert into user_info values(?, ?, '1', ?, ?, now(), null)";
+            let sql = "insert into user_info values(?, ?, '0', ?, ?, now(), null)";
             console.log("req : " + [req.body.user_id]);
             console.log("req : " + [req.body.user_pw]);
             console.log("req : " + [req.body.user_name]);

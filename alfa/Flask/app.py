@@ -3,6 +3,13 @@ from flask_cors import CORS
 import pymysql
 import pandas as pd
 import joblib
+from selenium import webdriver
+
+wd = webdriver.Chrome()
+wd.get("http://localhost:8889")
+data = wd.execute_script("return window.localStorage.getItem('flutter.id');")
+
+print(data)
 
 app = Flask(__name__)
 

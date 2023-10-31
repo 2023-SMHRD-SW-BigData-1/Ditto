@@ -32,8 +32,8 @@ class Server {
     }
   }
 
-  Future join(
-      String user_id, String user_pw, String user_name, String user_num) async {
+  Future join(String user_id, String user_pw, String user_name,
+      String? user_num) async {
     Response response;
     Dio dio = Dio();
     response = await dio.post("$url/user/create", data: {
