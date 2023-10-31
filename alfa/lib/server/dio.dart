@@ -78,13 +78,10 @@ class Server {
       String user_name = response.data['data'][0]['user_name'];
       String user_email = response.data['data'][0]['user_id'];
       String user_num = response.data['data'][0]['user_num'];
-      // print('res : ' + response.data[0]['user_pw']);
-      // print('res : ' + response.data[0].toString());
+
       await DataManager.saveData('name', user_name);
       await DataManager.saveData('id', user_email);
       await DataManager.saveData('num', user_num);
-      // } else if (response.data['result'] == "pw err") {
-      //   print('failedRes : 비밀번호를 잘못 입력함');
     } else if (result == "failed") {
       print('modifyRes : $result');
     }
@@ -92,31 +89,37 @@ class Server {
     // User user = Provider.of<User>(context, listen: false);
   }
 
+// Main_input.dart에서 4개 값 입력 후 Research 버튼 클릭 시 실행
   Future insertAl(var tens, var yiel, var hard, var elongation) async {
+    // -----------------------
     Response response;
     Dio dio = Dio();
+    // -----------------------
+    // post 방식, index.js에서 같은 주소 찾아서 순서 비교하기
+    // 1. url/main/stepOne 주소로 data에 값 담아서 전송 >> index.js로
     response = await dio.post("$url/main/stepOne", data: {
       "tens": "$tens",
       "yield": "$yiel",
       "hard": "$hard",
       "elongation": "$elongation"
     });
+    // 5. index.js에서 response를 받고 result라는 변수에 stepOne 키값에 들어있는 값 넣어주기
     String result = response.data['stepOne'];
+    // 5-1. 로컬 저장소에 stepOne이라는 이름으로 저장하기
     await DataManager.saveData('stepOne', result);
+    // 6. 5번에서 저장한 result 값이 success 라면 (index.js에서 작성한 쿼리문의 입력이 성공했다면)
     if (result == "success") {
+      // 6-1. 테스트용 문구 확인
       print('stepOne : $result');
 
+      // 7. DB에 1번에서 보낸 값이 제대로 들어갔기 때문에 똑같은 값을 모델링 하기 위해 flask 서버로 전송하기
       void sendDataToPython() async {
+        // 7-1. flask 서버로 post 방식으로 전송, body 에 똑같이 값을 담고 json 형태로 보내줌 //
         var uri = Uri.http('localhost:5000', '/result');
         final response = await http.post(uri,
             headers: {
               "Access-Control-Allow-Origin":
                   "*", // Required for CORS support to work
-              // "Access-Control-Allow-Credentials":
-              //     true, // Required for cookies, authorization headers with HTTPS
-              // "Access-Control-Allow-Headers":
-              //     "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-              // "Access-Control-Allow-Methods": "POST",
               "content-type": "application/json"
             },
             body: jsonEncode({
@@ -125,6 +128,8 @@ class Server {
               "hard": "$hard",
               "elongation": "$elongation"
             }));
+        // 7-1. 끝. >> app.py로 이동
+        //
         if (response.statusCode == 200) {
           // 성공적으로 서버에서 응답을 받았을 때 실행할 코드
           print('서버 응답: ${response.body}');

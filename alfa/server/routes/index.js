@@ -115,29 +115,26 @@ router.post('/user/modify', (req, res) => {
 });
 
 
-
+// dio.dart의 insertAl
+// 2. url/main/stepOne 주소에서 받음
 router.post('/main/stepOne', (req, res) => {
+    // 2-1. 받아온 값을 DB에 넣어야 하기 때문에 쿼리문 작성
     let sql = "insert into alloy_info values (default, 'test','test', null, null , 'test', null , null , null , null , ?, ?, ?, ?);"
+    // 2-2. 확인용 로그
     console.log('first data', req.body)
+    // 2-3. 위의 sql 문의 ? 자리에 각각 값을 순서대로 넣어주고 실행함
     conn.query(sql, [req.body.tens, req.body.yield, req.body.hard, req.body.elongation], (err, rows) => {
+        // 2-4. 입력이 제대로 됐다면~
         if (rows != undefined) {
-        //     let sql2 = "select * from user_info where user_id = ?";
-        //     conn.query(sql2, [req.body.user_id], (err, rows) => {
-            console.log(rows)
-            console.log(err)
+            // 3. stepOne의 키에 success라는 값을 담은 json 형태를 dio.dart 로 돌려보내주기
             res.json({ stepOne: 'success' })
-            
+        // 2-4-1. 제대로 안됐다면 ~
         } else if (err) {
+            // 3-1. 무슨 에러인지 보여주고 failed 값 보내주기
             console.log('err')
             res.json({ stepOne: 'failed' })
         }
-        // 쿼리 결과 처리
-        // console.log(rows);
-        // res.send(rows);
-        //     req.session.member = rows
-        //     req.session.save(()=>{
-        //     res.redirect('/')
-        //   });
+       // 4 dio.dart로 이동
     });
 });
 
