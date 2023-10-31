@@ -3,8 +3,6 @@ import 'package:alfa/view/widgets/main/Payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:alfa/get_pages.dart';
-import 'package:get/get.dart';
 
 Widget Main_input() {
   return Builder(builder: (context) {
@@ -14,73 +12,84 @@ Widget Main_input() {
     TextEditingController tensileController = TextEditingController();
     TextEditingController hardnessController = TextEditingController();
     TextEditingController elongationController = TextEditingController();
-    return Container(
-      height: 120.0,
-      width: 700.0,
-      padding: EdgeInsets.fromLTRB(20, 20, 20, 5),
-      margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
-      child: OverflowBox(
-        minHeight: 50,
-        minWidth: 400,
-        child: Form(
-          key: _formkey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Input_item('Yield', yieldController),
-                  Input_item('Tensile', tensileController),
-                  Input_item('Hardness', hardnessController),
-                  Input_item('Elongation', elongationController),
-                ],
-              ),
-              Container(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_formkey.currentState!.validate()) {
-                      _formkey.currentState!.save();
-                      _Input_data.yield = double.parse(yieldController.text);
-                      _Input_data.tensile =
-                          double.parse(tensileController.text);
-                      _Input_data.hardness =
-                          double.parse(hardnessController.text);
-                      _Input_data.elongation =
-                          double.parse(elongationController.text);
-                      showDialog(
-                          context: context,
-                          barrierDismissible: true,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              content: Payment(),
-                            );
-                          });
-
-                      print(_Input_data.yield);
-                      print(_Input_data.tensile);
-                      print(_Input_data.hardness);
-                      print(_Input_data.elongation);
-                    }
-                  },
-                  child: Text(
-                    'Research',
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      alignment: Alignment.center,
-                      elevation: 0,
-                      backgroundColor: Color.fromRGBO(182, 24, 24, 1),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
+    return Stack(children: <Widget>[
+      Container(
+        height: 120.0,
+        width: 700.0,
+        padding: EdgeInsets.fromLTRB(20, 20, 20, 5),
+        margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+        child: OverflowBox(
+          minHeight: 50,
+          minWidth: 400,
+          child: Form(
+            key: _formkey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Input_item('Yield', yieldController),
+                    Input_item('Tensile', tensileController),
+                    Input_item('Hardness', hardnessController),
+                    Input_item('Elongation', elongationController),
+                  ],
                 ),
-              ),
-            ],
+                Container(
+                  height: 40,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formkey.currentState!.validate()) {
+                        _formkey.currentState!.save();
+                        _Input_data.yield = double.parse(yieldController.text);
+                        _Input_data.tensile =
+                            double.parse(tensileController.text);
+                        _Input_data.hardness =
+                            double.parse(hardnessController.text);
+                        _Input_data.elongation =
+                            double.parse(elongationController.text);
+                        // Get.rootDelegate.toNamed(Routes.PAY);
+                        showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: Payment(),
+                              );
+                            });
+
+                        print(_Input_data.yield);
+                        print(_Input_data.tensile);
+                        print(_Input_data.hardness);
+                        print(_Input_data.elongation);
+                      }
+                    },
+                    child: Text(
+                      'Research',
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        alignment: Alignment.center,
+                        elevation: 0,
+                        backgroundColor: Color.fromRGBO(182, 24, 24, 1),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    );
+      Positioned(
+          right: 0,
+          child: Tooltip(
+            verticalOffset: -90,
+            message:
+                "Input the desired mechanical properties\nhere to explore the optimal heat treatment processes.\nFill in the appropriate values for each category and click\n'Research' to view the results.",
+            child: Icon(Icons.help_outline_outlined),
+          ))
+    ]);
   });
 }
 
