@@ -114,4 +114,31 @@ router.post('/user/modify', (req, res) => {
     });
 });
 
+
+
+router.post('/main/stepOne', (req, res) => {
+    let sql = "insert into alloy_info values (default, 'test','test', null, null , 'test', null , null , null , null , ?, ?, ?, ?);"
+    console.log('first data', req.body)
+    conn.query(sql, [req.body.tens, req.body.yield, req.body.hard, req.body.elongation], (err, rows) => {
+        if (rows != undefined) {
+        //     let sql2 = "select * from user_info where user_id = ?";
+        //     conn.query(sql2, [req.body.user_id], (err, rows) => {
+            console.log(rows)
+            console.log(err)
+            res.json({ stepOne: 'success' })
+            
+        } else if (err) {
+            console.log('err')
+            res.json({ stepOne: 'failed' })
+        }
+        // 쿼리 결과 처리
+        // console.log(rows);
+        // res.send(rows);
+        //     req.session.member = rows
+        //     req.session.save(()=>{
+        //     res.redirect('/')
+        //   });
+    });
+});
+
 module.exports = router;
