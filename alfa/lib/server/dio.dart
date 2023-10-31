@@ -1,9 +1,15 @@
+// import 'dart:ffi';
+
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 // import 'dart:convert';
 // import 'package:alfa/view/widgets/home/login/Form_login.dart';
 import '../provider/shared.dart';
+import 'package:http/http.dart' as http;
 
 const url = "http://172.30.1.29:8889";
+const flaskUrl = "http://localhost:5000/result";
 
 class Server {
   Future login(String user_id, String user_pw) async {
@@ -81,6 +87,53 @@ class Server {
       //   print('failedRes : 비밀번호를 잘못 입력함');
     } else if (result == "failed") {
       print('modifyRes : $result');
+    }
+
+    // User user = Provider.of<User>(context, listen: false);
+  }
+
+  Future insertAl(var tens, var yiel, var hard, var elongation) async {
+    Response response;
+    Dio dio = Dio();
+    response = await dio.post("$url/main/stepOne", data: {
+      "tens": "$tens",
+      "yield": "$yiel",
+      "hard": "$hard",
+      "elongation": "$elongation"
+    });
+    String result = response.data['stepOne'];
+    await DataManager.saveData('stepOne', result);
+    if (result == "success") {
+      print('stepOne : $result');
+
+      void sendDataToPython() async {
+        var uri = Uri.http('localhost:5000', '/result');
+        final response = await http.post(uri,
+            headers: {
+              "Access-Control-Allow-Origin":
+                  "*", // Required for CORS support to work
+              // "Access-Control-Allow-Credentials":
+              //     true, // Required for cookies, authorization headers with HTTPS
+              // "Access-Control-Allow-Headers":
+              //     "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+              // "Access-Control-Allow-Methods": "POST",
+              "content-type": "application/json"
+            },
+            body: jsonEncode({"inputData": "test please"}));
+        if (response.statusCode == 200) {
+          // 성공적으로 서버에서 응답을 받았을 때 실행할 코드
+          print('서버 응답: ${response.body}');
+        } else {
+          // 요청이 실패했을 때 실행할 코드
+          print('서버 요청 실패: ${response.statusCode}');
+        }
+      }
+
+      sendDataToPython();
+      // } else if (response.data['result'] == "pw err") {
+      //   print('failedRes : 비밀번호를 잘못 입력함');
+    } else if (result == "failed") {
+      print('stepOne : $result');
     }
 
     // User user = Provider.of<User>(context, listen: false);
