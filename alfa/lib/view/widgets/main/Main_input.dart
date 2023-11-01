@@ -87,10 +87,10 @@ Widget Main_input() {
                                 var payRes = value;
                                 if (payRes == 'success') {
                                   server.insertAl(
-                                      _Input_data.yield,
                                       _Input_data.tensile,
-                                      _Input_data.hardness,
+                                      _Input_data.yield,
                                       _Input_data.elongation,
+                                      _Input_data.hardness,
                                       user_id,
                                       payDate);
                                 }
@@ -116,20 +116,20 @@ Widget Main_input() {
                                 payDate = value;
                                 print(payDate);
                                 server.insertAl(
-                                    _Input_data.yield,
                                     _Input_data.tensile,
-                                    _Input_data.hardness,
+                                    _Input_data.yield,
                                     _Input_data.elongation,
+                                    _Input_data.hardness,
                                     user_id,
                                     payDate);
                               });
                             });
                           } else if (type == '9') {
                             server.insertAl(
-                                _Input_data.yield,
                                 _Input_data.tensile,
-                                _Input_data.hardness,
+                                _Input_data.yield,
                                 _Input_data.elongation,
+                                _Input_data.hardness,
                                 user_id,
                                 payDate);
                           }
