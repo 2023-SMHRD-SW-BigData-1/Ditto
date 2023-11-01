@@ -25,12 +25,12 @@ loaded_model = joblib.load(file_path)
 
 
 # 예측 함수
-alloy_info = [{'최대인장강도' : 200,
+new_alloy_info = [{'최대인장강도' : 200,
 '항복강도' : 175,
 '연신율' : 1.5,
 '경도' : 140}]
 
-data = pd.DataFrame(alloy_info)
+data = pd.DataFrame(new_alloy_info)
 
 def predict_value(data):
     # 머신러닝 모델 호출 및 예측 수행
@@ -60,12 +60,12 @@ def predict():
         print(tensA, yieldB, elongationC, hardD, user_id, pay_date, num)
         
         # 10. 여기부터 모델링 작업, 입력 받은 값 4개 넣어주기
-        alloy_info = [{'최대인장강도' : tensA,
+        new_alloy_info = [{'최대인장강도' : tensA,
                     '항복강도' : yieldB,
                     '연신율' : elongationC,
                     '경도' : hardD}]
 
-        data = pd.DataFrame(alloy_info)
+        data = pd.DataFrame(new_alloy_info)
         # 예측 수행
         prediction = predict_value(data)
 
@@ -76,6 +76,9 @@ def predict():
 
         # 11. 여기부터 서버 연결시키기 
         
+        sql = "select name, casting, sol1_time, sol1_deg, quench, sol2_time, sol2_deg, quench2, age_deg, age_time from alloy_info"
+
+        print(sql)
 
 
 
