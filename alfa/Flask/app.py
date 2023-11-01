@@ -70,13 +70,13 @@ def predict():
         prediction = predict_value(data)
 
         # 결과 값 확인
-        print(prediction)
+        print("결과값:",prediction)
 
         # return jsonify({'prediction':prediction})
 
         # 11. 여기부터 서버 연결시키기 
         
-        
+
 
 
         # 사용자 입력을 데이터베이스에 저장 (SQL 인젝션 방어)
