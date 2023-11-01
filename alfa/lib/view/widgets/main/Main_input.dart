@@ -33,10 +33,10 @@ Widget Main_input() {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Input_item('Yield', yieldController),
                     Input_item('Tensile', tensileController),
-                    Input_item('Hardness', hardnessController),
+                    Input_item('Yield', yieldController),
                     Input_item('Elongation', elongationController),
+                    Input_item('Hardness', hardnessController),
                   ],
                 ),
                 Container(
