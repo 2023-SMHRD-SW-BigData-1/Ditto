@@ -8,7 +8,9 @@ import 'package:dio/dio.dart';
 import '../provider/shared.dart';
 import 'package:http/http.dart' as http;
 
-const url = "http://172.30.1.29:8889";
+// const url = "http://172.30.1.29:8889";
+const url = "http://172.30.1.53:8889"; //희주~
+
 const flaskUrl = "http://localhost:5000/result";
 
 class Server {

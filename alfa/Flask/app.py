@@ -17,7 +17,8 @@ db = pymysql.connect(host='project-db-campus.smhrd.com',
                      port=3307)
 
 # .pkl 파일 경로
-file_path = 'C:/Users/smhrd/Desktop/ALFA_model.pkl'
+# file_path = 'C:/Users/smhrd/Desktop/ALFA_model.pkl'
+file_path = 'C:/Users/smhrd/Desktop/실전프로젝트/데이터/ALFA_model.pkl' # 희주
 
 # 머신러닝 모델 로드
 loaded_model = joblib.load(file_path)
@@ -52,8 +53,8 @@ def predict():
         hardC = alData.get('hard')
         elongationD = alData.get('elongation')
     
-        print(tensA, yieldB, hardC, elongationD)
         # 9. 여기까지 받아온 값 확인하기
+        print(tensA, yieldB, hardC, elongationD)
         
         # 10. 여기부터 모델링 작업, 입력 받은 값 4개 넣어주기
         alloy_info = [{'최대인장강도' : tensA,
@@ -68,7 +69,12 @@ def predict():
         # 결과 값 확인
         print(prediction)
 
+        # return jsonify({'prediction':prediction})
+
         # 11. 여기부터 서버 연결시키기 
+        
+        
+
 
         # 사용자 입력을 데이터베이스에 저장 (SQL 인젝션 방어)
         # cursor = db.cursor()
@@ -79,9 +85,10 @@ def predict():
         return '완료'
    
     except Exception as e:
-        # return jsonify({'error': str(e)})
-        return '오류'
+        return jsonify({'error': str(e)})
+        # return '오류'
 
 if __name__ == '__main__':
     app.run()
-    
+
+
