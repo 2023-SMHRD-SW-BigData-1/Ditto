@@ -3,6 +3,7 @@ const app = express();
 
 const router = express.Router()
 const dbConfig = require('../config/database');
+const e = require('express');
 
 // const bodyParser = require('body-parser');
 
@@ -131,7 +132,7 @@ router.post('/main/stepOne', (req, res) => {
         // 2-4-1. 제대로 안됐다면 ~
         } else if (err) {
             // 3-1. 무슨 에러인지 보여주고 failed 값 보내주기
-            console.log('err', err)
+            console.log('err',err)
             res.json({ stepOne: 'failed' })
         }
        // 4 dio.dart로 이동

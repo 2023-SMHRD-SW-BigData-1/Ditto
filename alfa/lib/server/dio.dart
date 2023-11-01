@@ -122,6 +122,7 @@ class Server {
             headers: {
               "Access-Control-Allow-Origin":
                   "*", // Required for CORS support to work
+              "accept": "application/json",
               "content-type": "application/json"
             },
             body: jsonEncode({
