@@ -9,13 +9,14 @@
 .history
 .svn/
 migrate_working_dir/
-
+env/
+env/*.cfg
 # IntelliJ related
 *.iml
 *.ipr
 *.iws
 .idea/
-
+*.cfg
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.

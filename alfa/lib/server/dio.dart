@@ -9,6 +9,8 @@ import '../provider/shared.dart';
 import 'package:http/http.dart' as http;
 
 const url = "http://172.30.1.29:8889";
+// const url = "http://172.30.1.53:8889"; //희주~
+
 const flaskUrl = "http://localhost:5000/result";
 
 class Server {
@@ -90,7 +92,8 @@ class Server {
   }
 
 // Main_input.dart에서 4개 값 입력 후 Research 버튼 클릭 시 실행
-  Future insertAl(var tens, var yiel, var hard, var elongation) async {
+  Future insertAl(double tens, double yiel, double elongation, double hard,
+      String user_id, var pay_date) async {
     // -----------------------
     Response response;
     Dio dio = Dio();
@@ -100,13 +103,17 @@ class Server {
     response = await dio.post("$url/main/stepOne", data: {
       "tens": "$tens",
       "yield": "$yiel",
+      "elongation": "$elongation",
       "hard": "$hard",
-      "elongation": "$elongation"
+      "user_id": "$user_id",
+      "pay_date": "$pay_date"
     });
     // 5. index.js에서 response를 받고 result라는 변수에 stepOne 키값에 들어있는 값 넣어주기
     String result = response.data['stepOne'];
     // 5-1. 로컬 저장소에 stepOne이라는 이름으로 저장하기
     await DataManager.saveData('stepOne', result);
+    String num = response.data['num'][0]['num'];
+    await DataManager.saveData('num', num);
     // 6. 5번에서 저장한 result 값이 success 라면 (index.js에서 작성한 쿼리문의 입력이 성공했다면)
     if (result == "success") {
       // 6-1. 테스트용 문구 확인
@@ -120,13 +127,17 @@ class Server {
             headers: {
               "Access-Control-Allow-Origin":
                   "*", // Required for CORS support to work
+              "accept": "application/json",
               "content-type": "application/json"
             },
             body: jsonEncode({
               "tens": "$tens",
               "yield": "$yiel",
+              "elongation": "$elongation",
               "hard": "$hard",
-              "elongation": "$elongation"
+              "user_id": "$user_id",
+              "pay_date": "$pay_date",
+              "num": "$num"
             }));
         // 7-1. 끝. >> app.py로 이동
         //
@@ -144,6 +155,30 @@ class Server {
       //   print('failedRes : 비밀번호를 잘못 입력함');
     } else if (result == "failed") {
       print('stepOne : $result');
+    }
+
+    // User user = Provider.of<User>(context, listen: false);
+  }
+
+  Future payDate(String user_id, String pay_date, int pay_price) async {
+    Response response;
+    Dio dio = Dio();
+    response = await dio.post("$url/main/payment", data: {
+      "user_id": "$user_id",
+      "pay_date": "$pay_date",
+      "pay_price": "$pay_price",
+      // "user_name": "$user_name",
+      // "user_num": "$user_num"
+    });
+    String result = response.data['payment'];
+    await DataManager.saveData('payment', result);
+    if (result == "success") {
+      print('payment : $result');
+
+      // } else if (response.data['result'] == "pw err") {
+      //   print('failedRes : 비밀번호를 잘못 입력함');
+    } else if (result == "failed") {
+      print('payment : $result');
     }
 
     // User user = Provider.of<User>(context, listen: false);
