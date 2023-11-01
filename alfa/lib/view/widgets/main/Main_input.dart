@@ -61,12 +61,6 @@ Widget Main_input() {
 
                         DataManager.loadData('type').then((value) {
                           var type = value;
-                          DataManager.loadData('payDate').then((value) {
-                            payDate = value;
-                          });
-                          DataManager.loadData('id').then((value) {
-                            user_id = value;
-                          });
 
                           if (type == '0') {
                             void payment() async {
@@ -78,7 +72,18 @@ Widget Main_input() {
                                       content: Payment(),
                                     );
                                   });
-                              DataManager.loadData('payment').then((value) {
+                              // Navigator.of(context).pop();
+
+                              await DataManager.loadData('payDate')
+                                  .then((value) {
+                                payDate = value;
+                              });
+                              await DataManager.loadData('id').then((value) {
+                                user_id = value;
+                              });
+
+                              await DataManager.loadData('payment')
+                                  .then((value) {
                                 var payRes = value;
                                 if (payRes == 'success') {
                                   server.insertAl(
@@ -88,19 +93,38 @@ Widget Main_input() {
                                       _Input_data.elongation,
                                       user_id,
                                       payDate);
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      barrierDismissible: true,
-                                      builder: (BuildContext context) {
-                                        return Text('다시 시도해주세요');
-                                      });
                                 }
+                                // else {
+                                //   showDialog(
+                                //       context: context,
+                                //       barrierDismissible: true,
+                                //       builder: (BuildContext context) {
+                                //         return Text('다시 시도해주세요');
+                                //       });
+                                // }
                               });
                             }
 
                             payment();
                           } else if (type == '2') {
+                            DataManager.loadData('id').then((value) async {
+                              user_id = value;
+                              print(user_id);
+                              await server.loadPayDate(user_id);
+
+                              DataManager.loadData('loadPayDate').then((value) {
+                                payDate = value;
+                                print(payDate);
+                                server.insertAl(
+                                    _Input_data.yield,
+                                    _Input_data.tensile,
+                                    _Input_data.hardness,
+                                    _Input_data.elongation,
+                                    user_id,
+                                    payDate);
+                              });
+                            });
+                          } else if (type == '9') {
                             server.insertAl(
                                 _Input_data.yield,
                                 _Input_data.tensile,

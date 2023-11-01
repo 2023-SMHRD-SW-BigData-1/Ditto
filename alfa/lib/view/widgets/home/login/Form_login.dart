@@ -88,7 +88,7 @@ class _Form_bulidState extends State<Form_login> {
                     void serverData() async {
                       await server.login(user_id, user_pw);
                       await loadUserId();
-                      print('id' + prefId);
+                      // print('id' + prefId);
 
                       if (prefId != 'null') {
                         Navigator.of(context).pop();
