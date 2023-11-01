@@ -33,10 +33,10 @@ Widget Main_input() {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Input_item('Yield', yieldController),
                     Input_item('Tensile', tensileController),
-                    Input_item('Hardness', hardnessController),
+                    Input_item('Yield', yieldController),
                     Input_item('Elongation', elongationController),
+                    Input_item('Hardness', hardnessController),
                   ],
                 ),
                 Container(
@@ -212,7 +212,7 @@ Widget textfun(title) {
     case 'Tensile':
       return Text_item('Mpa');
     case 'Hardness':
-      return Text_item('HB');
+      return Text_item('HV');
     case 'Elongation':
       return Text_item('%');
     default:
