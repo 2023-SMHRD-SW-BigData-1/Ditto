@@ -92,7 +92,7 @@ class Server {
   }
 
 // Main_input.dart에서 4개 값 입력 후 Research 버튼 클릭 시 실행
-  Future insertAl(double tens, double yiel, double hard, double elongation,
+  Future insertAl(double tens, double yiel, double elongation, double hard,
       String user_id, var pay_date) async {
     // -----------------------
     Response response;
@@ -103,8 +103,8 @@ class Server {
     response = await dio.post("$url/main/stepOne", data: {
       "tens": "$tens",
       "yield": "$yiel",
-      "hard": "$hard",
       "elongation": "$elongation",
+      "hard": "$hard",
       "user_id": "$user_id",
       "pay_date": "$pay_date"
     });
@@ -130,8 +130,8 @@ class Server {
             body: jsonEncode({
               "tens": "$tens",
               "yield": "$yiel",
-              "hard": "$hard",
               "elongation": "$elongation",
+              "hard": "$hard",
               "user_id": "$user_id",
               "pay_date": "$pay_date"
             }));

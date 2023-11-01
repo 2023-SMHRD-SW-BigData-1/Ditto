@@ -50,8 +50,8 @@ def predict():
         alData = request.get_json()
         tensA = alData.get('tens')
         yieldB = alData.get('yield')
-        hardC = alData.get('hard')
-        elongationD = alData.get('elongation')
+        elongationC = alData.get('elongation')
+        hardD = alData.get('hard')
         user_id = alData.get('user_id')
         pay_date = alData.get('pay_date')
     
@@ -61,8 +61,8 @@ def predict():
         # 10. 여기부터 모델링 작업, 입력 받은 값 4개 넣어주기
         alloy_info = [{'최대인장강도' : tensA,
                     '항복강도' : yieldB,
-                    '연신율' : hardC,
-                    '경도' : elongationD}]
+                    '연신율' : elongationC,
+                    '경도' : hardD}]
 
         data = pd.DataFrame(alloy_info)
         # 예측 수행

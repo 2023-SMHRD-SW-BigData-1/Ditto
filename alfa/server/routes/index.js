@@ -123,7 +123,7 @@ router.post('/main/stepOne', (req, res) => {
     // 2-2. 확인용 로그
     console.log('first data', req.body)
     // 2-3. 위의 sql 문의 ? 자리에 각각 값을 순서대로 넣어주고 실행함
-    conn.query(sql, [req.body.tens, req.body.yield, req.body.hard, req.body.elongation, req.body.user_id, req.body.pay_date], (err, rows) => {
+    conn.query(sql, [req.body.tens, req.body.yield, req.body.elongation, req.body.hard, req.body.user_id, req.body.pay_date], (err, rows) => {
         // 2-4. 입력이 제대로 됐다면~
         if (rows != undefined) {
             // 3. stepOne의 키에 success라는 값을 담은 json 형태를 dio.dart 로 돌려보내주기
