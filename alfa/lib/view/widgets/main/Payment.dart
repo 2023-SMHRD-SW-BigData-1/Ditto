@@ -373,6 +373,7 @@ class _SecondRouteState extends State<Payment> {
         DataManager.loadData('id').then((value) {
           server.payDate(value, pay_date, pay_price);
         });
+
         Bootpay().dismiss(context);
         // checkQtyFromServer(data);
         return false;
