@@ -17,8 +17,8 @@ db = pymysql.connect(host='project-db-campus.smhrd.com',
                      port=3307)
 
 # .pkl 파일 경로
-file_path = 'C:/Users/smhrd/Desktop/ALFA_model.pkl'
-# file_path = 'C:/Users/smhrd/Desktop/실전프로젝트/데이터/ALFA_model.pkl' # 희주
+# file_path = 'C:/Users/smhrd/Desktop/ALFA_model.pkl'
+file_path = 'C:/Users/smhrd/Desktop/실전프로젝트/데이터/ALFA_model.pkl' # 희주
 
 # 머신러닝 모델 로드
 loaded_model = joblib.load(file_path)
@@ -76,9 +76,9 @@ def predict():
 
         # 11. 여기부터 서버 연결시키기 
         
-        sql = "select name, casting, sol1_time, sol1_deg, quench, sol2_time, sol2_deg, quench2, age_deg, age_time from alloy_info"
+        # sql = "select name, casting, sol1_time, sol1_deg, quench, sol2_time, sol2_deg, quench2, age_deg, age_time from alloy_info"
 
-        print(sql)
+        # print(sql)
 
 
 
