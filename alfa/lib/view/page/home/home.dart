@@ -1,10 +1,11 @@
 import 'package:alfa/Controller/userState.dart';
-import 'package:alfa/view/widgets/home/Footer.dart';
-import 'package:alfa/view/widgets/home/Home_%20fourth.dart';
-import 'package:alfa/view/widgets/home/Home_first.dart';
-import 'package:alfa/view/widgets/home/Home_second.dart';
-import 'package:alfa/view/widgets/home/Home_third.dart';
-import 'package:alfa/view/widgets/home/TopNavigationBar.dart';
+import 'package:alfa/view/widgets/home/Home_main/Footer.dart';
+import 'package:alfa/view/widgets/home/Home_main/Home_%20fourth.dart';
+import 'package:alfa/view/widgets/home/Home_main/Home_first.dart';
+import 'package:alfa/view/widgets/home/Home_main/Home_second.dart';
+import 'package:alfa/view/widgets/home/Home_main/Home_third.dart';
+import 'package:alfa/view/widgets/home/Home_main/TopNavigationBar.dart';
+
 import 'package:alfa/view/widgets/home/login/Login_btn.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +39,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData deviceData = MediaQuery.of(context);
+    Size screenSize = deviceData.size;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -46,10 +49,12 @@ class _HomeState extends State<Home> {
               controller: _controller,
               child: Column(
                 children: <Widget>[
-                  Home_first(),
-                  Home_second(position: _scrollPosition),
-                  Home_third(position: _scrollPosition),
-                  Home_fourth(position: _scrollPosition),
+                  Home_first(screenSize: screenSize),
+                  Home_second(
+                      position: _scrollPosition, screenSize: screenSize),
+                  Home_third(position: _scrollPosition, screenSize: screenSize),
+                  Home_fourth(
+                      position: _scrollPosition, screenSize: screenSize),
                   Footer()
                 ],
               ),

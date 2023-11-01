@@ -216,12 +216,13 @@ pw.Document buildPdf(Uint8List imageBytes) {
       build: (pw.Context context) {
         return pw.Center(
             child: pw.Container(
-          child: pw.Image(
+                child: pw.Column(children: [
+          pw.Image(
               pw.MemoryImage(
                 imageBytes,
               ),
               fit: pw.BoxFit.contain),
-        ));
+        ])));
       },
     ),
   );

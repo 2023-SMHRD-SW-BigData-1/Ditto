@@ -1,6 +1,6 @@
 import 'package:alfa/Controller/userState.dart';
-import 'package:alfa/view/widgets/home/Footer.dart';
-import 'package:alfa/view/widgets/home/TopNavigationBar.dart';
+import 'package:alfa/view/widgets/home/Home_main/Footer.dart';
+import 'package:alfa/view/widgets/home/Home_main/TopNavigationBar.dart';
 import 'package:alfa/view/widgets/home/info/HistoryContent.dart';
 import 'package:alfa/view/widgets/home/info/InfoContent.dart';
 import 'package:alfa/view/widgets/home/login/Login_btn.dart';

@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class Home_second extends StatefulWidget {
+  final Size screenSize;
   final double position;
-  const Home_second({required this.position});
+  const Home_second({required this.position, required this.screenSize});
 
   @override
   State<Home_second> createState() => _Home_secondState();
@@ -83,29 +84,36 @@ class _Home_secondState extends State<Home_second> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 800,
+      height: widget.screenSize.width < 900 ? 400 : 800,
       width: double.infinity,
       child: Column(children: <Widget>[
         SizedBox(
           height: 20,
         ),
-        SizedBox(
+        Container(
+          margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
           width: 1400,
           child: AnimatedOpacity(
             duration: Duration(milliseconds: 500),
-            opacity: widget.position >= 400 ? 1 : 0.0,
+            opacity: widget.screenSize.width < 900
+                ? 1
+                : widget.position >= 400
+                    ? 1
+                    : 0.0,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'Technology',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(
+                        fontSize: widget.screenSize.width < 900 ? 14 : 18),
                   ),
                   Text.rich(TextSpan(children: <TextSpan>[
                     TextSpan(
                       text: "Overcome the limitations of technology",
-                      style:
-                          TextStyle(fontSize: 50, fontWeight: FontWeight.w700),
+                      style: TextStyle(
+                          fontSize: widget.screenSize.width < 900 ? 30 : 50,
+                          fontWeight: FontWeight.w700),
                     ),
                   ])),
                 ]),
@@ -113,12 +121,12 @@ class _Home_secondState extends State<Home_second> {
         ),
         SizedBox(
           width: double.infinity,
-          height: 500,
+          height: widget.screenSize.width < 900 ? 200 : 500,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 300,
+                height: widget.screenSize.width < 900 ? 150 : 300,
                 child: ListView.builder(
                   controller: _scrollController,
                   scrollDirection: Axis.horizontal,
@@ -130,11 +138,18 @@ class _Home_secondState extends State<Home_second> {
             ],
           ),
         ),
-        SizedBox(
+        Container(
+          margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
           width: 1400,
           child: AnimatedOpacity(
             duration: Duration(milliseconds: 500),
-            opacity: widget.position >= 700 ? 1 : 0.0,
+            opacity: widget.screenSize.width < 900
+                ? widget.position >= 50
+                    ? 1
+                    : 0.0
+                : widget.position >= 700
+                    ? 1
+                    : 0.0,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -142,13 +157,14 @@ class _Home_secondState extends State<Home_second> {
                   TextSpan(
                     text: "Find",
                     style: TextStyle(
-                        fontSize: 40,
+                        fontSize: widget.screenSize.width < 900 ? 25 : 40,
                         color: Color.fromRGBO(62, 68, 102, 1),
                         fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text: "\ta more accurate result",
-                    style: TextStyle(fontSize: 40.0),
+                    style: TextStyle(
+                        fontSize: widget.screenSize.width < 900 ? 25 : 40.0),
                   )
                 ])),
               ],

@@ -14,7 +14,8 @@ class Footer extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
+            Container(
+              margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
               width: 1400,
               child: Row(
                 children: <Widget>[

@@ -1,4 +1,3 @@
-import 'package:alfa/Controller/userState.dart';
 import 'package:alfa/get_pages.dart';
 import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -7,7 +6,8 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home_first extends StatefulWidget {
-  const Home_first({Key? key}) : super(key: key);
+  final Size screenSize;
+  const Home_first({Key? key, required this.screenSize}) : super(key: key);
   @override
   State<Home_first> createState() => _Home_firstState();
 }
@@ -19,15 +19,16 @@ List imageList = ["assets/image/image9.png", "assets/image/first_img.jpg"];
 class _Home_firstState extends State<Home_first> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: double.infinity,
-      height: 1000.0,
+      height: widget.screenSize.width < 900 ? 750 : 1000.0,
       child: Column(
         children: <Widget>[
           SizedBox(
             height: 100.0,
           ),
-          SizedBox(
+          Container(
+            margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
             width: 1400,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,15 +37,16 @@ class _Home_firstState extends State<Home_first> {
                   TextSpan(
                     text: "AL.F.A",
                     style: TextStyle(
-                        fontSize: 70,
+                        fontSize: widget.screenSize.width < 900 ? 40 : 70,
                         color: Color.fromRGBO(182, 24, 24, 1),
                         fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
                         "\t\t: Heat Treatment Alloy\nthe key to innovation,\nStart AI technology now",
-                    style:
-                        TextStyle(fontSize: 30.0, fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                        fontSize: widget.screenSize.width < 900 ? 18 : 30.0,
+                        fontWeight: FontWeight.w700),
                   )
                 ])),
                 Column(
@@ -80,7 +82,9 @@ class _Home_firstState extends State<Home_first> {
                       style: ElevatedButton.styleFrom(
                           elevation: 5,
                           backgroundColor: Colors.black,
-                          padding: EdgeInsets.fromLTRB(40, 25, 40, 25),
+                          padding: widget.screenSize.width < 900
+                              ? EdgeInsets.fromLTRB(20, 10, 20, 10)
+                              : EdgeInsets.fromLTRB(40, 25, 40, 25),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                     ),
@@ -93,14 +97,16 @@ class _Home_firstState extends State<Home_first> {
             height: 10.0,
           ),
           Container(
-            height: 500.0,
-            child: ImageSlider(),
+            height: widget.screenSize.width < 900 ? 300 : 500,
+            child: ImageSlider(screenSize: widget.screenSize),
           ),
           SizedBox(
             height: 50.0,
           ),
           Text(
-              "Alone in the night  On a dark hill With pines around me  Spicy and still,"),
+            "Alone in the night  On a dark hill With pines around me  Spicy and still,",
+            style: TextStyle(fontSize: widget.screenSize.width < 900 ? 8 : 14),
+          ),
           SizedBox(
             height: 10.0,
           ),
@@ -108,7 +114,9 @@ class _Home_firstState extends State<Home_first> {
             height: 10.0,
           ),
           Text(
-              "And a heaven full of stars Over my head, White and topaz And misty red Myriads with beating Hearts of fire That aeons"),
+            "And a heaven full of stars Over my head, White and topaz And misty red Myriads with beating Hearts of fire That aeons",
+            style: TextStyle(fontSize: widget.screenSize.width < 900 ? 8 : 14),
+          ),
           SizedBox(
             height: 30.0,
           ),
@@ -124,7 +132,8 @@ class _Home_firstState extends State<Home_first> {
 }
 
 class ImageSlider extends StatefulWidget {
-  const ImageSlider({super.key});
+  final Size screenSize;
+  const ImageSlider({Key? key, required this.screenSize}) : super(key: key);
 
   @override
   State<ImageSlider> createState() => _ImageSliderState();
@@ -145,7 +154,7 @@ class _ImageSliderState extends State<ImageSlider> {
             });
           }).toList(),
           options: CarouselOptions(
-            height: 500,
+            height: widget.screenSize.width < 900 ? 300 : 500,
             viewportFraction: 1.0,
             autoPlay: true,
             autoPlayInterval: const Duration(seconds: 7),
