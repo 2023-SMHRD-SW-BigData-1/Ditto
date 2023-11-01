@@ -1,4 +1,5 @@
 import 'package:alfa/Model/Input_data.dart';
+import 'package:alfa/provider/shared.dart';
 import 'package:alfa/view/widgets/main/Payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,22 +51,37 @@ Widget Main_input() {
                             double.parse(hardnessController.text);
                         _Input_data.elongation =
                             double.parse(elongationController.text);
-                        // Get.rootDelegate.toNamed(Routes.PAY);
-                        // showDialog(
-                        //     context: context,
-                        //     barrierDismissible: true,
-                        //     builder: (BuildContext context) {
-                        //       return AlertDialog(
-                        //           // content: Payment(),
-                        //           );
-                        //     });
-                        server.insertAl(_Input_data.yield, _Input_data.tensile,
-                            _Input_data.hardness, _Input_data.elongation);
-                        print(_Input_data.yield);
-                        print(_Input_data.tensile);
-                        print(_Input_data.hardness);
-                        print(_Input_data.elongation);
+
+                        // if (type == '0') {
+                        // 0인 사람은 1인 경우 결과 출력 후에 다시 0으로, 2인 경우 유지
+                        // } else if (type == 1) {
+                        //  type 1 은 1회성 결제자, 결과 출력 후 type을 다시 0으로 수정하기
+                        DataManager.loadData('type').then((value) {
+                          var type = value;
+
+                          if (type == '0') {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    content: Payment(),
+                                  );
+                                });
+                          } else if (type == '2') {
+                            server.insertAl(
+                                _Input_data.yield,
+                                _Input_data.tensile,
+                                _Input_data.hardness,
+                                _Input_data.elongation);
+                          }
+                        });
                       }
+                      // print(_Input_data.yield);
+                      // print(_Input_data.tensile);
+                      // print(_Input_data.hardness);
+                      // print(_Input_data.elongation);
+                      // }
                     },
                     child: Text(
                       'Research',

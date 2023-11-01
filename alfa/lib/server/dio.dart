@@ -150,6 +150,30 @@ class Server {
 
     // User user = Provider.of<User>(context, listen: false);
   }
+
+  Future payDate(String user_id, String pay_date, int pay_price) async {
+    Response response;
+    Dio dio = Dio();
+    response = await dio.post("$url/main/payment", data: {
+      "user_id": "$user_id",
+      "pay_date": "$pay_date",
+      "pay_price": "$pay_price",
+      // "user_name": "$user_name",
+      // "user_num": "$user_num"
+    });
+    String result = response.data['result'];
+    await DataManager.saveData('joinResult', result);
+    if (result == "success") {
+      print('successRes : $result');
+
+      // } else if (response.data['result'] == "pw err") {
+      //   print('failedRes : 비밀번호를 잘못 입력함');
+    } else if (result == "failed") {
+      print('successRes : $result');
+    }
+
+    // User user = Provider.of<User>(context, listen: false);
+  }
 }
 
 Server server = Server();
