@@ -90,7 +90,8 @@ class Server {
   }
 
 // Main_input.dart에서 4개 값 입력 후 Research 버튼 클릭 시 실행
-  Future insertAl(var tens, var yiel, var hard, var elongation) async {
+  Future insertAl(double tens, double yiel, double hard, double elongation,
+      String user_id, var pay_Date) async {
     // -----------------------
     Response response;
     Dio dio = Dio();
@@ -159,15 +160,15 @@ class Server {
       // "user_name": "$user_name",
       // "user_num": "$user_num"
     });
-    String result = response.data['result'];
-    await DataManager.saveData('joinResult', result);
+    String result = response.data['payment'];
+    await DataManager.saveData('payment', result);
     if (result == "success") {
-      print('successRes : $result');
+      print('payment : $result');
 
       // } else if (response.data['result'] == "pw err") {
       //   print('failedRes : 비밀번호를 잘못 입력함');
     } else if (result == "failed") {
-      print('successRes : $result');
+      print('payment : $result');
     }
 
     // User user = Provider.of<User>(context, listen: false);

@@ -8,6 +8,8 @@ import 'package:alfa/server/dio.dart';
 
 Widget Main_input() {
   return Builder(builder: (context) {
+    var payDate = '';
+    String user_id = '';
     final _formkey = GlobalKey<FormState>();
     final _Input_data = Provider.of<Input_data>(context);
     TextEditingController yieldController = TextEditingController();
@@ -56,24 +58,56 @@ Widget Main_input() {
                         // 0인 사람은 1인 경우 결과 출력 후에 다시 0으로, 2인 경우 유지
                         // } else if (type == 1) {
                         //  type 1 은 1회성 결제자, 결과 출력 후 type을 다시 0으로 수정하기
+
                         DataManager.loadData('type').then((value) {
                           var type = value;
+                          DataManager.loadData('payDate').then((value) {
+                            payDate = value;
+                          });
+                          DataManager.loadData('id').then((value) {
+                            user_id = value;
+                          });
 
                           if (type == '0') {
-                            showDialog(
-                                context: context,
-                                barrierDismissible: true,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    content: Payment(),
-                                  );
-                                });
+                            void payment() async {
+                              await showDialog(
+                                  context: context,
+                                  barrierDismissible: true,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      content: Payment(),
+                                    );
+                                  });
+                              DataManager.loadData('payment').then((value) {
+                                var payRes = value;
+                                if (payRes == 'success') {
+                                  server.insertAl(
+                                      _Input_data.yield,
+                                      _Input_data.tensile,
+                                      _Input_data.hardness,
+                                      _Input_data.elongation,
+                                      user_id,
+                                      payDate);
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      builder: (BuildContext context) {
+                                        return Text('다시 시도해주세요');
+                                      });
+                                }
+                              });
+                            }
+
+                            payment();
                           } else if (type == '2') {
                             server.insertAl(
                                 _Input_data.yield,
                                 _Input_data.tensile,
                                 _Input_data.hardness,
-                                _Input_data.elongation);
+                                _Input_data.elongation,
+                                user_id,
+                                payDate);
                           }
                         });
                       }
