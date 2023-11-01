@@ -52,9 +52,11 @@ def predict():
         yieldB = alData.get('yield')
         hardC = alData.get('hard')
         elongationD = alData.get('elongation')
+        user_id = alData.get('user_id')
+        pay_date = alData.get('pay_date')
     
         # 9. 여기까지 받아온 값 확인하기
-        print(tensA, yieldB, hardC, elongationD)
+        print(tensA, yieldB, hardC, elongationD, user_id, pay_date)
         
         # 10. 여기부터 모델링 작업, 입력 받은 값 4개 넣어주기
         alloy_info = [{'최대인장강도' : tensA,

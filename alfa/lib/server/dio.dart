@@ -93,7 +93,7 @@ class Server {
 
 // Main_input.dart에서 4개 값 입력 후 Research 버튼 클릭 시 실행
   Future insertAl(double tens, double yiel, double hard, double elongation,
-      String user_id, var pay_Date) async {
+      String user_id, var pay_date) async {
     // -----------------------
     Response response;
     Dio dio = Dio();
@@ -104,7 +104,9 @@ class Server {
       "tens": "$tens",
       "yield": "$yiel",
       "hard": "$hard",
-      "elongation": "$elongation"
+      "elongation": "$elongation",
+      "user_id": "$user_id",
+      "pay_date": "$pay_date"
     });
     // 5. index.js에서 response를 받고 result라는 변수에 stepOne 키값에 들어있는 값 넣어주기
     String result = response.data['stepOne'];
@@ -129,7 +131,9 @@ class Server {
               "tens": "$tens",
               "yield": "$yiel",
               "hard": "$hard",
-              "elongation": "$elongation"
+              "elongation": "$elongation",
+              "user_id": "$user_id",
+              "pay_date": "$pay_date"
             }));
         // 7-1. 끝. >> app.py로 이동
         //
