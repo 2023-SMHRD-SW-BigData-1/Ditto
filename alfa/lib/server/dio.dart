@@ -112,6 +112,8 @@ class Server {
     String result = response.data['stepOne'];
     // 5-1. 로컬 저장소에 stepOne이라는 이름으로 저장하기
     await DataManager.saveData('stepOne', result);
+    String num = response.data['num'][0]['num'];
+    await DataManager.saveData('num', num);
     // 6. 5번에서 저장한 result 값이 success 라면 (index.js에서 작성한 쿼리문의 입력이 성공했다면)
     if (result == "success") {
       // 6-1. 테스트용 문구 확인
@@ -133,7 +135,8 @@ class Server {
               "elongation": "$elongation",
               "hard": "$hard",
               "user_id": "$user_id",
-              "pay_date": "$pay_date"
+              "pay_date": "$pay_date",
+              "num": "$num"
             }));
         // 7-1. 끝. >> app.py로 이동
         //

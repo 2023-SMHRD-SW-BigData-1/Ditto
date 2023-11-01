@@ -126,8 +126,11 @@ router.post('/main/stepOne', (req, res) => {
     conn.query(sql, [req.body.tens, req.body.yield, req.body.elongation, req.body.hard, req.body.user_id, req.body.pay_date], (err, rows) => {
         // 2-4. 입력이 제대로 됐다면~
         if (rows != undefined) {
+            let sql2 = "select num from new_alloy_info where pay_date = ?"
+            conn.query(sql2,[req.body.pay_date], (err, rows)=>{
+                res.json({ stepOne: 'success' , num : rows})
+            })
             // 3. stepOne의 키에 success라는 값을 담은 json 형태를 dio.dart 로 돌려보내주기
-            res.json({ stepOne: 'success' })
             // 2-4-1. 제대로 안됐다면 ~
         } else if (err) {
             // 3-1. 무슨 에러인지 보여주고 failed 값 보내주기
