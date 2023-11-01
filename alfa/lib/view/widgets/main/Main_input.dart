@@ -93,7 +93,9 @@ Widget Main_input() {
                                       context: context,
                                       barrierDismissible: true,
                                       builder: (BuildContext context) {
-                                        return Text('다시 시도해주세요');
+                                        return AlertDialog(
+                                          content: Text('다시 시도해주세요'),
+                                        );
                                       });
                                 }
                               });
