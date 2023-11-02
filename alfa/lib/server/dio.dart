@@ -154,7 +154,9 @@ class Server {
         //
         if (response.statusCode == 200) {
           // 성공적으로 서버에서 응답을 받았을 때 실행할 코드
-          print('서버 응답: ${response.body}');
+          var res = jsonDecode(response.body);
+
+          print('서버 응답: ${res[0][1]}');
         } else {
           // 요청이 실패했을 때 실행할 코드
           print('서버 요청 실패: ${response.statusCode}');

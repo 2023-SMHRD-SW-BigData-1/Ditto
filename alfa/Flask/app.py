@@ -132,7 +132,7 @@ def predict():
         
         db.commit()
         
-        cursor.close()
+        # cursor.close()
         return jsonify(resData)
    
     except Exception as e:
