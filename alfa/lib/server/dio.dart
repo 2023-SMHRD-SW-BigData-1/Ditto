@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 const url = "http://172.30.1.29:8889";
 // const url = "http://172.30.1.53:8889"; //희주~
 
-const flaskUrl = "http://172.30.1.29:5000/result";
+const flaskUrl = "http://localhost:5000/result";
 
 class Server {
   Future login(String user_id, String user_pw) async {
@@ -188,6 +188,31 @@ class Server {
     if (result == "success") {
       print('payment : $result');
 
+      // } else if (response.data['result'] == "pw err") {
+      //   print('failedRes : 비밀번호를 잘못 입력함');
+    } else if (result == "failed") {
+      print('payment : $result');
+    }
+
+    // User user = Provider.of<User>(context, listen: false);
+  }
+
+  Future payDate2(String user_id, String pay_date, int pay_price) async {
+    Response response;
+    Dio dio = Dio();
+    response = await dio.post("$url/main/paydate2", data: {
+      "user_id": "$user_id",
+      "pay_date": "$pay_date",
+      "pay_price": "$pay_price",
+      // "user_name": "$user_name",
+      // "user_num": "$user_num"
+    });
+    String result = response.data['payment'];
+    await DataManager.saveData('payment', result);
+    String result2 = response.data['license'];
+    await DataManager.saveData('type', result2);
+    if (result == "success") {
+      print('payment : $result');
       // } else if (response.data['result'] == "pw err") {
       //   print('failedRes : 비밀번호를 잘못 입력함');
     } else if (result == "failed") {

@@ -437,10 +437,17 @@ class _SecondRouteState extends State<Payment> {
         print('------- onIssued: $data');
       },
       onConfirm: (String data) {
-        // checkQtyFromServer(data, context).then((value) => print(1243));
-        // await check
-
         print('------- onConfirm: $data');
+        print('------- Datatime: ${payload.orderId!}');
+
+        String pay_date = payload.orderId!;
+        var pay_price = payload.price!.toInt();
+
+        DataManager.saveData('payDate', pay_date);
+
+        DataManager.loadData('id').then((value) {
+          server.payDate2(value, pay_date, pay_price);
+        });
 
         Bootpay().dismiss(context);
         // checkQtyFromServer(data);

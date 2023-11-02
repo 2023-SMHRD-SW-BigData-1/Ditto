@@ -81,10 +81,12 @@ Widget Main_input() {
                               });
                               await DataManager.loadData('id').then((value) {
                                 user_id = value;
+                                print('user_id : ${user_id}');
                               });
 
                               await DataManager.loadData('payment')
                                   .then((value) {
+                                print('insertAl 전 payment : ${value}');
                                 if (value == 'success') {
                                   server.insertAl(
                                       _Input_data.tensile,
