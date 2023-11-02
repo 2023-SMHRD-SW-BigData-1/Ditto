@@ -18,8 +18,9 @@ db = pymysql.connect(host='project-db-campus.smhrd.com',
 cursor = db.cursor()
 
 # .pkl 파일 경로
-file_path = 'C:/Users/smhrd/Desktop/ALFA_model.pkl'
-# file_path = 'C:/Users/smhrd/Desktop/실전프로젝트/데이터/ALFA_model.pkl' # 희주
+# file_path = 'C:/Users/smhrd/Desktop/ALFA_model.pkl'
+file_path = 'C:/Users/smhrd/Desktop/실전프로젝트/데이터/ALFA_model.pkl' # 희주
+
 
 # 머신러닝 모델 로드
 loaded_model = joblib.load(file_path)

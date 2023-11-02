@@ -212,7 +212,7 @@ Widget textfun(title) {
     case 'Tensile':
       return Text_item('Mpa');
     case 'Hardness':
-      return Text_item('HV');
+      return Text_item('Hv');
     case 'Elongation':
       return Text_item('%');
     default:
