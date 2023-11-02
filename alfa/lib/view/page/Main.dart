@@ -1,9 +1,11 @@
 import 'dart:typed_data';
 import 'package:alfa/Controller/bar.dart';
+import 'package:alfa/get_pages.dart';
 import 'package:alfa/view/widgets/main/Main_input.dart';
 import 'package:alfa/view/widgets/main/Main_result.dart';
 import 'package:alfa/view/widgets/main/Main_sidebar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:printing/printing.dart';
@@ -97,12 +99,19 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                           child: Row(
                             children: <Widget>[
                               SizedBox(
-                                width: 65,
+                                width: 70,
                               ),
-                              Image.asset(
-                                'assets/image/Logo_text.png',
+                              SizedBox(
                                 width: 300,
-                              ),
+                                height: 400,
+                                child: IconButton(
+                                    onPressed: () =>
+                                        Get.rootDelegate.toNamed(Routes.HOME),
+                                    icon: Image.asset(
+                                      'assets/image/Logo_text.png',
+                                      fit: BoxFit.cover,
+                                    )),
+                              )
                             ],
                           ),
                         ),
