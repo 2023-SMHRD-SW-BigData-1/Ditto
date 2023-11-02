@@ -109,11 +109,21 @@ class Server {
       "pay_date": "$pay_date"
     });
     // 5. index.js에서 response를 받고 result라는 변수에 stepOne 키값에 들어있는 값 넣어주기
+    // print('pay : ' + response.data['pay']);
+    // print('stepOne : ' + response.data['stepOne']);
+    // new_alloy_info의 num, researchDate 가져오기
+
     String result = response.data['stepOne'];
     // 5-1. 로컬 저장소에 stepOne이라는 이름으로 저장하기
     await DataManager.saveData('stepOne', result);
-    int num = response.data['num'][0]['num'];
-    await DataManager.saveData('alloyNum', num.toString());
+    int alnum = response.data['pay'][0]['num'];
+    await DataManager.saveData('alloyNum', alnum.toString());
+
+    var research = response.data['pay'][0]['researchDate'];
+    print('rese' + research);
+    // String research = response.data['pay'][0]['researchDate'];
+    // await DataManager.saveData('research', research);
+
     // 6. 5번에서 저장한 result 값이 success 라면 (index.js에서 작성한 쿼리문의 입력이 성공했다면)
     if (result == "success") {
       // 6-1. 테스트용 문구 확인
@@ -137,7 +147,8 @@ class Server {
               "hard": "$hard",
               "user_id": "$user_id",
               "pay_date": "$pay_date",
-              "num": "$num"
+              "alnum": "$alnum",
+              "research": "$research"
             }));
         // 7-1. 끝. >> app.py로 이동
         //

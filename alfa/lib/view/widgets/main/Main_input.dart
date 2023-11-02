@@ -46,13 +46,13 @@ Widget Main_input() {
                     onPressed: () {
                       if (_formkey.currentState!.validate()) {
                         _formkey.currentState!.save();
-                        _Input_data.yield = double.parse(yieldController.text);
                         _Input_data.tensile =
                             double.parse(tensileController.text);
-                        _Input_data.hardness =
-                            double.parse(hardnessController.text);
+                        _Input_data.yield = double.parse(yieldController.text);
                         _Input_data.elongation =
                             double.parse(elongationController.text);
+                        _Input_data.hardness =
+                            double.parse(hardnessController.text);
 
                         // if (type == '0') {
                         // 0인 사람은 1인 경우 결과 출력 후에 다시 0으로, 2인 경우 유지
@@ -74,18 +74,16 @@ Widget Main_input() {
                                   });
                               // Navigator.of(context).pop();
 
-                              await DataManager.loadData('payDate')
-                                  .then((value) {
+                              DataManager.loadData('payDate').then((value) {
                                 payDate = value;
                               });
-                              await DataManager.loadData('id').then((value) {
+                              DataManager.loadData('id').then((value) {
                                 user_id = value;
                               });
 
                               await DataManager.loadData('payment')
                                   .then((value) {
-                                var payRes = value;
-                                if (payRes == 'success') {
+                                if (value == 'success') {
                                   server.insertAl(
                                       _Input_data.tensile,
                                       _Input_data.yield,
