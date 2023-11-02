@@ -46,13 +46,13 @@ Widget Main_input() {
                     onPressed: () {
                       if (_formkey.currentState!.validate()) {
                         _formkey.currentState!.save();
-                        _Input_data.yield = double.parse(yieldController.text);
                         _Input_data.tensile =
                             double.parse(tensileController.text);
-                        _Input_data.hardness =
-                            double.parse(hardnessController.text);
+                        _Input_data.yield = double.parse(yieldController.text);
                         _Input_data.elongation =
                             double.parse(elongationController.text);
+                        _Input_data.hardness =
+                            double.parse(hardnessController.text);
 
                         // if (type == '0') {
                         // 0인 사람은 1인 경우 결과 출력 후에 다시 0으로, 2인 경우 유지
@@ -61,12 +61,6 @@ Widget Main_input() {
 
                         DataManager.loadData('type').then((value) {
                           var type = value;
-                          DataManager.loadData('payDate').then((value) {
-                            payDate = value;
-                          });
-                          DataManager.loadData('id').then((value) {
-                            user_id = value;
-                          });
 
                           if (type == '0') {
                             void payment() async {
@@ -78,36 +72,62 @@ Widget Main_input() {
                                       content: Payment(),
                                     );
                                   });
-                              DataManager.loadData('payment').then((value) {
-                                var payRes = value;
-                                if (payRes == 'success') {
+                              // Navigator.of(context).pop();
+
+                              DataManager.loadData('payDate').then((value) {
+                                payDate = value;
+                              });
+                              DataManager.loadData('id').then((value) {
+                                user_id = value;
+                              });
+
+                              await DataManager.loadData('payment')
+                                  .then((value) {
+                                if (value == 'success') {
                                   server.insertAl(
-                                      _Input_data.yield,
                                       _Input_data.tensile,
-                                      _Input_data.hardness,
+                                      _Input_data.yield,
                                       _Input_data.elongation,
+                                      _Input_data.hardness,
                                       user_id,
                                       payDate);
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      barrierDismissible: true,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          content: Text('다시 시도해주세요'),
-                                        );
-                                      });
                                 }
+                                // else {
+                                //   showDialog(
+                                //       context: context,
+                                //       barrierDismissible: true,
+                                //       builder: (BuildContext context) {
+                                //         return Text('다시 시도해주세요');
+                                //       });
+                                // }
                               });
                             }
 
                             payment();
                           } else if (type == '2') {
+                            DataManager.loadData('id').then((value) async {
+                              user_id = value;
+                              print(user_id);
+                              await server.loadPayDate(user_id);
+
+                              DataManager.loadData('loadPayDate').then((value) {
+                                payDate = value;
+                                print(payDate);
+                                server.insertAl(
+                                    _Input_data.tensile,
+                                    _Input_data.yield,
+                                    _Input_data.elongation,
+                                    _Input_data.hardness,
+                                    user_id,
+                                    payDate);
+                              });
+                            });
+                          } else if (type == '9') {
                             server.insertAl(
-                                _Input_data.yield,
                                 _Input_data.tensile,
-                                _Input_data.hardness,
+                                _Input_data.yield,
                                 _Input_data.elongation,
+                                _Input_data.hardness,
                                 user_id,
                                 payDate);
                           }

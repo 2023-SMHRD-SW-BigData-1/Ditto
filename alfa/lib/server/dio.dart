@@ -93,7 +93,7 @@ class Server {
 
 // Main_input.dart에서 4개 값 입력 후 Research 버튼 클릭 시 실행
   Future insertAl(double tens, double yiel, double elongation, double hard,
-      String user_id, var pay_date) async {
+      String user_id, String pay_date) async {
     // -----------------------
     Response response;
     Dio dio = Dio();
@@ -109,11 +109,21 @@ class Server {
       "pay_date": "$pay_date"
     });
     // 5. index.js에서 response를 받고 result라는 변수에 stepOne 키값에 들어있는 값 넣어주기
+    // print('pay : ' + response.data['pay']);
+    // print('stepOne : ' + response.data['stepOne']);
+    // new_alloy_info의 num, researchDate 가져오기
+
     String result = response.data['stepOne'];
     // 5-1. 로컬 저장소에 stepOne이라는 이름으로 저장하기
     await DataManager.saveData('stepOne', result);
-    String num = response.data['num'][0]['num'];
-    await DataManager.saveData('num', num);
+    int alnum = response.data['pay'][0]['num'];
+    await DataManager.saveData('alloyNum', alnum.toString());
+
+    var research = response.data['pay'][0]['researchDate'];
+    print('rese' + research);
+    // String research = response.data['pay'][0]['researchDate'];
+    // await DataManager.saveData('research', research);
+
     // 6. 5번에서 저장한 result 값이 success 라면 (index.js에서 작성한 쿼리문의 입력이 성공했다면)
     if (result == "success") {
       // 6-1. 테스트용 문구 확인
@@ -127,7 +137,7 @@ class Server {
             headers: {
               "Access-Control-Allow-Origin":
                   "*", // Required for CORS support to work
-              "accept": "application/json",
+              // "accept": "application/json",
               "content-type": "application/json"
             },
             body: jsonEncode({
@@ -137,13 +147,16 @@ class Server {
               "hard": "$hard",
               "user_id": "$user_id",
               "pay_date": "$pay_date",
-              "num": "$num"
+              "alnum": "$alnum",
+              "research": "$research"
             }));
         // 7-1. 끝. >> app.py로 이동
         //
         if (response.statusCode == 200) {
           // 성공적으로 서버에서 응답을 받았을 때 실행할 코드
-          print('서버 응답: ${response.body}');
+          var res = jsonDecode(response.body);
+
+          print('서버 응답: ${res[0][1]}');
         } else {
           // 요청이 실패했을 때 실행할 코드
           print('서버 요청 실패: ${response.statusCode}');
@@ -163,7 +176,7 @@ class Server {
   Future payDate(String user_id, String pay_date, int pay_price) async {
     Response response;
     Dio dio = Dio();
-    response = await dio.post("$url/main/payment", data: {
+    response = await dio.post("$url/main/paydate", data: {
       "user_id": "$user_id",
       "pay_date": "$pay_date",
       "pay_price": "$pay_price",
@@ -179,6 +192,27 @@ class Server {
       //   print('failedRes : 비밀번호를 잘못 입력함');
     } else if (result == "failed") {
       print('payment : $result');
+    }
+
+    // User user = Provider.of<User>(context, listen: false);
+  }
+
+  Future loadPayDate(String user_id) async {
+    Response response;
+    Dio dio = Dio();
+    response =
+        await dio.post("$url/main/loadPayDate", data: {"user_id": "$user_id"});
+    String result = response.data['loadPayDate'];
+    print(result);
+    String pay_date = response.data['data'][0]['pay_date'];
+    await DataManager.saveData('loadPayDate', pay_date);
+    if (result == "success") {
+      print('loadPayDate : $result');
+
+      // } else if (response.data['result'] == "pw err") {
+      //   print('failedRes : 비밀번호를 잘못 입력함');
+    } else if (result == "failed") {
+      print('loadPayDate : $result');
     }
 
     // User user = Provider.of<User>(context, listen: false);

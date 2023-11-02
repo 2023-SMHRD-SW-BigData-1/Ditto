@@ -5,7 +5,8 @@ const dbConfig = {
     user     : 'ditto',
     password : 'ditto',
     database : 'ditto',
-    port : 3307
+    port : 3307,
+    timezone : '+00:00',
 };
 
 module.exports = {
