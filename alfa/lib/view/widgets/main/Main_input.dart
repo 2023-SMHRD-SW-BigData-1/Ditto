@@ -74,10 +74,12 @@ Widget Main_input() {
                                   });
                               // Navigator.of(context).pop();
 
-                              DataManager.loadData('payDate').then((value) {
+                              await DataManager.loadData('payDate')
+                                  .then((value) {
                                 payDate = value;
+                                print('payDate : ${payDate}');
                               });
-                              DataManager.loadData('id').then((value) {
+                              await DataManager.loadData('id').then((value) {
                                 user_id = value;
                               });
 

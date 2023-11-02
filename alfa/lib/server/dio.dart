@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 const url = "http://172.30.1.29:8889";
 // const url = "http://172.30.1.53:8889"; //희주~
 
-const flaskUrl = "http://localhost:5000/result";
+const flaskUrl = "http://172.30.1.29:5000/result";
 
 class Server {
   Future login(String user_id, String user_pw) async {
@@ -156,7 +156,7 @@ class Server {
           // 성공적으로 서버에서 응답을 받았을 때 실행할 코드
           var res = jsonDecode(response.body);
 
-          print('서버 응답: ${res[0][1]}');
+          print('서버 응답: ${res[0]}');
         } else {
           // 요청이 실패했을 때 실행할 코드
           print('서버 요청 실패: ${response.statusCode}');
