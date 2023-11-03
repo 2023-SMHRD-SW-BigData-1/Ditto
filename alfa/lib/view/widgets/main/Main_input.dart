@@ -8,8 +8,9 @@ import 'package:alfa/server/dio.dart';
 
 Widget Main_input() {
   return Builder(builder: (context) {
-    var payDate = '';
+    var pay_date = '';
     String user_id = '';
+    int pay_price = 0;
     final _formkey = GlobalKey<FormState>();
     final _Input_data = Provider.of<Input_data>(context);
     TextEditingController yieldController = TextEditingController();
@@ -54,16 +55,11 @@ Widget Main_input() {
                         _Input_data.hardness =
                             double.parse(hardnessController.text);
 
-                        // if (type == '0') {
-                        // 0인 사람은 1인 경우 결과 출력 후에 다시 0으로, 2인 경우 유지
-                        // } else if (type == 1) {
-                        //  type 1 은 1회성 결제자, 결과 출력 후 type을 다시 0으로 수정하기
-
                         DataManager.loadData('type').then((value) {
                           var type = value;
 
                           if (type == '0') {
-                            void payment() async {
+                            Future<void> payment() async {
                               await showDialog(
                                   context: context,
                                   barrierDismissible: true,
@@ -74,15 +70,23 @@ Widget Main_input() {
                                   });
                               // Navigator.of(context).pop();
 
-                              await DataManager.loadData('payDate')
-                                  .then((value) {
-                                payDate = value;
-                                print('payDate : ${payDate}');
-                              });
                               await DataManager.loadData('id').then((value) {
                                 user_id = value;
                                 print('user_id : ${user_id}');
                               });
+                              await DataManager.loadData('payDate')
+                                  .then((value) {
+                                pay_date = value;
+                                print('payDate : ${pay_date}');
+                              });
+                              await DataManager.loadData2('payPrice')
+                                  .then((value) {
+                                pay_price = value;
+                                print('payPrice : ${pay_price}');
+                              });
+
+                              await server.payDate(
+                                  user_id, pay_date, pay_price);
 
                               await DataManager.loadData('payment')
                                   .then((value) {
@@ -94,16 +98,8 @@ Widget Main_input() {
                                       _Input_data.elongation,
                                       _Input_data.hardness,
                                       user_id,
-                                      payDate);
+                                      pay_date);
                                 }
-                                // else {
-                                //   showDialog(
-                                //       context: context,
-                                //       barrierDismissible: true,
-                                //       builder: (BuildContext context) {
-                                //         return Text('다시 시도해주세요');
-                                //       });
-                                // }
                               });
                             }
 
@@ -114,34 +110,22 @@ Widget Main_input() {
                               print(user_id);
                               await server.loadPayDate(user_id);
 
-                              DataManager.loadData('loadPayDate').then((value) {
-                                payDate = value;
-                                print(payDate);
+                              await DataManager.loadData('loadPayDate')
+                                  .then((value) {
+                                pay_date = value;
+                                print(pay_date);
                                 server.insertAl(
                                     _Input_data.tensile,
                                     _Input_data.yield,
                                     _Input_data.elongation,
                                     _Input_data.hardness,
                                     user_id,
-                                    payDate);
+                                    pay_date);
                               });
                             });
-                          } else if (type == '9') {
-                            server.insertAl(
-                                _Input_data.tensile,
-                                _Input_data.yield,
-                                _Input_data.elongation,
-                                _Input_data.hardness,
-                                user_id,
-                                payDate);
                           }
                         });
                       }
-                      // print(_Input_data.yield);
-                      // print(_Input_data.tensile);
-                      // print(_Input_data.hardness);
-                      // print(_Input_data.elongation);
-                      // }
                     },
                     child: Text(
                       'Research',

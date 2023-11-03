@@ -370,15 +370,22 @@ class _SecondRouteState extends State<Payment> {
 
         String pay_date = payload.orderId!;
         var pay_price = payload.price!.toInt();
+        String user_id = '';
+        Future<void> pay() async {
+          await DataManager.saveData('payDate', pay_date);
+          await DataManager.saveData2('payPrice', pay_price);
 
-        DataManager.saveData('payDate', pay_date);
+          await DataManager.loadData('id').then((value) {
+            user_id = value;
+          });
+          // await server.payDate(user_id, pay_date, pay_price);
 
-        DataManager.loadData('id').then((value) {
-          server.payDate(value, pay_date, pay_price);
-        });
+          // checkQtyFromServer(data);
+          // print('payResult : payDate가 완성이 되고 나서 닫으라고');
+        }
 
+        pay();
         Bootpay().dismiss(context);
-        // checkQtyFromServer(data);
         return false;
       },
 

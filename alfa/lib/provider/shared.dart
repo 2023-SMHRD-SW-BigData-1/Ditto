@@ -10,10 +10,23 @@ class DataManager {
     await prefs.setString(key, value);
   }
 
+  static Future<void> saveData2(
+    String key,
+    int value,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(key, value);
+  }
+
   // 데이터 불러오기
   static Future<String> loadData(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(key) ?? "null";
+  }
+
+  static Future<int> loadData2(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(key) ?? 0;
   }
 
 // 데이터 삭제하기

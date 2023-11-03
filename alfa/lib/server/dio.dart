@@ -184,7 +184,7 @@ class Server {
       // "user_num": "$user_num"
     });
     String result = response.data['payment'];
-    await DataManager.saveData('payment', result);
+    DataManager.saveData('payment', result);
     if (result == "success") {
       print('payment : $result');
 
