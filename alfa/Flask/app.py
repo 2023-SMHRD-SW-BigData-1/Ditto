@@ -19,7 +19,7 @@ db = pymysql.connect(host='project-db-campus.smhrd.com',
 cursor = db.cursor()
 
 # .pkl 파일 경로
-file_path = 'C:/Users/smhrd/Desktop/ALFA_model.pkl'
+file_path = 'C:/Users/smhrd1/Desktop/ALFA_model.pkl'
 # file_path = 'C:/Users/smhrd/Desktop/실전프로젝트/데이터/ALFA_model.pkl' # 희주
 
 # 머신러닝 모델 로드
@@ -91,7 +91,7 @@ def predict():
         
         augmented_data = []
         for row in data.itertuples(index=False):
-            augmented_data.extend(augment_data(row, percentage=0.02))
+            augmented_data.extend(augment_data(row, percentage=0.05))
             # print("위치2 : 여기도?")
             # print("위치2 : 여기는?")
         increase_condition = pd.DataFrame(augmented_data, columns=data.columns)
@@ -111,12 +111,31 @@ def predict():
         # 예측 수행
         prediction = predict_value(increase_condition2)
         print(prediction)
-        
+        print('----------')
         incResult = np.unique(prediction)
         # 결과 값 확인
-        print("결과값1:",incResult[0])
+        print("결과값1:",incResult)
         # print("결과값2:",incResult[1])
         
+        # 결과값의 개수가 많은 순으로 정렬
+        unique_values, counts = np.unique(prediction, return_counts=True)
+        sorted_indices = np.argsort(-counts)
+        unique_values = unique_values[sorted_indices]
+        counts = counts[sorted_indices]
+        
+        for value, count in zip(unique_values, counts):
+            print(f"값 {value}: {count}개")
+        print('----------')
+        for i in range(3) :
+            print(f'{i+1}번째', unique_values[i])
+        print('-------------')
+        
+        # # 가장 많이 나온 값의 번호
+        # print('가장 많이', unique_values[np.argmax(counts)])
+                
+        # # 가장 적게 나온 값의 번호
+        # print('가장 적은', unique_values[np.argmin(counts)])
+       
         
         # prediction = predict_value(data)[0]
 
@@ -131,6 +150,7 @@ def predict():
         query = """SELECT * FROM alloy_info where num = %s"""
         cursor.execute(query, incResult[0])
         # cursor.execute(query)
+        
 
 # 결과 가져오기
         result = cursor.fetchall()
