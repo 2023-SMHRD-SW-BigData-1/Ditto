@@ -164,7 +164,7 @@ router.post('/main/paydate', (req, res) => {
             res.json({ payment: 'success' })
 
             // 3. stepOne의 키에 success라는 값을 담은 json 형태를 dio.dart 로 돌려보내주기
-            
+
         } else if (err) {
             // 3-1. 무슨 에러인지 보여주고 failed 값 보내주기
             console.log('err', err)
@@ -177,24 +177,14 @@ router.post('/main/paydate', (req, res) => {
 // 라이센스 결제 
 router.post('/main/paydate2', (req, res) => {
     // 2-1. 받아온 값을 DB에 넣어야 하기 때문에 쿼리문 작성
-    let sql = "insert into pay_date values (default, 0, ?, ?, ?);"
+    let sql = "update user_info set user_type = ? where user_id = ?;"
     // 2-2. 확인용 로그
-    console.log('pay first data', req.body)
+    console.log('license update', req.body)
     // 2-3. 위의 sql 문의 ? 자리에 각각 값을 순서대로 넣어주고 실행함
-    conn.query(sql, [req.body.user_id, req.body.pay_date, req.body.pay_price], (err, rows) => {
+    conn.query(sql, [req.body.user_type, req.body.user_id], (err, rows) => {
         // 2-4. 입력이 제대로 됐다면~
         if (rows != undefined) {
-            let sql2 = "update user_info set user_type = '2' where user_id = ?;"
-            conn.query(sql2, [req.body.user_id], (err, rows) => {
-                if (rows != undefined) {
-                    let sql3 = "select user_type from user_info where user_id = ?;"
-                    conn.query(sql3, [req.body.user_id], (err, rows3) => {
-                        res.json({ payment: 'success', license : rows3 })
-
-                    })
-                }
-            }
-            )
+            res.json({ payment: 'success', license: rows })
             // 3. stepOne의 키에 success라는 값을 담은 json 형태를 dio.dart 로 돌려보내주기
             // 2-4-1. 제대로 안됐다면 ~
         } else if (err) {

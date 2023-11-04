@@ -183,6 +183,18 @@ def predict():
         
         db.commit()
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         select = """select * from new_alloy_info where researchDate = %s"""
         cursor.execute(select, research)
         # cursor.execute(select)
