@@ -72,17 +72,17 @@ Widget Main_input() {
 
                               await DataManager.loadData('id').then((value) {
                                 user_id = value;
-                                print('user_id : ${user_id}');
+                                print('user_id : $user_id');
                               });
                               await DataManager.loadData('payDate')
                                   .then((value) {
                                 pay_date = value;
-                                print('payDate : ${pay_date}');
+                                print('payDate : $pay_date');
                               });
                               await DataManager.loadData2('payPrice')
                                   .then((value) {
                                 pay_price = value;
-                                print('payPrice : ${pay_price}');
+                                print('payPrice : $pay_price');
                               });
 
                               await server.payDate(
@@ -90,7 +90,7 @@ Widget Main_input() {
 
                               await DataManager.loadData('payment')
                                   .then((value) {
-                                print('insertAl 전 payment : ${value}');
+                                print('insertAl 전 payment : $value');
                                 if (value == 'success') {
                                   server.insertAl(
                                       _Input_data.tensile,

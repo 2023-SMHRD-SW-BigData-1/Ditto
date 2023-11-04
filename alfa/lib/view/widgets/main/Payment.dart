@@ -229,7 +229,7 @@ class _SecondRouteState extends State<Payment> {
     item2.name = "라이센스"; // 주문정보에 담길 상품명
     item2.qty = 1; // 해당 상품의 주문 수량
     item2.id = "ITEM_CODE_license"; // 해당 상품의 고유 키
-    item2.price = 2000000; // 상품의 가격
+    item2.price = 100000; // 상품의 가격
     List<Item> itemList1 = [item1];
     List<Item> itemList2 = [item2];
 
@@ -246,7 +246,7 @@ class _SecondRouteState extends State<Payment> {
     payload.orderName = "1회용 결제"; //결제할 상품명
     payload.price = 500; //정기결제시 0 혹은 주석
     payload2.orderName = "라이센스 결제"; //결제할 상품명
-    payload2.price = 2000000; //정기결제시 0 혹은 주석
+    payload2.price = 100000; //정기결제시 0 혹은 주석
 
     payload.orderId = DateTime.now()
         // .millisecondsSinceEpoch
@@ -370,18 +370,17 @@ class _SecondRouteState extends State<Payment> {
 
         String pay_date = payload.orderId!;
         var pay_price = payload.price!.toInt();
+        print('1라이센스 pay_price : $pay_price');
+
         String user_id = '';
         Future<void> pay() async {
           await DataManager.saveData('payDate', pay_date);
           await DataManager.saveData2('payPrice', pay_price);
+          print('2라이센스 pay_price : $pay_price');
 
           await DataManager.loadData('id').then((value) {
             user_id = value;
           });
-          // await server.payDate(user_id, pay_date, pay_price);
-
-          // checkQtyFromServer(data);
-          // print('payResult : payDate가 완성이 되고 나서 닫으라고');
         }
 
         pay();
@@ -448,16 +447,26 @@ class _SecondRouteState extends State<Payment> {
         print('------- Datatime: ${payload.orderId!}');
 
         String pay_date = payload.orderId!;
-        var pay_price = payload.price!.toInt();
+        var pay_price = payload2.price!.toInt();
+        print('1라이센스 pay_price : $pay_price');
 
-        DataManager.saveData('payDate', pay_date);
+        String user_id = '';
+        String type = '2';
+        DataManager.saveData('type', type);
+        Future<void> pay() async {
+          await DataManager.saveData('payDate', pay_date);
+          await DataManager.saveData2('payPrice', pay_price);
+          print('2라이센스 pay_price : $pay_price');
 
-        DataManager.loadData('id').then((value) {
-          server.payDate2(value, pay_date, pay_price);
-        });
+          await DataManager.loadData('id').then((value) {
+            user_id = value;
+          });
+          await server.payDate2(user_id, type);
+        }
+
+        pay();
 
         Bootpay().dismiss(context);
-        // checkQtyFromServer(data);
         return false;
       },
       onDone: (String data) {

@@ -114,7 +114,7 @@ def predict():
         
         incResult = np.unique(prediction)
         # 결과 값 확인
-        print("결과값1:",incResult[0])
+        print("결과값1:",incResult)
         # print("결과값2:",incResult[1])
         
         
@@ -162,6 +162,18 @@ def predict():
         cursor.execute(update ,(name, casting,sol1_deg,sol1_time,quench,sol2_deg,sol2_time,quench2,age_deg,age_time,tens,yiel,elongation,hard,alnum)) 
         
         db.commit()
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         select = """select * from new_alloy_info where researchDate = %s"""
         cursor.execute(select, research)
