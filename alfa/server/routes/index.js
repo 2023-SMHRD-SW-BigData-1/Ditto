@@ -38,7 +38,7 @@ router.post('/user/login', (req, res) => {
         if (rows[0] !== undefined) {
             if (rows[0].user_id === req.body.user_id) {
                 if (rows[0].user_pw === req.body.user_pw) {
-                    console.log('login rows : ' , rows[0]['user_type']);
+                    console.log('login rows : ', rows[0]['user_type']);
                     res.json({ result: 'success', data: rows })
                     // if(rows[0]['user_type'] == 2){
                     //     let sql2 = "select pay_date from pay_date where user_id = ?"
@@ -134,24 +134,24 @@ router.post('/main/stepOne', (req, res) => {
     // 2-3. 위의 sql 문의 ? 자리에 각각 값을 순서대로 넣어주고 실행함
     conn.query(sql, [req.body.tens, req.body.yield, req.body.elongation, req.body.hard, req.body.user_id, req.body.pay_date], (err, rows1) => {
         // 2-4. 입력이 제대로 됐다면~
-        if (rows1!= undefined) {
-            let sql2 = "select * from new_alloy_info where pay_date = ? order by num desc;"
-            conn.query(sql2,[req.body.pay_date], (err, rows2)=>{
+        if (rows1 != undefined) {
+            let sql2 = "select num, name, casting, sol1_deg, sol1_time, quench, sol2_deg, sol2_time, quench2, age_deg, age_time, tens,yield,elongation, hard, user_id, pay_date, DATE_FORMAT(researchDate, '%Y-%m-%d %H:%i:%s') AS researchDate from new_alloy_info where pay_date = ? order by num desc;"
+            conn.query(sql2, [req.body.pay_date], (err, rows2) => {
                 console.log('select new : ' + rows2[0]['researchDate'])
-                res.json({ stepOne: 'success' , pay : rows2})
+                res.json({ stepOne: 'success', pay: rows2 })
             })
             // 3. stepOne의 키에 success라는 값을 담은 json 형태를 dio.dart 로 돌려보내주기
             // 2-4-1. 제대로 안됐다면 ~
         } else {
             // 3-1. 무슨 에러인지 보여주고 failed 값 보내주기
-            console.log('err',err)
+            console.log('err', err)
             res.json({ stepOne: 'failed' })
         }
         // 4 dio.dart로 이동
     });
 });
 
-// 결제 이후
+// 일반 결제 이후
 router.post('/main/paydate', (req, res) => {
     // 2-1. 받아온 값을 DB에 넣어야 하기 때문에 쿼리문 작성
     let sql = "insert into pay_date values (default, 0, ?, ?, ?);"
@@ -161,13 +161,30 @@ router.post('/main/paydate', (req, res) => {
     conn.query(sql, [req.body.user_id, req.body.pay_date, req.body.pay_price], (err, rows) => {
         // 2-4. 입력이 제대로 됐다면~
         if (rows != undefined) {
-            let sql2 = "update user_info set user_type = '1' where user_id = ?;"
-            conn.query(sql2, [req.body.user_id], (err, rows) => {
-                if (rows != undefined) {
-                    res.json({ payment: 'success' })
-                }
-            }
-            )
+            res.json({ payment: 'success' })
+
+            // 3. stepOne의 키에 success라는 값을 담은 json 형태를 dio.dart 로 돌려보내주기
+
+        } else if (err) {
+            // 3-1. 무슨 에러인지 보여주고 failed 값 보내주기
+            console.log('err', err)
+            res.json({ payment: 'failed' })
+        }
+        // 4 dio.dart로 이동
+    });
+});
+
+// 라이센스 결제 
+router.post('/main/paydate2', (req, res) => {
+    // 2-1. 받아온 값을 DB에 넣어야 하기 때문에 쿼리문 작성
+    let sql = "update user_info set user_type = ? where user_id = ?;"
+    // 2-2. 확인용 로그
+    console.log('license update', req.body)
+    // 2-3. 위의 sql 문의 ? 자리에 각각 값을 순서대로 넣어주고 실행함
+    conn.query(sql, [req.body.user_type, req.body.user_id], (err, rows) => {
+        // 2-4. 입력이 제대로 됐다면~
+        if (rows != undefined) {
+            res.json({ payment: 'success', license: rows })
             // 3. stepOne의 키에 success라는 값을 담은 json 형태를 dio.dart 로 돌려보내주기
             // 2-4-1. 제대로 안됐다면 ~
         } else if (err) {
@@ -186,8 +203,8 @@ router.post('/main/loadPayDate', (req, res) => {
         // 2-4. 입력이 제대로 됐다면~
         if (rows != undefined) {
             console.log(rows[0])
-            
-            res.json({ loadPayDate: 'success', data : rows })
+
+            res.json({ loadPayDate: 'success', data: rows })
             // let sql2 = "update user_info set user_type = '1' where user_id = ?;"
             // conn.query(sql2, [req.body.user_id], (err, rows) => {
             //     if (rows != undefined) {
