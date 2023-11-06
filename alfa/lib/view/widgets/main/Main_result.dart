@@ -1,3 +1,4 @@
+import 'package:alfa/Provider/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:vtable/vtable.dart';
 
@@ -5,7 +6,15 @@ Widget resultTabel(List<SampleRowData> items) {
   return createTable(items);
 }
 
+// var al_name1 = '';
 VTable<SampleRowData> createTable(items) {
+  DataManager.loadData('al_name1').then((value) {
+    var al_name1 = value;
+  });
+  DataManager.loadData('al_casting1').then((value) {
+    var al_casting1 = value;
+  });
+
   return VTable<SampleRowData>(
     items: items,
     startsSorted: true,
