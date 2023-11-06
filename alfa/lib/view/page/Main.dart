@@ -38,6 +38,7 @@ class MainBody extends StatefulWidget {
 class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
   final screenshotController = ScreenshotController();
   bool isLoading = false;
+
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 20),
     vsync: this,
@@ -94,27 +95,18 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                               ? Duration(milliseconds: 500)
                               : Duration(milliseconds: 100),
                         ),
-                        Container(
-                          width: 400,
-                          child: Row(
-                            children: <Widget>[
-                              SizedBox(
-                                width: 70,
+                        TextButton(
+                            onPressed: () =>
+                                Get.rootDelegate.toNamed(Routes.HOME),
+                            child: Text(
+                              'AL.F.A',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Color.fromRGBO(62, 68, 102, 1),
+                                fontSize: 40,
                               ),
-                              SizedBox(
-                                width: 300,
-                                height: 400,
-                                child: IconButton(
-                                    onPressed: () =>
-                                        Get.rootDelegate.toNamed(Routes.HOME),
-                                    icon: Image.asset(
-                                      'assets/image/Logo_text.png',
-                                      fit: BoxFit.cover,
-                                    )),
-                              )
-                            ],
-                          ),
-                        ),
+                            )),
                         ElevatedButton(
                           onPressed: () async {
                             setState(() {

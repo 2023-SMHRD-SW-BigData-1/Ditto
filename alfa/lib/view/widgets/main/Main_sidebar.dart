@@ -3,6 +3,7 @@ import 'package:alfa/Controller/bar.dart';
 import 'package:alfa/view/widgets/main/Main_listview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:html' as html;
 
 class Main_sidebar extends StatefulWidget {
   Main_sidebar({super.key});
@@ -40,7 +41,9 @@ class _Main_sidebarState extends State<Main_sidebar> {
                       children: <Widget>[
                         Container(
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/');
+                            },
                             child: Row(
                               children: [
                                 Icon(

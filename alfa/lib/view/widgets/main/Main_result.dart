@@ -14,12 +14,18 @@ VTable<SampleRowData> createTable(items) {
       VTableColumn(
         label: '조성',
         width: 120,
-        grow: 1,
+        grow: 2,
+      ),
+      VTableColumn(
+        label: 'Casting',
+        width: 120,
+        grow: 0.5,
+        alignment: Alignment.centerRight,
       ),
       VTableColumn(
         label: '용체화 1차 (℃/h)',
         width: 120,
-        grow: 1,
+        grow: 0.5,
         transformFunction: (row) {
           return row.planet.gravity.toStringAsFixed(1) +
               "\t / \t" +
@@ -29,9 +35,15 @@ VTable<SampleRowData> createTable(items) {
         validators: [SampleRowData.validateGravity],
       ),
       VTableColumn(
+        label: '냉각방법 1차',
+        width: 120,
+        grow: 0.5,
+        alignment: Alignment.centerRight,
+      ),
+      VTableColumn(
         label: '용체화 2차 (℃/h)',
         width: 120,
-        grow: 1,
+        grow: 0.5,
         transformFunction: (row) {
           return row.planet.moons.toString() +
               '\t / \t' +
@@ -40,9 +52,15 @@ VTable<SampleRowData> createTable(items) {
         alignment: Alignment.centerRight,
       ),
       VTableColumn(
-        label: '시효경과처리',
+        label: '냉각방법 2차',
         width: 120,
-        grow: 1,
+        grow: 0.5,
+        alignment: Alignment.centerRight,
+      ),
+      VTableColumn(
+        label: '시효경과처리 (℃/h)',
+        width: 120,
+        grow: 0.5,
         transformFunction: (row) => row.planet.temp.toString(),
         alignment: Alignment.centerRight,
       ),
@@ -58,13 +76,6 @@ const List<Planet> planets = <Planet>[
   Planet('Mercury', 3.7, 57.9, 88, 167, 0),
   Planet('Venus', 8.9, 108.2, 224.7, 464, 0),
   Planet('Earth', 9.8, 149.6, 365.2, 15, 1),
-  Planet('Moon', 1.6, 0.384, 27.3, -20, 0),
-  Planet('Mars', 3.7, 228, 687, -65, 2),
-  Planet('Jupiter', 23.1, 778.5, 4331, -110, 92),
-  Planet('Saturn', 9, 1432, 10747, -140, 83),
-  Planet('Uranus', 8.7, 2867, 30589, -195, 27),
-  Planet('Neptune', 11, 4515, 59800, -200, 14),
-  Planet('Pluto', 0.7, 5906.4, 90560, -225, 5),
 ];
 
 class Planet {
