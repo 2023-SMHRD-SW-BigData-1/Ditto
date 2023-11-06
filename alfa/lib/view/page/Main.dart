@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 import 'package:alfa/Controller/bar.dart';
 import 'package:alfa/get_pages.dart';
+import 'package:alfa/view/widgets/main/Main_chart.dart';
 import 'package:alfa/view/widgets/main/Main_input.dart';
+import 'package:alfa/view/widgets/main/Main_lineStepChart.dart';
 import 'package:alfa/view/widgets/main/Main_result.dart';
 import 'package:alfa/view/widgets/main/Main_sidebar.dart';
 import 'package:flutter/material.dart';
@@ -144,26 +146,30 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Center(
-                          child: Container(
-                              margin: EdgeInsets.all(30),
-                              padding: EdgeInsets.all(50),
-                              width: 1500,
-                              height: 700,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Color.fromRGBO(62, 68, 102, 1),
-                                      width: 2),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Screenshot(
-                                  controller: screenshotController,
-                                  child: resultTabel(
-                                      generateRowData(planets.length)))),
-                        )
-                      ],
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Screenshot(
+                              controller: screenshotController,
+                              child: Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                    width: 1500,
+                                    height: 250,
+                                    child: resultTabel(
+                                        generateRowData(planets.length)),
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Main_chart(),
+                                    ],
+                                  )
+                                ],
+                              ))
+                        ],
+                      ),
                     ),
                     // child: AnimatedBuilder(
                     //   animation: _controller,
@@ -201,10 +207,10 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
   }
 }
 
-List<SampleRowData> generateRowData(int rows) {
+List<ReulstRowData> generateRowData(int rows) {
   return List.generate(rows, (index) {
-    return SampleRowData(
-      planet: planets[index],
+    return ReulstRowData(
+      result: planets[index],
     );
   });
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:vtable/vtable.dart';
 
-Widget resultTabel(List<SampleRowData> items) {
+Widget resultTabel(List<ReulstRowData> items) {
   return createTable(items);
 }
 
-VTable<SampleRowData> createTable(items) {
-  return VTable<SampleRowData>(
+VTable<ReulstRowData> createTable(items) {
+  return VTable<ReulstRowData>(
     items: items,
     startsSorted: true,
     tableDescription: '${items.length} items',
@@ -27,12 +27,12 @@ VTable<SampleRowData> createTable(items) {
         width: 120,
         grow: 0.5,
         transformFunction: (row) {
-          return row.planet.gravity.toStringAsFixed(1) +
+          return row.result.gravity.toStringAsFixed(1) +
               "\t / \t" +
-              row.planet.gravity.toStringAsFixed(1);
+              row.result.gravity.toStringAsFixed(1);
         },
         alignment: Alignment.centerRight,
-        validators: [SampleRowData.validateGravity],
+        validators: [ReulstRowData.validateGravity],
       ),
       VTableColumn(
         label: '냉각방법 1차',
@@ -45,9 +45,9 @@ VTable<SampleRowData> createTable(items) {
         width: 120,
         grow: 0.5,
         transformFunction: (row) {
-          return row.planet.moons.toString() +
+          return row.result.moons.toString() +
               '\t / \t' +
-              row.planet.moons.toString();
+              row.result.moons.toString();
         },
         alignment: Alignment.centerRight,
       ),
@@ -61,7 +61,7 @@ VTable<SampleRowData> createTable(items) {
         label: '시효경과처리 (℃/h)',
         width: 120,
         grow: 0.5,
-        transformFunction: (row) => row.planet.temp.toString(),
+        transformFunction: (row) => row.result.temp.toString(),
         alignment: Alignment.centerRight,
       ),
     ],
@@ -72,48 +72,54 @@ const String loremIpsum =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod '
     'tempor incididunt ut labore et dolore magna aliqua.';
 
-const List<Planet> planets = <Planet>[
-  Planet('Mercury', 3.7, 57.9, 88, 167, 0),
-  Planet('Venus', 8.9, 108.2, 224.7, 464, 0),
-  Planet('Earth', 9.8, 149.6, 365.2, 15, 1),
+const List<MainResult> planets = <MainResult>[
+  MainResult('Mercury', 3.7, 57.9, 88, 167, 0),
+  MainResult('Venus', 8.9, 108.2, 224.7, 464, 0),
+  MainResult('Earth', 9.8, 149.6, 365.2, 15, 1),
 ];
 
-class Planet {
+class MainResult {
   final String name;
-  final double gravity;
-  final double orbit;
-  final double period;
-  final int temp;
-  final int moons;
+  final String casting;
+  final int sol1_time;
+  final double sol1_deg;
+  final String quench;
+  final int sol2_time;
+  final double sol2_deg;
+  final int age_time;
+  final double age_deg;
 
-  const Planet(
+  const MainResult(
     this.name,
-    this.gravity,
-    this.orbit,
-    this.period,
-    this.temp,
-    this.moons,
+    this.casting,
+    this.sol1_time,
+    this.sol1_deg,
+    this.quench,
+    this.sol2_time,
+    this.sol2_deg,
+    this.age_time,
+    this.age_deg,
   );
 
   @override
   String toString() => name;
 }
 
-class SampleRowData {
-  final Planet planet;
+class ReulstRowData {
+  final MainResult result;
 
-  SampleRowData({required this.planet});
+  ReulstRowData({required this.result});
 
-  static ValidationResult? validateGravity(SampleRowData row) {
-    if (row.planet.gravity > 20.0) {
+  static ValidationResult? validateGravity(ReulstRowData row) {
+    if (row.result.gravity > 20.0) {
       return ValidationResult.error('too heavy!');
     }
-    if (row.planet.gravity > 10.0) {
+    if (row.result.gravity > 10.0) {
       return ValidationResult.warning('pretty heavy');
     }
     return null;
   }
 
   @override
-  String toString() => '$planet';
+  String toString() => '$result';
 }

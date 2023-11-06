@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'package:alfa/Model/resultData.dart';
+import 'package:alfa/view/widgets/main/Main_result.dart';
 import 'package:dio/dio.dart';
+import 'package:provider/provider.dart';
 import '../provider/shared.dart';
 import 'package:http/http.dart' as http;
 
@@ -152,7 +155,6 @@ class Server {
         if (response.statusCode == 200) {
           // 성공적으로 서버에서 응답을 받았을 때 실행할 코드
           var res = jsonDecode(response.body);
-
           print('서버 응답: ${res[0]}');
           print('서버 응답: ${res[1]}');
         } else {
