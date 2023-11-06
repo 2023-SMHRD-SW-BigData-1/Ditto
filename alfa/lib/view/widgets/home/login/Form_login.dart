@@ -4,6 +4,7 @@ import 'package:alfa/server/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import '../../../../get_pages.dart';
+import 'package:alfa/provider/shared.dart';
 
 class Form_login extends StatefulWidget {
   const Form_login({super.key});
@@ -14,14 +15,14 @@ class Form_login extends StatefulWidget {
 
 class _Form_bulidState extends State<Form_login> {
   var isEnabled = false;
-  String prefId = '';
+  // String prefId = '';
 
-  Future<void> loadUserId() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      prefId = prefs.getString('name') ?? 'null';
-    });
-  }
+  // Future<void> loadUserId() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     prefId = prefs.getString('name') ?? 'null';
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -83,14 +84,11 @@ class _Form_bulidState extends State<Form_login> {
                   if (_formkey.currentState!.validate()) {
                     String user_id = _emailController.text;
                     String user_pw = _passwordController.text;
-                    // Get.rootDelegate.toNamed(Routes.LOGIN);
-                    // Get.rootDelegate.toNamed(Routes.HOME);
-                    void serverData() async {
-                      await server.login(user_id, user_pw);
-                      await loadUserId();
-                      // print('id' + prefId);
 
-                      if (prefId != 'null') {
+                    void login() async {
+                      await server.login(user_id, user_pw);
+
+                      if (DataManager.loadData('name') != 'null') {
                         Navigator.of(context).pop();
                         Future.delayed(Duration(milliseconds: 300), () {
                           html.window.location.reload();
@@ -98,7 +96,7 @@ class _Form_bulidState extends State<Form_login> {
                       } else {}
                     }
 
-                    serverData();
+                    login();
                   }
                 },
                 child: Text(

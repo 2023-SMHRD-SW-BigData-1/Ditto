@@ -135,7 +135,7 @@ router.post('/main/stepOne', (req, res) => {
     conn.query(sql, [req.body.tens, req.body.yield, req.body.elongation, req.body.hard, req.body.user_id, req.body.pay_date], (err, rows1) => {
         // 2-4. 입력이 제대로 됐다면~
         if (rows1 != undefined) {
-            let sql2 = "select * from new_alloy_info where pay_date = ? order by num desc;"
+            let sql2 = "select num, name, casting, sol1_deg, sol1_time, quench, sol2_deg, sol2_time, quench2, age_deg, age_time, tens,yield,elongation, hard, user_id, pay_date, DATE_FORMAT(researchDate, '%Y-%m-%d %H:%i:%s') AS researchDate from new_alloy_info where pay_date = ? order by num desc;"
             conn.query(sql2, [req.body.pay_date], (err, rows2) => {
                 console.log('select new : ' + rows2[0]['researchDate'])
                 res.json({ stepOne: 'success', pay: rows2 })

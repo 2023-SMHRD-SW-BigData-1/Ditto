@@ -68,29 +68,26 @@ Widget Main_input() {
                                       content: Payment(),
                                     );
                                   });
-                              // Navigator.of(context).pop();
 
                               await DataManager.loadData('id').then((value) {
                                 user_id = value;
-                                print('user_id : $user_id');
+                                print('type(0).user_id : $user_id');
                               });
                               await DataManager.loadData('payDate')
                                   .then((value) {
                                 pay_date = value;
-                                print('payDate : $pay_date');
+                                print('type(0).payDate : $pay_date');
                               });
                               await DataManager.loadData2('payPrice')
                                   .then((value) {
                                 pay_price = value;
-                                print('payPrice : $pay_price');
+                                print('type(0).payPrice : $pay_price');
                               });
-
                               await server.payDate(
                                   user_id, pay_date, pay_price);
-
                               await DataManager.loadData('payment')
                                   .then((value) {
-                                print('insertAl 전 payment : $value');
+                                print('type(0).insertAl 전 payment : $value');
                                 if (value == 'success') {
                                   server.insertAl(
                                       _Input_data.tensile,
@@ -107,13 +104,13 @@ Widget Main_input() {
                           } else if (type == '2') {
                             DataManager.loadData('id').then((value) async {
                               user_id = value;
-                              print(user_id);
+                              print('type(2).user_id : $user_id');
                               await server.loadPayDate(user_id);
 
                               await DataManager.loadData('loadPayDate')
                                   .then((value) {
                                 pay_date = value;
-                                print(pay_date);
+                                print('type(2).user_id : $pay_date');
                                 server.insertAl(
                                     _Input_data.tensile,
                                     _Input_data.yield,
