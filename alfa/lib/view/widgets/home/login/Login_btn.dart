@@ -4,6 +4,8 @@ import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:html' as html;
+import 'package:alfa/provider/shared.dart';
 
 class NavBarItem extends StatelessWidget {
   final String title;
@@ -42,6 +44,7 @@ class hovering extends StatefulWidget {
   State<hovering> createState() => _hoveringState();
 }
 
+String id = '';
 bool _hover = false;
 
 Future<void> clearAllData() async {
@@ -123,8 +126,15 @@ class _hoveringState extends State<hovering> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           TextButton(
-                              onPressed: () =>
-                                  Get.rootDelegate.toNamed(Routes.INFO),
+                              onPressed: () {
+                                DataManager.loadData('id')
+                                    .then((value) => id = value);
+                                if (id != null) {
+                                  Get.rootDelegate.toNamed(Routes.INFO);
+                                } else {
+                                  Get.rootDelegate.toNamed(Routes.MAIN);
+                                }
+                              },
                               child: mintext('회원정보')),
                           Container(
                             width: double.infinity,
@@ -139,11 +149,11 @@ class _hoveringState extends State<hovering> {
                                 // }
                                 // );
                                 clearAllData();
+                                // Navigator.of(context).pop();
+                                Future.delayed(Duration(milliseconds: 300), () {
+                                  html.window.location.reload();
+                                });
                                 Get.rootDelegate.toNamed(Routes.HOME);
-                                Navigator.of(context).pop();
-                                // Future.delayed(Duration(milliseconds: 300), () {
-                                //   html.window.location.reload();
-                                // });
                               },
                               child: mintext('Log out'))
                         ],

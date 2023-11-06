@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:alfa/provider/shared.dart';
 import 'package:alfa/server/dio.dart';
+import 'dart:html' as html;
+import 'package:crypto/crypto.dart';
 
 class Google_login2 extends StatefulWidget {
   const Google_login2({super.key});
@@ -14,7 +19,7 @@ class Google_login2 extends StatefulWidget {
 
 class _MyAppState extends State<Google_login2> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
-  String? name, imageUrl, userEmail, uid, userNum;
+  String? name, imageUrl, userEmail, uid, userNum, userPw;
 
   // This widget is the root of your application.
   @override
@@ -87,25 +92,27 @@ class _MyAppState extends State<Google_login2> {
       name = user.displayName;
       userEmail = user.email;
       userNum = user.phoneNumber;
+      userPw = '0000';
 
-      await DataManager.saveData('google_name', name!);
-      await DataManager.saveData('google_email', userEmail!);
-      await DataManager.saveData('google_pw', '0000');
+      var bytes = utf8.encode(userPw!);
+      var pwHash = sha256.convert(bytes).toString();
 
-      // SharedPreferences prefs = await SharedPreferences.getInstance();
-      // prefs.setBool('auth', true);
+      // await DataManager.saveData('google_name', name!);
+      // await DataManager.saveData('google_email', userEmail!);
+      // await DataManager.saveData('google_pw', pwHash);
+
       // print("name:" + name!);
       // print("userEmail: $userEmail");
       // print("imageUrl: $imageUrl");
       // print("user : $user");
       // print("uid : $uid");
 
-      await server.join(userEmail!, '0000', name!, '01000000000');
+      await server.join(userEmail!, pwHash, name!, '01000000000');
       var result = DataManager.loadData('joinResult');
 
       if (result == 'success') {
         Navigator.of(context).pop();
-      }
+      } else if (result == 'failed') {}
     }
     // return user;
   }
