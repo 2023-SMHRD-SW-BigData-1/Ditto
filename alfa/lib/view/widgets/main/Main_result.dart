@@ -63,16 +63,10 @@ VTable<ReulstRowData> createTable(items) {
         label: '냉각방법 2차',
         width: 120,
         grow: 0.5,
-<<<<<<< HEAD
         transformFunction: (row) {
           return row.result.first.quench2.toString();
         },
-=======
->>>>>>> 07d0bdc3a0cdbbc0ff5e37079e86824cfe508905
         alignment: Alignment.centerRight,
-        transformFunction: (row) => TextButton(
-                onPressed: () {}, child: Text('row.result.first.quench2'))
-            .toString(),
       ),
       VTableColumn(
         label: '시효경과처리 (℃/h)',
