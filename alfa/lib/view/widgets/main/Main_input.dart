@@ -1,3 +1,4 @@
+import 'package:alfa/Controller/reslutTrigger.dart';
 import 'package:alfa/Model/Input_data.dart';
 import 'package:alfa/provider/shared.dart';
 import 'package:alfa/view/widgets/main/Payment.dart';
@@ -13,6 +14,7 @@ Widget Main_input() {
     int pay_price = 0;
     final _formkey = GlobalKey<FormState>();
     final _Input_data = Provider.of<Input_data>(context);
+    final resTrigger = Provider.of<resultTrigger>(context);
     TextEditingController yieldController = TextEditingController();
     TextEditingController tensileController = TextEditingController();
     TextEditingController hardnessController = TextEditingController();
@@ -121,6 +123,16 @@ Widget Main_input() {
                               });
                             });
                           }
+
+                          DataManager.loadData('stepOne').then((value) async {
+                            var result = value;
+
+                            if (result == null) {
+                              resTrigger.Trigger = false;
+                            } else if (result == "success") {
+                              resTrigger.Trigger = true;
+                            }
+                          });
                         });
                       }
                     },
