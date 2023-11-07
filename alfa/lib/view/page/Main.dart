@@ -233,7 +233,7 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
 
 Future<List<ReulstRowData>> generateRowData(int rows) async {
   // Future.wait를 사용하여 모든 비동기 작업을 병렬로 기다립니다.
-  return Future.wait(List.generate(rows, (_) async {
+  return Future.wait(List.generate(rows, (index) async {
     // resultList() 호출 결과를 기다립니다.
     var result = await resultList();
     // 비동기 결과를 받아서 ReulstRowData 객체를 생성합니다.

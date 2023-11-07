@@ -94,22 +94,15 @@ const String loremIpsum =
 
 Future<List<MainResult>> resultList() async {
   var data = await DataManager.loadArray('finalResultKey');
-
+  List<MainResult> list = [];
   // data가 정말 배열인지, 그리고 필요한 길이를 가지고 있는지 확인합니다.
   if (data is List && data.length >= 9) {
-    return [
-      MainResult(
-        data[0],
-        data[1],
-        data[2],
-        data[3],
-        data[4],
-        data[5],
-        data[6],
-        data[7],
-        data[8],
-      ),
-    ];
+    for (var i = 0; i < data.length; i++) {
+      list.add(MainResult(data[i][0], data[i][1], data[i][2], data[i][3],
+          data[i][4], data[i][5], data[i][6], data[i][7], data[i][8]));
+    }
+
+    return list;
   } else {
     // data가 예상한 형태가 아닐 경우 오류를 처리하거나 빈 리스트를 반환합니다.
     throw Exception('Data is not in the expected format or is incomplete.');
