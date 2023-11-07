@@ -3,6 +3,7 @@ import 'package:alfa/Controller/bar.dart';
 import 'package:alfa/Controller/reslutTrigger.dart';
 import 'package:alfa/get_pages.dart';
 import 'package:alfa/provider/shared.dart';
+import 'package:alfa/view/widgets/main/Main_barChart.dart';
 import 'package:alfa/view/widgets/main/Main_chart.dart';
 import 'package:alfa/view/widgets/main/Main_input.dart';
 import 'package:alfa/view/widgets/main/Main_lineStepChart.dart';
@@ -160,7 +161,7 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                 children: <Widget>[
                                   resTrigger.Trigger
                                       ? FutureBuilder(
-                                          future: generateRowData(2),
+                                          future: generateRowData(),
                                           builder: (BuildContext context,
                                               AsyncSnapshot<List<ReulstRowData>>
                                                   snapshot) {
@@ -187,24 +188,30 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                             }
                                           },
                                         )
-                                      : AnimatedBuilder(
-                                          animation: _controller,
-                                          child: Container(
-                                            child: Image.asset(
-                                              'assets/image/Logo_icon.png',
-                                              width: 300,
-                                            ),
-                                          ),
-                                          builder: (BuildContext context,
-                                              Widget? child) {
-                                            return Transform.rotate(
-                                              angle: _controller.value *
-                                                  2.0 *
-                                                  3.1415926535897932,
-                                              child: child,
-                                            );
-                                          },
-                                        ),
+                                      : SizedBox(
+                                          width: 1000,
+                                          height: 400,
+                                          child: BarChartSample2(),
+                                        )
+
+                                  // : AnimatedBuilder(
+                                  //     animation: _controller,
+                                  //     child: Container(
+                                  //       child: Image.asset(
+                                  //         'assets/image/Logo_icon.png',
+                                  //         width: 300,
+                                  //       ),
+                                  //     ),
+                                  //     builder: (BuildContext context,
+                                  //         Widget? child) {
+                                  //       return Transform.rotate(
+                                  //         angle: _controller.value *
+                                  //             2.0 *
+                                  //             3.1415926535897932,
+                                  //         child: child,
+                                  //       );
+                                  //     },
+                                  //   ),
                                 ],
                               ))
                         ],
@@ -231,17 +238,26 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
   }
 }
 
-Future<List<ReulstRowData>> generateRowData(int rows) async {
-  // Future.wait를 사용하여 모든 비동기 작업을 병렬로 기다립니다.
-  return Future.wait(List.generate(rows, (index) async {
-    // resultList() 호출 결과를 기다립니다.
-    var result = await resultList();
-    // 비동기 결과를 받아서 ReulstRowData 객체를 생성합니다.
-    return ReulstRowData(
-      result: [result[index]],
-    );
-  }));
+Future<List<ReulstRowData>> generateRowData() async {
+  // resultList() 함수로부터 결과를 가져옵니다.
+  var results = await resultList(); // resultList 함수가 정의되어 있어야 합니다.
+  // 결과 리스트의 각 항목에 대해 ReulstRowData 객체를 생성합니다.
+  return results.map((result) => ReulstRowData(result: [result])).toList();
 }
+
+// Future<List<ReulstRowData>> generateRowData() async {
+//   // Future.wait를 사용하여 모든 비동기 작업을 병렬로 기다립니다.
+//   return Future.wait(List.generate(rows, (index) async {
+//     // resultList() 호출 결과를 기다립니다.
+//     var result = await resultList();
+//     // 비동기 결과를 받아서 ReulstRowData 객체를 생성합니다.
+//     return ReulstRowData(
+//       result: [result[index]],
+//     );
+//   })
+
+//   );
+// }
 
 pw.Document buildPdf(Uint8List imageBytes) {
   final pdf = pw.Document();
