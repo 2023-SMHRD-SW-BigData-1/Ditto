@@ -1,12 +1,20 @@
 import 'package:alfa/provider/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:vtable/vtable.dart';
+import 'package:alfa/provider/shared.dart';
 
 Widget resultTabel(List<ReulstRowData> items) {
   return createTable(items);
 }
 
 VTable<ReulstRowData> createTable(items) {
+  void load() async {
+    var res = await DataManager.loadArray('finalResultKey');
+    print('결과 보여주는 테이블 테스트 값 : $res, ${res.length}');
+  }
+
+  load();
+
   return VTable<ReulstRowData>(
     items: items,
     startsSorted: true,

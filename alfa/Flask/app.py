@@ -67,45 +67,22 @@ def predict():
         # 예측 수행
         print("위치1 : ",data.shape)
         
-        
-        
-        # augmented_data = []
-        # for row in data.iterrows():
-        #     print("위치2 : 여기도?")
-
-        #     print(augmented_data)
-            # print("위치2 : 여기는?")
-            
-        #     augmented_data.extend(augment_data(row, percentage=0.02))
-        
         augmented_data = []
         for row in data.itertuples(index=False):
             augmented_data.extend(augment_data(row, percentage=0.05))
-            # print("위치2 : 여기도?")
-            # print("위치2 : 여기는?")
         increase_condition = pd.DataFrame(augmented_data, columns=data.columns)
         print(increase_condition)
         
-        
-        print("위치2 : 여기도???")
-        # 결과 데이터프레임 생성
-        
-        print("위치3 : 결과는?")
+        # 결과 데이터프레임 생성        
+
         # 결과 소수점 2번째자리까지만!
         increase_condition2 = increase_condition.round(2)
-        # 결과 출력
-        # print(increase_condition2)       
-
+        # 결과 출력     
 
         # 예측 수행
         prediction = predict_value(increase_condition2)
-        # print(prediction)
         print('----------')
-        # incResult = np.unique(prediction)
-        # # 결과 값 확인
-        # print("결과값1:",incResult)
-        # print("결과값2:",incResult[1])
-        
+
         # 결과값의 개수가 많은 순으로 정렬
         unique_values, counts = np.unique(prediction, return_counts=True)
         sorted_indices = np.argsort(-counts)
