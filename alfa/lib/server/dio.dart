@@ -3,7 +3,7 @@ import 'package:alfa/Model/resultData.dart';
 import 'package:alfa/view/widgets/main/Main_result.dart';
 import 'package:dio/dio.dart';
 import 'package:provider/provider.dart';
-import '../provider/shared.dart';
+import 'package:alfa/Provider/shared.dart';
 import 'package:http/http.dart' as http;
 
 const url = "http://172.30.1.29:8889";
@@ -36,13 +36,15 @@ class Server {
 // 로그인 실패
     } else if (response.data['result'] == "pw err") {
       await DataManager.saveData('id', 'null');
-      print(' : 비밀번호를 잘못 입력함');
+      print('dio login : 비밀번호를 잘못 입력함');
     } else if (response.data['result'] == 'empty id') {
-      print('failedRes : 아이디가 없음');
+      print('dio login : 아이디가 없음');
     }
   }
 
 // ---------------------------------------------------------------------------------------- 로그인 종료
+
+// ---------------------------------------------------------------------------------------- 회원가입 시작
   Future join(String user_id, String user_pw, String user_name,
       String? user_num) async {
     Response response;
@@ -55,14 +57,9 @@ class Server {
     });
     String result = response.data['result'];
     await DataManager.saveData('joinResult', result);
-    if (result == "success") {
-      print('successRes : $result');
-    } else if (result == "failed") {
-      print('successRes : $result');
-    }
-
-    // User user = Provider.of<User>(context, listen: false);
+    print('dio join_result : $result');
   }
+// ---------------------------------------------------------------------------------------- 회원가입 종료
 
   Future modify(String user_id, String user_num, String user_pw) async {
     Response response;
@@ -155,8 +152,30 @@ class Server {
         if (response.statusCode == 200) {
           // 성공적으로 서버에서 응답을 받았을 때 실행할 코드
           var res = jsonDecode(response.body);
-          print('서버 응답: ${res[0]}');
-          print('서버 응답: ${res[1]}');
+
+          print('서버 응답: ${res}, ${res.length}');
+
+          for (int i = 0; i < res.lengts; i++) {
+            DataManager.saveData('al_name${i + 1}', res[i][1]);
+            DataManager.saveData('al_casting${i + 1}', res[i][2]);
+            DataManager.saveData('al_sol1_deg${i + 1}', res[i][3].toString());
+            DataManager.saveData('al_sol1_time${i + 1}', res[i][4].toString());
+            DataManager.saveData('al_quench1${i + 1}', res[i][5]);
+            DataManager.saveData('al_sol2_deg${i + 1}', res[i][6].toString());
+            DataManager.saveData('al_sol2_time${i + 1}', res[i][7].toString());
+            DataManager.saveData('al_quench2${i + 1}', res[i][8]);
+            DataManager.saveData('al_age_dig${i + 1}', res[i][9].toString());
+            DataManager.saveData('al_age_time${i + 1}', res[i][10].toString());
+            DataManager.saveData('al_tens${i + 1}', res[i][11].toString());
+            DataManager.saveData('al_yield${i + 1}', res[i][12].toString());
+            DataManager.saveData(
+                'al_elongation${i + 1}', res[i][13].toString());
+            DataManager.saveData('al_hard${i + 1}', res[i][14].toString());
+            DataManager.saveData('al_user_id${i + 1}', res[i][15]);
+            DataManager.saveData('al_pay_date${i + 1}', res[i][16]);
+            DataManager.saveData('al_researchDate${i + 1}', res[i][17]);
+          }
+          // print('서버 응답: ${res[1]}');
         } else {
           // 요청이 실패했을 때 실행할 코드
           print('서버 요청 실패: ${response.statusCode}');

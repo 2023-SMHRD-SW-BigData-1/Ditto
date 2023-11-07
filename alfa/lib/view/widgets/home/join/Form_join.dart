@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:alfa/view/widgets/home/join/TextFromFieldComponent.dart';
 import 'package:alfa/view/widgets/home/join/consent.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,8 @@ import '../../../../server/dio.dart';
 import 'package:get/get.dart';
 import 'package:alfa/get_Pages.dart';
 import 'dart:html' as html;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:alfa/provider/shared.dart';
+import 'package:crypto/crypto.dart';
 
 class Form_join extends StatefulWidget {
   const Form_join({super.key});
@@ -16,24 +19,9 @@ class Form_join extends StatefulWidget {
 }
 
 class _Form_updateState extends State<Form_join> {
-  String joinRes = '';
-
   @override
   void initState() {
     super.initState();
-    // loadJoinResult(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
-  }
-
-  Future<void> loadJoinResult() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      joinRes = prefs.getString('joinResult') ?? 'null';
-    });
-  }
-
-  Future<void> removeRes(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.remove(key);
   }
 
   final _formkey = GlobalKey<FormState>();
@@ -42,6 +30,8 @@ class _Form_updateState extends State<Form_join> {
   TextEditingController _email = TextEditingController();
   TextEditingController _pw = TextEditingController();
   TextEditingController _pwt = TextEditingController();
+  String joinRes = '';
+
   bool? checked = false;
   @override
   Widget build(BuildContext context) {
@@ -119,52 +109,44 @@ class _Form_updateState extends State<Form_join> {
               Expanded(child: SizedBox()),
               Container(
                   width: double.infinity,
-                  child:
-                      // joinBtn(_formkey, checked, _name.text, _pw.text,
-                      //     _email.text, _tel.text, joinRes)
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromRGBO(62, 68, 102, 1)),
-                          onPressed: () {
-                            // if (!checked) {}
-                            // if (_formkey.currentState!.validate()) {
-                            String user_id = _email.text;
-                            String user_pw = _pw.text;
-                            String user_name = _name.text;
-                            String user_num = _tel.text;
-                            // Get.rootDelegate.toNamed(Routes.JOINDB);
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromRGBO(62, 68, 102, 1)),
+                      onPressed: () {
+                        // if (_formkey.currentState!.validate()) {
+                        String user_id = _email.text;
+                        String user_pw = _pw.text;
+                        String user_name = _name.text;
+                        String user_num = _tel.text;
 
-                            Future<void> data() async {
-                              await server.join(
-                                  user_id, user_pw, user_name, user_num);
-                              await loadJoinResult();
-                              print('joinRes: $joinRes');
+                        var bytes = utf8.encode(user_pw);
+                        var pwHash = sha256.convert(bytes).toString();
 
-                              // html.window.location.reload();
-                              // DataManager.removeData('flutter.joinResult');
-                              if (joinRes == 'failed') {
-                                print('joinRestest: $joinRes');
-                                removeRes('joinResult');
+                        Future<void> data() async {
+                          await server.join(
+                              user_id, pwHash, user_name, user_num);
 
-                                // Get.rootDelegate.toNamed(Routes.JOIN);
-                                Future.delayed(Duration(milliseconds: 100), () {
-                                  html.window.location.reload();
-                                  // _formkey.currentState!.save();
-                                });
-                              } else if (joinRes == 'success') {
-                                Get.rootDelegate.toNamed(Routes.HOME);
-                                removeRes('joinResult');
-                                Future.delayed(Duration(milliseconds: 100), () {
-                                  html.window.location.reload();
-                                  // _formkey.currentState!.save();
-                                });
-                              }
-                            }
+                          await DataManager.loadData('joinResult')
+                              .then((value) => joinRes = value);
 
-                            data();
-                          },
-                          // },
-                          child: Text('회원가입'))),
+                          if (joinRes == 'failed') {
+                            Future.delayed(Duration(milliseconds: 100), () {
+                              html.window.alert('이미 사용중인 아이디 입니다');
+                              html.window.location.reload();
+                            });
+                          } else if (joinRes == 'success') {
+                            Future.delayed(Duration(milliseconds: 100), () {
+                              html.window.alert('환영합니다');
+                              html.window.location.reload();
+                            });
+                            Get.rootDelegate.toNamed(Routes.HOME);
+                          }
+                        }
+
+                        data();
+                      },
+                      // }},
+                      child: Text('회원가입'))),
             ],
           ),
         ),

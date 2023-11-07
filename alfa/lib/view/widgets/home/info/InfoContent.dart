@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:alfa/view/widgets/home/join/TextFromFieldComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:alfa/server/dio.dart';
 import 'dart:html' as html;
-import 'package:alfa/Provider/shared.dart';
+import 'package:alfa/provider/shared.dart';
+import 'package:crypto/crypto.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class InfoContent extends StatefulWidget {
   const InfoContent({super.key});
@@ -17,9 +20,9 @@ class _InfoContentState extends State<InfoContent> {
   @override
   void initState() {
     super.initState();
-    loadEmail(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
-    loadName();
-    loadNum();
+    loadInfo(); // 앱이 시작할 때 세션 데이터를 불러옵니다.
+    // loadName();
+    // loadNum();
   }
 
   String email = '';
@@ -27,23 +30,11 @@ class _InfoContentState extends State<InfoContent> {
   String num = '';
   String pw = '';
 
-  Future<void> loadEmail() async {
+  Future<void> loadInfo() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       email = prefs.getString('id') ?? "null";
-    });
-  }
-
-  Future<void> loadName() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
       name = prefs.getString('name') ?? "null";
-    });
-  }
-
-  Future<void> loadNum() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
       num = prefs.getString('num') ?? "null";
     });
   }
@@ -81,7 +72,7 @@ class _InfoContentState extends State<InfoContent> {
           SizedBox(height: 20),
           TitleText('이름'),
           TextFromFieldComponent(
-              1, false, '이름을 입력해주세요.', 10, '다시입력해주세요', true, _name, true),
+              1, false, '이름을 입력해주세요.', 10, '다시입력해주세요', true, _name, false),
           SizedBox(
             height: 10,
           ),
@@ -98,9 +89,12 @@ class _InfoContentState extends State<InfoContent> {
             onPressed: () {
               num = _tel.text;
               pw = _pw.text;
-              void modify() async {
-                await server.modify(email, num, pw);
 
+              var bytes = utf8.encode(pw);
+              var pwHash = sha256.convert(bytes).toString();
+
+              void modify() async {
+                await server.modify(email, num, pwHash);
                 html.window.location.reload();
               }
 
