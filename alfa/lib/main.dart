@@ -2,7 +2,6 @@ import 'package:alfa/Controller/bar.dart';
 import 'package:alfa/Controller/trigger.dart';
 import 'package:alfa/Model/Input_data.dart';
 import 'package:alfa/Model/fetch.dart';
-import 'package:alfa/Model/resultData.dart';
 import 'package:alfa/build_app_theme.dart';
 import 'package:alfa/get_pages.dart';
 import 'package:alfa/provider/scrollPosition%20.dart';
@@ -60,9 +59,6 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (context) => scrollPosition(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => resultData(),
-        )
       ],
       child: GetMaterialApp.router(
         debugShowCheckedModeBanner: false,
