@@ -8,13 +8,6 @@ Widget resultTabel(List<ReulstRowData> items) {
 }
 
 VTable<ReulstRowData> createTable(items) {
-  void load() async {
-    var res = await DataManager.loadArray('finalResultKey');
-    print('결과 보여주는 테이블 테스트 값 : $res, ${res.length}');
-  }
-
-  load();
-
   return VTable<ReulstRowData>(
     items: items,
     startsSorted: true,
@@ -57,9 +50,9 @@ VTable<ReulstRowData> createTable(items) {
         width: 120,
         grow: 0.5,
         transformFunction: (row) {
-          return row.result.first.sol2_deg +
+          return row.result.first.sol2_deg.toString() +
               '\t / \t' +
-              row.result.first.sol2_time;
+              row.result.first.sol2_time.toString();
         },
         alignment: Alignment.centerRight,
       ),
@@ -97,8 +90,8 @@ Future<List<MainResult>> resultList() async {
   if (data is List) {
     // 데이터를 MainResult 객체로 변환합니다.
     return List<MainResult>.from(data.map((item) {
-      return MainResult(item[0], item[1], item[2], item[3], item[4], item[5],
-          item[6], item[7], item[8]);
+      return MainResult(item[1], item[2], item[3], item[4], item[5], item[6],
+          item[7], item[8], item[9], item[10]);
     }));
   } else {
     throw Exception('Data is not in the expected format or is incomplete.');
@@ -120,13 +113,14 @@ Future<List<MainResult>> resultList() async {
 class MainResult {
   final String name;
   final String casting;
-  final String sol1_time;
-  final String sol1_deg;
+  final int sol1_time;
+  final int sol1_deg;
   final String quench;
-  final String sol2_time;
-  final String sol2_deg;
-  final String age_time;
-  final String age_deg;
+  final int sol2_time;
+  final int sol2_deg;
+  final String quench2;
+  final int age_time;
+  final int age_deg;
 
   const MainResult(
     this.name,
@@ -136,6 +130,7 @@ class MainResult {
     this.quench,
     this.sol2_time,
     this.sol2_deg,
+    this.quench2,
     this.age_time,
     this.age_deg,
   );

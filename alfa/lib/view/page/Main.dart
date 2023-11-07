@@ -160,7 +160,7 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                 children: <Widget>[
                                   resTrigger.Trigger
                                       ? FutureBuilder(
-                                          future: generateRowData(1),
+                                          future: generateRowData(2),
                                           builder: (BuildContext context,
                                               AsyncSnapshot<List<ReulstRowData>>
                                                   snapshot) {
@@ -238,7 +238,7 @@ Future<List<ReulstRowData>> generateRowData(int rows) async {
     var result = await resultList();
     // 비동기 결과를 받아서 ReulstRowData 객체를 생성합니다.
     return ReulstRowData(
-      result: result,
+      result: [result[index]],
     );
   }));
 }
