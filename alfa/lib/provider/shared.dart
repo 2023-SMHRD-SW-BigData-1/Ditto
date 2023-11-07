@@ -55,4 +55,13 @@ class DataManager {
     final encodedArray = json.encode(array); // 배열을 JSON 문자열로 직렬화
     await prefs.setString(key, encodedArray);
   }
+
+// 6. list 불러오기
+  static Future<List<dynamic>> loadArray(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'finalResultKey';
+    final encodedArray = prefs.getString(key) ?? '[]'; // 기본값으로 빈 배열 설정
+    final decodedArray = json.decode(encodedArray); // JSON 문자열을 배열로 역직렬화
+    return List<dynamic>.from(decodedArray);
+  }
 }
