@@ -1,8 +1,5 @@
 import 'dart:convert';
-import 'package:alfa/Model/resultData.dart';
-import 'package:alfa/view/widgets/main/Main_result.dart';
 import 'package:dio/dio.dart';
-import 'package:provider/provider.dart';
 import 'package:alfa/Provider/shared.dart';
 import 'package:http/http.dart' as http;
 

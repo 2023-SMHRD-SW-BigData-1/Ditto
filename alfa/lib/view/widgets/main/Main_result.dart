@@ -1,3 +1,4 @@
+import 'package:alfa/provider/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:vtable/vtable.dart';
 
@@ -21,33 +22,36 @@ VTable<ReulstRowData> createTable(items) {
         width: 120,
         grow: 0.5,
         alignment: Alignment.centerRight,
+        transformFunction: (row) {
+          return row.result.first.casting.toString();
+        },
       ),
       VTableColumn(
         label: '용체화 1차 (℃/h)',
         width: 120,
         grow: 0.5,
         transformFunction: (row) {
-          return row.result.gravity.toStringAsFixed(1) +
+          return row.result.first.sol1_deg.toString() +
               "\t / \t" +
-              row.result.gravity.toStringAsFixed(1);
+              row.result.first.sol1_time.toString();
         },
         alignment: Alignment.centerRight,
-        validators: [ReulstRowData.validateGravity],
       ),
       VTableColumn(
         label: '냉각방법 1차',
         width: 120,
         grow: 0.5,
         alignment: Alignment.centerRight,
+        transformFunction: (row) => row.result.first.quench,
       ),
       VTableColumn(
         label: '용체화 2차 (℃/h)',
         width: 120,
         grow: 0.5,
         transformFunction: (row) {
-          return row.result.moons.toString() +
+          return row.result.first.sol2_deg +
               '\t / \t' +
-              row.result.moons.toString();
+              row.result.first.sol2_time;
         },
         alignment: Alignment.centerRight,
       ),
@@ -61,7 +65,11 @@ VTable<ReulstRowData> createTable(items) {
         label: '시효경과처리 (℃/h)',
         width: 120,
         grow: 0.5,
-        transformFunction: (row) => row.result.temp.toString(),
+        transformFunction: (row) {
+          return row.result.first.age_deg.toString() +
+              '\t / \t' +
+              row.result.first.age_time.toString();
+        },
         alignment: Alignment.centerRight,
       ),
     ],
@@ -72,22 +80,48 @@ const String loremIpsum =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod '
     'tempor incididunt ut labore et dolore magna aliqua.';
 
-const List<MainResult> planets = <MainResult>[
-  MainResult('Mercury', 3.7, 57.9, 88, 167, 0),
-  MainResult('Venus', 8.9, 108.2, 224.7, 464, 0),
-  MainResult('Earth', 9.8, 149.6, 365.2, 15, 1),
-];
+// const List<MainResult> heatTr = <MainResult> [
+//   MainResult(DataManager.loadData('id'), casting, sol1_time, sol1_deg, quench, sol2_time, sol2_deg, age_time, age_deg),
+// ];
+
+Future<List<MainResult>> resultList() async {
+  var data = await Future.wait([
+    DataManager.loadData('al_name1'),
+    DataManager.loadData('al_casting1'),
+    DataManager.loadData('al_sol1_time1'),
+    DataManager.loadData('al_sol1_deg1'),
+    DataManager.loadData('al_quench1'),
+    DataManager.loadData('al_sol2_time1'),
+    DataManager.loadData('al_sol2_deg1'),
+    DataManager.loadData('al_age_time1'),
+    DataManager.loadData('al_age_dig1'),
+  ]);
+
+  return [
+    MainResult(
+      data[0],
+      data[1],
+      data[2],
+      data[3],
+      data[4],
+      data[5],
+      data[6],
+      data[7],
+      data[8],
+    )
+  ];
+}
 
 class MainResult {
   final String name;
   final String casting;
-  final int sol1_time;
-  final double sol1_deg;
+  final String sol1_time;
+  final String sol1_deg;
   final String quench;
-  final int sol2_time;
-  final double sol2_deg;
-  final int age_time;
-  final double age_deg;
+  final String sol2_time;
+  final String sol2_deg;
+  final String age_time;
+  final String age_deg;
 
   const MainResult(
     this.name,
@@ -106,19 +140,19 @@ class MainResult {
 }
 
 class ReulstRowData {
-  final MainResult result;
+  final List<MainResult> result;
 
   ReulstRowData({required this.result});
 
-  static ValidationResult? validateGravity(ReulstRowData row) {
-    if (row.result.gravity > 20.0) {
-      return ValidationResult.error('too heavy!');
-    }
-    if (row.result.gravity > 10.0) {
-      return ValidationResult.warning('pretty heavy');
-    }
-    return null;
-  }
+  // static ValidationResult? validateGravity(ReulstRowData row) {
+  //   if (row.result.gravity > 20.0) {
+  //     return ValidationResult.error('too heavy!');
+  //   }
+  //   if (row.result.gravity > 10.0) {
+  //     return ValidationResult.warning('pretty heavy');
+  //   }
+  //   return null;
+  // }
 
   @override
   String toString() => '$result';

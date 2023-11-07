@@ -155,11 +155,26 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                               controller: screenshotController,
                               child: Column(
                                 children: <Widget>[
-                                  SizedBox(
-                                    width: 1500,
-                                    height: 250,
-                                    child: resultTabel(
-                                        generateRowData(planets.length)),
+                                  FutureBuilder(
+                                    future: generateRowData(1),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<List<ReulstRowData>>
+                                            snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return CircularProgressIndicator();
+                                      } else if (snapshot.hasError) {
+                                        return Text('Error: ${snapshot.error}');
+                                      } else {
+                                        List<ReulstRowData> myData =
+                                            snapshot.data!;
+                                        return SizedBox(
+                                          width: 1300,
+                                          height: 200,
+                                          child: resultTabel(myData),
+                                        );
+                                      }
+                                    },
                                   ),
                                   Row(
                                     children: <Widget>[
@@ -207,12 +222,16 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
   }
 }
 
-List<ReulstRowData> generateRowData(int rows) {
-  return List.generate(rows, (index) {
+Future<List<ReulstRowData>> generateRowData(int rows) async {
+  // Future.wait를 사용하여 모든 비동기 작업을 병렬로 기다립니다.
+  return Future.wait(List.generate(rows, (_) async {
+    // resultList() 호출 결과를 기다립니다.
+    var result = await resultList();
+    // 비동기 결과를 받아서 ReulstRowData 객체를 생성합니다.
     return ReulstRowData(
-      result: planets[index],
+      result: result,
     );
-  });
+  }));
 }
 
 pw.Document buildPdf(Uint8List imageBytes) {
