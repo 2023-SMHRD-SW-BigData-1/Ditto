@@ -24,19 +24,11 @@ class BarChartSample2State extends State<BarChartSample2> {
     final barGroup1 = makeGroupData(0, 5, 12);
     final barGroup2 = makeGroupData(1, 16, 12);
     final barGroup3 = makeGroupData(2, 18, 5);
-    final barGroup4 = makeGroupData(3, 20, 16);
-    final barGroup5 = makeGroupData(4, 17, 6);
-    final barGroup6 = makeGroupData(5, 19, 1.5);
-    final barGroup7 = makeGroupData(6, 10, 1.5);
 
     final items = [
       barGroup1,
       barGroup2,
       barGroup3,
-      barGroup4,
-      barGroup5,
-      barGroup6,
-      barGroup7,
     ];
 
     rawBarGroups = items;
@@ -59,7 +51,7 @@ class BarChartSample2State extends State<BarChartSample2> {
                   maxY: 20,
                   barTouchData: BarTouchData(
                     touchTooltipData: BarTouchTooltipData(
-                      tooltipBgColor: Colors.grey,
+                      tooltipBgColor: Color.fromARGB(255, 7, 7, 7),
                       getTooltipItem: (a, b, c, d) => null,
                     ),
                     touchCallback: (FlTouchEvent event, response) {
@@ -121,10 +113,7 @@ class BarChartSample2State extends State<BarChartSample2> {
                     ),
                     leftTitles: AxisTitles(
                       sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 28,
-                        interval: 1,
-                        getTitlesWidget: leftTitles,
+                        showTitles: false,
                       ),
                     ),
                   ),
@@ -145,31 +134,8 @@ class BarChartSample2State extends State<BarChartSample2> {
     );
   }
 
-  Widget leftTitles(double value, TitleMeta meta) {
-    const style = TextStyle(
-      color: Color(0xff7589a2),
-      fontWeight: FontWeight.bold,
-      fontSize: 14,
-    );
-    String text;
-    if (value == 0) {
-      text = '1K';
-    } else if (value == 10) {
-      text = '5K';
-    } else if (value == 19) {
-      text = '10K';
-    } else {
-      return Container();
-    }
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      space: 0,
-      child: Text(text, style: style),
-    );
-  }
-
   Widget bottomTitles(double value, TitleMeta meta) {
-    final titles = <String>['1차 용체화', 'Te', 'Wd', 'Tu', 'Fr', 'St', 'Su'];
+    final titles = <String>['용체화 1차', '용체화2차', '시효경과처리'];
 
     final Widget text = Text(
       titles[value.toInt()],
@@ -195,59 +161,12 @@ class BarChartSample2State extends State<BarChartSample2> {
         BarChartRodData(
           toY: y1,
           color: widget.leftBarColor,
-          width: width,
+          width: 20,
         ),
         BarChartRodData(
           toY: y2,
           color: widget.rightBarColor,
-          width: width,
-        ),
-      ],
-    );
-  }
-
-  Widget makeTransactionsIcon() {
-    const width = 4.5;
-    const space = 3.5;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Container(
-          width: width,
-          height: 10,
-          color: Colors.white.withOpacity(0.4),
-        ),
-        const SizedBox(
-          width: space,
-        ),
-        Container(
-          width: width,
-          height: 28,
-          color: Colors.white.withOpacity(0.8),
-        ),
-        const SizedBox(
-          width: space,
-        ),
-        Container(
-          width: width,
-          height: 42,
-          color: Colors.white.withOpacity(1),
-        ),
-        const SizedBox(
-          width: space,
-        ),
-        Container(
-          width: width,
-          height: 28,
-          color: Colors.white.withOpacity(0.8),
-        ),
-        const SizedBox(
-          width: space,
-        ),
-        Container(
-          width: width,
-          height: 10,
-          color: Colors.white.withOpacity(0.4),
+          width: 20,
         ),
       ],
     );

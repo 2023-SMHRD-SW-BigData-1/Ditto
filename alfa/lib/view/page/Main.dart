@@ -181,6 +181,12 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                                   Row(
                                                     children: <Widget>[
                                                       Main_chart(),
+                                                      SizedBox(
+                                                        width: 400,
+                                                        height: 300,
+                                                        child:
+                                                            BarChartSample2(),
+                                                      )
                                                     ],
                                                   )
                                                 ],
@@ -188,30 +194,24 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                             }
                                           },
                                         )
-                                      : SizedBox(
-                                          width: 1000,
-                                          height: 400,
-                                          child: BarChartSample2(),
-                                        )
-
-                                  // : AnimatedBuilder(
-                                  //     animation: _controller,
-                                  //     child: Container(
-                                  //       child: Image.asset(
-                                  //         'assets/image/Logo_icon.png',
-                                  //         width: 300,
-                                  //       ),
-                                  //     ),
-                                  //     builder: (BuildContext context,
-                                  //         Widget? child) {
-                                  //       return Transform.rotate(
-                                  //         angle: _controller.value *
-                                  //             2.0 *
-                                  //             3.1415926535897932,
-                                  //         child: child,
-                                  //       );
-                                  //     },
-                                  //   ),
+                                      : AnimatedBuilder(
+                                          animation: _controller,
+                                          child: Container(
+                                            child: Image.asset(
+                                              'assets/image/Logo_icon.png',
+                                              width: 300,
+                                            ),
+                                          ),
+                                          builder: (BuildContext context,
+                                              Widget? child) {
+                                            return Transform.rotate(
+                                              angle: _controller.value *
+                                                  2.0 *
+                                                  3.1415926535897932,
+                                              child: child,
+                                            );
+                                          },
+                                        ),
                                 ],
                               ))
                         ],
