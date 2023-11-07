@@ -9,8 +9,8 @@ Widget resultTabel(List<ReulstRowData> items) {
 
 VTable<ReulstRowData> createTable(items) {
   void load() async {
-    final res = await DataManager.loadArray('finalResultKey');
-    print('결과 보여주는 테이블 테스트 값 : $res');
+    var res = await DataManager.loadArray('finalResultKey');
+    print('결과 보여주는 테이블 테스트 값 : $res, ${res.length}');
   }
 
   load();

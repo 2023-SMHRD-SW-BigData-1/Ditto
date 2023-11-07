@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class Input_data extends ChangeNotifier {
-  late double _yield;
+  late double _yiel;
   late double _tensile;
   late double _hardness;
   late double _elongation;
 
-  double get yield => _yield;
+  double get yiel => _yiel;
   double get tensile => _tensile;
   double get hardness => _hardness;
   double get elongation => _elongation;
 
-  set yield(double value) {
-    _yield = value;
+  set yiel(double value) {
+    _yiel = value;
     notifyListeners();
   }
 

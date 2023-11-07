@@ -51,13 +51,13 @@ Widget Main_input() {
                         _formkey.currentState!.save();
                         _Input_data.tensile =
                             double.parse(tensileController.text);
-                        _Input_data.yield = double.parse(yieldController.text);
+                        _Input_data.yiel = double.parse(yieldController.text);
                         _Input_data.elongation =
                             double.parse(elongationController.text);
                         _Input_data.hardness =
                             double.parse(hardnessController.text);
 
-                        DataManager.loadData('type').then((value) {
+                        DataManager.loadData('type').then((value) async {
                           var type = value;
 
                           if (type == '0') {
@@ -88,17 +88,27 @@ Widget Main_input() {
                               await server.payDate(
                                   user_id, pay_date, pay_price);
                               await DataManager.loadData('payment')
-                                  .then((value) {
+                                  .then((value) async {
                                 print('type(0).insertAl 전 payment : $value');
                                 if (value == 'success') {
                                   server.insertAl(
                                       _Input_data.tensile,
-                                      _Input_data.yield,
+                                      _Input_data.yiel,
                                       _Input_data.elongation,
                                       _Input_data.hardness,
                                       user_id,
                                       pay_date);
                                 }
+                                await Future.delayed(Duration(seconds: 2));
+                                await DataManager.loadData('stepOne')
+                                    .then((value) async {
+                                  var result = value;
+                                  if (result == null) {
+                                    resTrigger.Trigger = false;
+                                  } else if (result == "success") {
+                                    resTrigger.Trigger = true;
+                                  }
+                                });
                               });
                             }
 
@@ -110,29 +120,29 @@ Widget Main_input() {
                               await server.loadPayDate(user_id);
 
                               await DataManager.loadData('loadPayDate')
-                                  .then((value) {
+                                  .then((value) async {
                                 pay_date = value;
                                 print('type(2).pay_date : $pay_date');
                                 server.insertAl(
                                     _Input_data.tensile,
-                                    _Input_data.yield,
+                                    _Input_data.yiel,
                                     _Input_data.elongation,
                                     _Input_data.hardness,
                                     user_id,
                                     pay_date);
                               });
+                              await Future.delayed(Duration(seconds: 2));
+                              await DataManager.loadData('stepOne')
+                                  .then((value) async {
+                                var result = value;
+                                if (result == null) {
+                                  resTrigger.Trigger = false;
+                                } else if (result == "success") {
+                                  resTrigger.Trigger = true;
+                                }
+                              });
                             });
                           }
-
-                          DataManager.loadData('stepOne').then((value) async {
-                            var result = value;
-
-                            if (result == null) {
-                              resTrigger.Trigger = false;
-                            } else if (result == "success") {
-                              resTrigger.Trigger = true;
-                            }
-                          });
                         });
                       }
                     },
