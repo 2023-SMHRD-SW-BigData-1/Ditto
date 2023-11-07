@@ -225,7 +225,6 @@ class Server {
     response =
         await dio.post("$url/main/loadPayDate", data: {"user_id": "$user_id"});
     String result = response.data['loadPayDate'];
-    print(result);
     String pay_date = response.data['data'][0]['pay_date'];
     await DataManager.saveData('loadPayDate', pay_date);
     if (result == "success") {
