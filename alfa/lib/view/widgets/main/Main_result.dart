@@ -17,6 +17,9 @@ VTable<ReulstRowData> createTable(items) {
         label: '조성',
         width: 120,
         grow: 2,
+        transformFunction: (row) {
+          return row.result.first.name.toString();
+        },
       ),
       VTableColumn(
         label: 'Casting',
@@ -61,9 +64,7 @@ VTable<ReulstRowData> createTable(items) {
         width: 120,
         grow: 0.5,
         transformFunction: (row) {
-          return row.result.first.quench2.toString() +
-              '\t / \t' +
-              row.result.first.quench2.toString();
+          return row.result.first.quench2.toString();
         },
         alignment: Alignment.centerRight,
       ),
@@ -92,6 +93,7 @@ const String loremIpsum =
 
 Future<List<MainResult>> resultList() async {
   var data = await DataManager.loadArray('finalResultKey');
+
   if (data is List) {
     // 데이터를 MainResult 객체로 변환합니다.
     return List<MainResult>.from(data.map((item) {
