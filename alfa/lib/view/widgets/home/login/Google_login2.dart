@@ -97,16 +97,6 @@ class _MyAppState extends State<Google_login2> {
       var bytes = utf8.encode(userPw!);
       var pwHash = sha256.convert(bytes).toString();
 
-      // await DataManager.saveData('google_name', name!);
-      // await DataManager.saveData('google_email', userEmail!);
-      // await DataManager.saveData('google_pw', pwHash);
-
-      // print("name:" + name!);
-      // print("userEmail: $userEmail");
-      // print("imageUrl: $imageUrl");
-      // print("user : $user");
-      // print("uid : $uid");
-
       await server.join(userEmail!, pwHash, name!, '01000000000');
       var result = DataManager.loadData('joinResult');
 

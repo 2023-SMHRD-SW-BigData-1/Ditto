@@ -60,6 +60,11 @@ VTable<ReulstRowData> createTable(items) {
         label: '냉각방법 2차',
         width: 120,
         grow: 0.5,
+        transformFunction: (row) {
+          return row.result.first.quench2.toString() +
+              '\t / \t' +
+              row.result.first.quench2.toString();
+        },
         alignment: Alignment.centerRight,
       ),
       VTableColumn(
