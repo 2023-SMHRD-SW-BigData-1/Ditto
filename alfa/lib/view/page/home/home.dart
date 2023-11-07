@@ -64,10 +64,7 @@ class _HomeState extends State<Home> {
             FutureBuilder<String>(
               future: loadUserId(),
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  // 데이터가 로드 중인 경우
-                  return CircularProgressIndicator(); // 로딩 중 인디케이터 또는 다른 로딩 UI를 표시할 수 있습니다.
-                } else if (snapshot.hasError) {
+                if (snapshot.hasError) {
                   // 에러가 발생한 경우
                   return Text('Error: ${snapshot.error}');
                 } else {

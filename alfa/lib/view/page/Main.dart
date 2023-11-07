@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:alfa/Controller/bar.dart';
 import 'package:alfa/Controller/reslutTrigger.dart';
 import 'package:alfa/get_pages.dart';
+import 'package:alfa/provider/shared.dart';
 import 'package:alfa/view/widgets/main/Main_chart.dart';
 import 'package:alfa/view/widgets/main/Main_input.dart';
 import 'package:alfa/view/widgets/main/Main_lineStepChart.dart';
@@ -163,19 +164,25 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                           builder: (BuildContext context,
                                               AsyncSnapshot<List<ReulstRowData>>
                                                   snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return CircularProgressIndicator();
-                                            } else if (snapshot.hasError) {
+                                            if (snapshot.hasError) {
                                               return Text(
                                                   'Error: ${snapshot.error}');
                                             } else {
                                               List<ReulstRowData> myData =
                                                   snapshot.data!;
-                                              return SizedBox(
-                                                width: 1300,
-                                                height: 200,
-                                                child: resultTabel(myData),
+                                              return Column(
+                                                children: [
+                                                  SizedBox(
+                                                    width: 1300,
+                                                    height: 200,
+                                                    child: resultTabel(myData),
+                                                  ),
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Main_chart(),
+                                                    ],
+                                                  )
+                                                ],
                                               );
                                             }
                                           },
@@ -198,11 +205,6 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                             );
                                           },
                                         ),
-                                  // Row(
-                                  //   children: <Widget>[
-                                  //     Main_chart(),
-                                  //   ],
-                                  // )
                                 ],
                               ))
                         ],
