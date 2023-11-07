@@ -11,6 +11,20 @@ class Main_chart extends StatefulWidget {
 
 class _Main_chartState extends State<Main_chart> {
   late TooltipBehavior _tooltipBehavior;
+
+  Future<List<ChartData>> fetchChartData() async {
+    List<double> numbers = await parseData();
+
+    final List<ChartData> chartData = [
+      ChartData('Al', numbers[0], "55%", Color.fromRGBO(67, 79, 149, 1)),
+      ChartData('Cu', numbers[1], "31%", Color.fromRGBO(182, 24, 24, 1)),
+      ChartData('Si', numbers[2], "7.7%", Color.fromRGBO(228, 0, 124, 1)),
+      ChartData('Mg', numbers[3], "3.7%", Color.fromRGBO(255, 189, 57, 1)),
+    ];
+
+    return chartData;
+  }
+
   List<double> parse(String text) {
     List<double> numbers = [];
     RegExp regex = RegExp(r'\d+\.\d+');
@@ -69,32 +83,38 @@ class _Main_chartState extends State<Main_chart> {
 
   @override
   Widget build(BuildContext context) {
-    var res = resultList();
-    print(res);
-    final List<ChartData> chartData = [
-      ChartData('Al', 90, "55%", Color.fromRGBO(67, 79, 149, 1)),
-      ChartData('Cu', 4.5, "31%", Color.fromRGBO(182, 24, 24, 1)),
-      ChartData('Si', 1.0, "7.7%", Color.fromRGBO(228, 0, 124, 1)),
-      ChartData('Mg', 0.0, "3.7%", Color.fromRGBO(255, 189, 57, 1)),
-    ];
-    return SizedBox(
-        width: 500,
-        height: 500,
-        child: SfCircularChart(
-            tooltipBehavior: _tooltipBehavior,
-            legend: Legend(isVisible: true),
-            series: <CircularSeries>[
-              // Renders doughnut chart
-              DoughnutSeries<ChartData, String>(
+    return FutureBuilder<List<ChartData>>(
+      future: fetchChartData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator(); // 로딩 중 표시
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          final chartData = snapshot.data;
+          return SizedBox(
+            width: 500,
+            height: 500,
+            child: SfCircularChart(
+              tooltipBehavior: _tooltipBehavior,
+              legend: Legend(isVisible: true),
+              series: <CircularSeries>[
+                DoughnutSeries<ChartData, String>(
                   dataSource: chartData,
                   pointColorMapper: (ChartData data, _) => data.color,
-                  xValueMapper: (ChartData data, _) => data.x as String,
+                  xValueMapper: (ChartData data, _) => data.x,
                   yValueMapper: (ChartData data, _) => data.y,
                   dataLabelMapper: (ChartData data, _) => data.y.toString(),
                   dataLabelSettings: const DataLabelSettings(
                     isVisible: true,
-                  ))
-            ]));
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+    );
   }
 }
 
