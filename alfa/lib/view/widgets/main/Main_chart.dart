@@ -1,4 +1,3 @@
-import 'package:alfa/view/widgets/main/Main_result.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:alfa/provider/shared.dart';
@@ -12,6 +11,54 @@ class Main_chart extends StatefulWidget {
 
 class _Main_chartState extends State<Main_chart> {
   late TooltipBehavior _tooltipBehavior;
+  List<double> parse(String text) {
+    List<double> numbers = [];
+    RegExp regex = RegExp(r'\d+\.\d+');
+    Iterable<Match> matches = regex.allMatches(text);
+
+    for (Match match in matches) {
+      String matchText = match.group(0)!;
+      try {
+        double number = double.parse(matchText);
+        numbers.add(number);
+        // print('check : $numbers');
+      } catch (e) {
+        // 파싱 에러가 발생하면 무시
+      }
+    }
+
+    return numbers;
+  }
+
+  Future<void> resultList() async {
+    // if (data is List) {
+    //   // 데이터를 MainResult 객체로 변환합니다.
+    //   return List<MainResult>.from(data.map((item) {
+    // void ext() {
+    List<double> numbers = await parseData();
+
+    print('ext : $numbers');
+
+    // for (double number in numbers) {
+    //   print('check : $number');
+    // }
+  }
+
+  Future<List<double>> parseData() async {
+    var data = await DataManager.loadArray('finalResultKey');
+    print('data? : ${data[0]}');
+
+    List<double> numbers = parse(data[0][1]);
+    return numbers;
+  }
+  // ext();
+
+  // return MainResult(item[1]);
+  // }));
+  // } else {
+  //   throw Exception('Data is not in the expected format or is incomplete.');
+  // }
+  // }
 
   @override
   void initState() {
@@ -22,52 +69,10 @@ class _Main_chartState extends State<Main_chart> {
 
   @override
   Widget build(BuildContext context) {
-    // List<double> extractNumbersInsideParentheses(String text) {
-    //   List<double> numbers = [];
-    //   RegExp regex = RegExp(r'\d+\.\d+');
-    //   Iterable<Match> matches = regex.allMatches(text);
-
-    //   for (Match match in matches) {
-    //     String matchText = match.group(0)!;
-    //     try {
-    //       double number = double.parse(matchText);
-    //       numbers.add(number);
-    //       print('check : $numbers');
-    //     } catch (e) {
-    //       // 파싱 에러가 발생하면 무시
-    //     }
-    //   }
-
-    //   return numbers;
-    // }
-
-    // Future<List<MainResult>> resultList() async {
-    //   var data = await DataManager.loadArray('finalResultKey');
-
-    //   // if (data is List) {
-    //   // 데이터를 MainResult 객체로 변환합니다.
-    //   return List<MainResult>.from(data.map((item) {
-    //     void ext() {
-    //       List<double> numbers = extractNumbersInsideParentheses(item[1]);
-
-    //       print(numbers);
-
-    //       // for (double number in numbers) {
-    //       //   print('check : $number');
-    //       // }
-    //     }
-
-    //     ext();
-
-    //     return MainResult(item[1]);
-    //   }));
-    //   // } else {
-    //   //   throw Exception('Data is not in the expected format or is incomplete.');
-    //   // }
-    // }
-
+    var res = resultList();
+    print(res);
     final List<ChartData> chartData = [
-      ChartData('Al', 93.12, "55%", Color.fromRGBO(67, 79, 149, 1)),
+      ChartData('Al', 90, "55%", Color.fromRGBO(67, 79, 149, 1)),
       ChartData('Cu', 4.5, "31%", Color.fromRGBO(182, 24, 24, 1)),
       ChartData('Si', 1.0, "7.7%", Color.fromRGBO(228, 0, 124, 1)),
       ChartData('Mg', 0.0, "3.7%", Color.fromRGBO(255, 189, 57, 1)),
