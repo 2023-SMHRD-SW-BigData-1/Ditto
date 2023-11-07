@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (context) => scrollPosition(),
-        )
+        ),
       ],
       child: GetMaterialApp.router(
         debugShowCheckedModeBanner: false,

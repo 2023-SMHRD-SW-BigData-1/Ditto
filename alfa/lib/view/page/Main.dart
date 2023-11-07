@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 import 'package:alfa/Controller/bar.dart';
 import 'package:alfa/get_pages.dart';
+import 'package:alfa/view/widgets/main/Main_chart.dart';
 import 'package:alfa/view/widgets/main/Main_input.dart';
+import 'package:alfa/view/widgets/main/Main_lineStepChart.dart';
 import 'package:alfa/view/widgets/main/Main_result.dart';
 import 'package:alfa/view/widgets/main/Main_sidebar.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +40,7 @@ class MainBody extends StatefulWidget {
 class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
   final screenshotController = ScreenshotController();
   bool isLoading = false;
+
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 20),
     vsync: this,
@@ -94,27 +97,18 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                               ? Duration(milliseconds: 500)
                               : Duration(milliseconds: 100),
                         ),
-                        Container(
-                          width: 400,
-                          child: Row(
-                            children: <Widget>[
-                              SizedBox(
-                                width: 70,
+                        TextButton(
+                            onPressed: () =>
+                                Get.rootDelegate.toNamed(Routes.HOME),
+                            child: Text(
+                              'AL.F.A',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Color.fromRGBO(62, 68, 102, 1),
+                                fontSize: 40,
                               ),
-                              SizedBox(
-                                width: 300,
-                                height: 400,
-                                child: IconButton(
-                                    onPressed: () =>
-                                        Get.rootDelegate.toNamed(Routes.HOME),
-                                    icon: Image.asset(
-                                      'assets/image/Logo_text.png',
-                                      fit: BoxFit.cover,
-                                    )),
-                              )
-                            ],
-                          ),
-                        ),
+                            )),
                         ElevatedButton(
                           onPressed: () async {
                             setState(() {
@@ -152,26 +146,45 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Center(
-                          child: Container(
-                              margin: EdgeInsets.all(30),
-                              padding: EdgeInsets.all(50),
-                              width: 1500,
-                              height: 700,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Color.fromRGBO(62, 68, 102, 1),
-                                      width: 2),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Screenshot(
-                                  controller: screenshotController,
-                                  child: resultTabel(
-                                      generateRowData(planets.length)))),
-                        )
-                      ],
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Screenshot(
+                              controller: screenshotController,
+                              child: Column(
+                                children: <Widget>[
+                                  FutureBuilder(
+                                    future: generateRowData(1),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<List<ReulstRowData>>
+                                            snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return CircularProgressIndicator();
+                                      } else if (snapshot.hasError) {
+                                        return Text('Error: ${snapshot.error}');
+                                      } else {
+                                        List<ReulstRowData> myData =
+                                            snapshot.data!;
+                                        return SizedBox(
+                                          width: 1300,
+                                          height: 200,
+                                          child: resultTabel(myData),
+                                        );
+                                      }
+                                    },
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Main_chart(),
+                                    ],
+                                  )
+                                ],
+                              ))
+                        ],
+                      ),
                     ),
                     // child: AnimatedBuilder(
                     //   animation: _controller,
@@ -209,12 +222,16 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
   }
 }
 
-List<SampleRowData> generateRowData(int rows) {
-  return List.generate(rows, (index) {
-    return SampleRowData(
-      planet: planets[index],
+Future<List<ReulstRowData>> generateRowData(int rows) async {
+  // Future.wait를 사용하여 모든 비동기 작업을 병렬로 기다립니다.
+  return Future.wait(List.generate(rows, (_) async {
+    // resultList() 호출 결과를 기다립니다.
+    var result = await resultList();
+    // 비동기 결과를 받아서 ReulstRowData 객체를 생성합니다.
+    return ReulstRowData(
+      result: result,
     );
-  });
+  }));
 }
 
 pw.Document buildPdf(Uint8List imageBytes) {

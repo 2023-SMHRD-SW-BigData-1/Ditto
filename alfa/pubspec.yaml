@@ -68,7 +68,7 @@ dependencies:
 
   bootpay_webview_flutter_android: ^3.6.2
   bootpay_webview_flutter_wkwebview: ^3.4.1
-  uuid: 3.0.7
+  uuid: ^4.1.0
   
   js: ^0.6.7
   fluttertoast: 8.2.1
@@ -80,6 +80,8 @@ dependencies:
   sticky_grouped_list: ^3.1.0
   screenshot: ^2.1.0
   printing: ^5.11.0
+  syncfusion_flutter_charts: ^23.1.43
+  fl_chart: ^0.64.0
 
 
 
