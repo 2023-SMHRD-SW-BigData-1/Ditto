@@ -183,9 +183,8 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                                       Main_chart(),
                                                       SizedBox(
                                                         width: 400,
-                                                        height: 300,
-                                                        child:
-                                                            BarChartSample2(),
+                                                        height: 500,
+                                                        child: Main_barChart(),
                                                       )
                                                     ],
                                                   )

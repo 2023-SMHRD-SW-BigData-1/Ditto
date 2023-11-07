@@ -103,7 +103,7 @@ class _Main_sidebarState extends State<Main_sidebar> {
                 Sized_bar(),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  height: 150,
+                  height: 80,
                   width: 280,
                   decoration: BoxDecoration(
                       color: const Color.fromARGB(54, 0, 0, 0),
