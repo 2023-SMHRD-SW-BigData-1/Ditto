@@ -1,4 +1,5 @@
 import 'package:alfa/Controller/bar.dart';
+import 'package:alfa/Controller/reslutTrigger.dart';
 import 'package:alfa/Controller/trigger.dart';
 import 'package:alfa/Model/Input_data.dart';
 import 'package:alfa/Model/fetch.dart';
@@ -59,6 +60,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (context) => scrollPosition(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => resultTrigger(),
+        )
       ],
       child: GetMaterialApp.router(
         debugShowCheckedModeBanner: false,

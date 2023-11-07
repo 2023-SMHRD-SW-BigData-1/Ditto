@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:alfa/Controller/bar.dart';
+import 'package:alfa/Controller/reslutTrigger.dart';
 import 'package:alfa/get_pages.dart';
 import 'package:alfa/view/widgets/main/Main_chart.dart';
 import 'package:alfa/view/widgets/main/Main_input.dart';
@@ -57,6 +58,7 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
     MediaQueryData deviceData = MediaQuery.of(context);
     Size screenSize = deviceData.size;
     final _bar = Provider.of<bar>(context);
+    final resTrigger = Provider.of<resultTrigger>(context);
     return SafeArea(
         child: Stack(children: [
       Container(
@@ -155,52 +157,57 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                               controller: screenshotController,
                               child: Column(
                                 children: <Widget>[
-                                  FutureBuilder(
-                                    future: generateRowData(1),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<List<ReulstRowData>>
-                                            snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return CircularProgressIndicator();
-                                      } else if (snapshot.hasError) {
-                                        return Text('Error: ${snapshot.error}');
-                                      } else {
-                                        List<ReulstRowData> myData =
-                                            snapshot.data!;
-                                        return SizedBox(
-                                          width: 1300,
-                                          height: 200,
-                                          child: resultTabel(myData),
-                                        );
-                                      }
-                                    },
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Main_chart(),
-                                    ],
-                                  )
+                                  resTrigger.Trigger
+                                      ? FutureBuilder(
+                                          future: generateRowData(1),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<List<ReulstRowData>>
+                                                  snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return CircularProgressIndicator();
+                                            } else if (snapshot.hasError) {
+                                              return Text(
+                                                  'Error: ${snapshot.error}');
+                                            } else {
+                                              List<ReulstRowData> myData =
+                                                  snapshot.data!;
+                                              return SizedBox(
+                                                width: 1300,
+                                                height: 200,
+                                                child: resultTabel(myData),
+                                              );
+                                            }
+                                          },
+                                        )
+                                      : AnimatedBuilder(
+                                          animation: _controller,
+                                          child: Container(
+                                            child: Image.asset(
+                                              'assets/image/Logo_icon.png',
+                                              width: 300,
+                                            ),
+                                          ),
+                                          builder: (BuildContext context,
+                                              Widget? child) {
+                                            return Transform.rotate(
+                                              angle: _controller.value *
+                                                  2.0 *
+                                                  3.1415926535897932,
+                                              child: child,
+                                            );
+                                          },
+                                        ),
+                                  // Row(
+                                  //   children: <Widget>[
+                                  //     Main_chart(),
+                                  //   ],
+                                  // )
                                 ],
                               ))
                         ],
                       ),
                     ),
-                    // child: AnimatedBuilder(
-                    //   animation: _controller,
-                    //   child: Container(
-                    //     child: Image.asset(
-                    //       'assets/image/Logo_icon.png',
-                    //       width: 300,
-                    //     ),
-                    //   ),
-                    //   builder: (BuildContext context, Widget? child) {
-                    //     return Transform.rotate(
-                    //       angle: _controller.value * 2.0 * 3.1415926535897932,
-                    //       child: child,
-                    //     );
-                    //   },
-                    // ),
                   ),
                   Main_input()
                 ],
