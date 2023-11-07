@@ -94,17 +94,13 @@ const String loremIpsum =
 
 Future<List<MainResult>> resultList() async {
   var data = await DataManager.loadArray('finalResultKey');
-  List<MainResult> list = [];
-  // data가 정말 배열인지, 그리고 필요한 길이를 가지고 있는지 확인합니다.
-  if (data is List && data.length >= 9) {
-    for (var i = 0; i < data.length; i++) {
-      list.add(MainResult(data[i][0], data[i][1], data[i][2], data[i][3],
-          data[i][4], data[i][5], data[i][6], data[i][7], data[i][8]));
-    }
-
-    return list;
+  if (data is List) {
+    // 데이터를 MainResult 객체로 변환합니다.
+    return List<MainResult>.from(data.map((item) {
+      return MainResult(item[0], item[1], item[2], item[3], item[4], item[5],
+          item[6], item[7], item[8]);
+    }));
   } else {
-    // data가 예상한 형태가 아닐 경우 오류를 처리하거나 빈 리스트를 반환합니다.
     throw Exception('Data is not in the expected format or is incomplete.');
   }
 }
