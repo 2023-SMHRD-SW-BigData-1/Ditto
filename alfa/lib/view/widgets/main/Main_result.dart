@@ -15,8 +15,11 @@ VTable<ReulstRowData> createTable(items) {
     columns: [
       VTableColumn(
         label: '조성',
-        width: 120,
+        width: 150,
         grow: 2,
+        transformFunction: (row) {
+          return row.result.first.name.toString();
+        },
       ),
       VTableColumn(
         label: 'Casting',
@@ -60,12 +63,10 @@ VTable<ReulstRowData> createTable(items) {
         label: '냉각방법 2차',
         width: 120,
         grow: 0.5,
-        transformFunction: (row) {
-          return row.result.first.quench2.toString() +
-              '\t / \t' +
-              row.result.first.quench2.toString();
-        },
         alignment: Alignment.centerRight,
+        transformFunction: (row) => TextButton(
+                onPressed: () {}, child: Text('row.result.first.quench2'))
+            .toString(),
       ),
       VTableColumn(
         label: '시효경과처리 (℃/h)',
@@ -86,10 +87,6 @@ const String loremIpsum =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod '
     'tempor incididunt ut labore et dolore magna aliqua.';
 
-// const List<MainResult> heatTr = <MainResult> [
-//   MainResult(DataManager.loadData('id'), casting, sol1_time, sol1_deg, quench, sol2_time, sol2_deg, age_time, age_deg),
-// ];
-
 Future<List<MainResult>> resultList() async {
   var data = await DataManager.loadArray('finalResultKey');
   if (data is List) {
@@ -102,18 +99,6 @@ Future<List<MainResult>> resultList() async {
     throw Exception('Data is not in the expected format or is incomplete.');
   }
 }
-
-// await Future.wait([
-//   DataManager.loadData('al_name1'),
-//   DataManager.loadData('al_casting1'),
-//   DataManager.loadData('al_sol1_time1'),
-//   DataManager.loadData('al_sol1_deg1'),
-//   DataManager.loadData('al_quench1'),
-//   DataManager.loadData('al_sol2_time1'),
-//   DataManager.loadData('al_sol2_deg1'),
-//   DataManager.loadData('al_age_time1'),
-//   DataManager.loadData('al_age_dig1'),
-// ]);
 
 class MainResult {
   final String name;
@@ -146,19 +131,7 @@ class MainResult {
 
 class ReulstRowData {
   final List<MainResult> result;
-
   ReulstRowData({required this.result});
-
-  // static ValidationResult? validateGravity(ReulstRowData row) {
-  //   if (row.result.gravity > 20.0) {
-  //     return ValidationResult.error('too heavy!');
-  //   }
-  //   if (row.result.gravity > 10.0) {
-  //     return ValidationResult.warning('pretty heavy');
-  //   }
-  //   return null;
-  // }
-
   @override
   String toString() => '$result';
 }
