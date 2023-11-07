@@ -110,7 +110,7 @@ Widget Main_input() {
                               await DataManager.loadData('loadPayDate')
                                   .then((value) {
                                 pay_date = value;
-                                print('type(2).user_id : $pay_date');
+                                print('type(2).pay_date : $pay_date');
                                 server.insertAl(
                                     _Input_data.tensile,
                                     _Input_data.yield,

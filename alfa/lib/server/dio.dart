@@ -151,28 +151,7 @@ class Server {
           var res = jsonDecode(response.body);
 
           print('서버 응답: ${res}, ${res.length}');
-
-          for (int i = 0; i < res.length; i++) {
-            DataManager.saveData('al_name${i + 1}', res[i][1]);
-            DataManager.saveData('al_casting${i + 1}', res[i][2]);
-            DataManager.saveData('al_sol1_deg${i + 1}', res[i][3].toString());
-            DataManager.saveData('al_sol1_time${i + 1}', res[i][4].toString());
-            DataManager.saveData('al_quench1${i + 1}', res[i][5]);
-            DataManager.saveData('al_sol2_deg${i + 1}', res[i][6].toString());
-            DataManager.saveData('al_sol2_time${i + 1}', res[i][7].toString());
-            DataManager.saveData('al_quench2${i + 1}', res[i][8]);
-            DataManager.saveData('al_age_dig${i + 1}', res[i][9].toString());
-            DataManager.saveData('al_age_time${i + 1}', res[i][10].toString());
-            DataManager.saveData('al_tens${i + 1}', res[i][11].toString());
-            DataManager.saveData('al_yield${i + 1}', res[i][12].toString());
-            DataManager.saveData(
-                'al_elongation${i + 1}', res[i][13].toString());
-            DataManager.saveData('al_hard${i + 1}', res[i][14].toString());
-            DataManager.saveData('al_user_id${i + 1}', res[i][15]);
-            DataManager.saveData('al_pay_date${i + 1}', res[i][16]);
-            DataManager.saveData('al_researchDate${i + 1}', res[i][17]);
-          }
-          // print('서버 응답: ${res[1]}');
+          DataManager.saveArray(res);
         } else {
           // 요청이 실패했을 때 실행할 코드
           print('서버 요청 실패: ${response.statusCode}');
@@ -238,6 +217,8 @@ class Server {
 
     // User user = Provider.of<User>(context, listen: false);
   }
+
+  Future result(String user_id) async {}
 }
 
 Server server = Server();

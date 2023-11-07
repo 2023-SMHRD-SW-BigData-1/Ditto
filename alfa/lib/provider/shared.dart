@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class DataManager {
   // 1. 데이터 저장하기
@@ -45,5 +46,13 @@ class DataManager {
   static Future<void> clearAllData() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+  }
+
+// 5. list 저장하기
+  static Future<void> saveArray(List<dynamic> array) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'finalResultKey';
+    final encodedArray = json.encode(array); // 배열을 JSON 문자열로 직렬화
+    await prefs.setString(key, encodedArray);
   }
 }

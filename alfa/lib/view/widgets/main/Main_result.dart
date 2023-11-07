@@ -8,13 +8,6 @@ Widget resultTabel(List<SampleRowData> items) {
 
 // var al_name1 = '';
 VTable<SampleRowData> createTable(items) {
-  DataManager.loadData('al_name1').then((value) {
-    var al_name1 = value;
-  });
-  DataManager.loadData('al_casting1').then((value) {
-    var al_casting1 = value;
-  });
-
   return VTable<SampleRowData>(
     items: items,
     startsSorted: true,
