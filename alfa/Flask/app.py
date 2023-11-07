@@ -316,7 +316,7 @@ def predict():
         
         resData = cursor.fetchall()
         print(resData)
-        print('research', research)
+        
         
         db.commit()
         
