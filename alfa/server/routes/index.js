@@ -44,8 +44,8 @@ router.post('/user/create', (req, res) => {
                 if (rows != undefined) {
                     console.log('server join ? : success');
                     let sql3 = "select * from user_info where user_id = ?";
-                    conn.query(sql3, [req.body.user_id], (err, rows)=>{
-                        res.json({ result: 'success', data : rows })
+                    conn.query(sql3, [req.body.user_id], (err, rows) => {
+                        res.json({ result: 'success', data: rows })
 
                     })
                 } else {
@@ -88,6 +88,30 @@ router.post('/user/modify', (req, res) => {
 });
 // ---------------------------------------------------------------------------------------- 정보 수정 종료
 
+// ---------------------------------------------------------------------------------------- 정보 페이지 결제 내역 시작
+router.post('/info/loadpay', (req, res) => {
+    let sql = "select * from pay_date where user_id = ?;"
+
+    conn.query(sql, [req.body.user_id], (err, rows) => {
+        if (rows != undefined) {
+            console.log(rows)
+            // var rows1 = [];
+            // var num = rows.length
+            // if(num == 1){
+            //     rows1 = [rows];
+            // }else {
+            //     rows1 = rows;
+            // }
+            res.json({ loadpay: 'success', data: rows })
+
+        } else if (err) {
+            console.log('err')
+            res.json({ loadpay: 'failed' })
+        }
+
+    });
+});
+// ---------------------------------------------------------------------------------------- 정보 페이지 결제 내역 종료
 
 // ---------------------------------------------------------------------------------------- 예측 시작
 // dio.dart의 insertAl

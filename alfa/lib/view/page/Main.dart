@@ -299,6 +299,7 @@ pw.Document buildPdf(Uint8List imageBytes) {
                     imageBytes,
                   ),
                   fit: pw.BoxFit.contain),
+              Image.asset('assets/image/Logo_icon.png')
             ])));
       },
     ),

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:html' as html;
 import 'package:alfa/provider/shared.dart';
+import 'package:alfa/server/dio.dart';
 
 class NavBarItem extends StatelessWidget {
   final String title;
@@ -126,10 +127,12 @@ class _hoveringState extends State<hovering> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           TextButton(
-                              onPressed: () {
-                                DataManager.loadData('id')
+                              onPressed: () async {
+                                await DataManager.loadData('id')
                                     .then((value) => id = value);
                                 if (id != null) {
+                                  print('id : ${id}');
+                                  await server.loadPay(id);
                                   Get.rootDelegate.toNamed(Routes.INFO);
                                 } else {
                                   Get.rootDelegate.toNamed(Routes.MAIN);

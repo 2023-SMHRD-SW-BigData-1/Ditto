@@ -64,4 +64,11 @@ class DataManager {
     final decodedArray = json.decode(encodedArray); // JSON 문자열을 배열로 역직렬화
     return List<dynamic>.from(decodedArray);
   }
+
+  static Future<void> savePayInfo(List<dynamic> array) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'payInfo';
+    final encodedArray = json.encode(array); // 배열을 JSON 문자열로 직렬화
+    await prefs.setString(key, encodedArray);
+  }
 }

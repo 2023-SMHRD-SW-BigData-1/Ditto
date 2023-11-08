@@ -21,14 +21,16 @@ class _Main_chartState extends State<Main_chart> {
     double sum = numbers.reduce((value, element) => value + element);
     double num1 = sum - 100;
     double num2 = 100 - num1;
-    numbers[0] = num2;
+    String numnum = num2.toStringAsFixed(2);
+    double numn = double.parse(numnum);
+    numbers[0] = numn;
 
     final List<ChartData> chartData = [];
     for (int i = 0; i < numbers.length; i++) {
       chartData.add(ChartData(elements[i], numbers[i]));
     }
 
-    return chartData;
+    return await chartData;
   }
 
   Tuple2<List<double>, List<String>> parse(String text) {
@@ -41,6 +43,8 @@ class _Main_chartState extends State<Main_chart> {
       numbers.add(double.parse(match.group(1)!));
       elements.add(match.group(2)!);
     }
+    // List<double> numbers_1 = numbers.reversed.toList();
+    // List<String> elements_1 = elements.reversed.toList();
 
     return Tuple2(numbers, elements);
   }
@@ -50,6 +54,8 @@ class _Main_chartState extends State<Main_chart> {
     print('data? : ${data[0]}');
 
     Tuple2<List<double>, List<String>> result = parse(data[0][2]);
+    print(result);
+
     return result;
   }
 
@@ -72,18 +78,17 @@ class _Main_chartState extends State<Main_chart> {
           return SizedBox(
             width: 500,
             height: 300,
-            child: SfCartesianChart(
-              primaryXAxis: CategoryAxis(),
-              primaryYAxis: NumericAxis(minimum: 0, maximum: 40, interval: 10),
+            child: SfCircularChart(
               tooltipBehavior: _tooltipBehavior,
               legend: Legend(isVisible: true),
-              series: <ChartSeries>[
-                BarSeries<ChartData, String>(
-                  dataSource: chartData!,
+              series: <CircularSeries>[
+                DoughnutSeries<ChartData, String>(
+                  dataSource: chartData,
                   pointColorMapper: (ChartData data, _) => data.color,
                   xValueMapper: (ChartData data, _) => data.x,
                   yValueMapper: (ChartData data, _) => data.y,
-                  dataLabelMapper: (ChartData data, _) => data.y.toString(),
+                  dataLabelMapper: (ChartData data, _) =>
+                      data.x + ' : ' + data.y.toString(),
                   dataLabelSettings: const DataLabelSettings(
                     isVisible: true,
                   ),
