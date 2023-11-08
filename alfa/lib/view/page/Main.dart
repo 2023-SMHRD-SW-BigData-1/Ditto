@@ -163,7 +163,26 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                           builder: (BuildContext context,
                                               AsyncSnapshot<List<ReulstRowData>>
                                                   snapshot) {
-                                            if (snapshot.hasError) {
+                                            if (snapshot.hasData == false) {
+                                              return AnimatedBuilder(
+                                                animation: _controller,
+                                                child: Container(
+                                                  child: Image.asset(
+                                                    'assets/image/Logo_icon.png',
+                                                    width: 300,
+                                                  ),
+                                                ),
+                                                builder: (BuildContext context,
+                                                    Widget? child) {
+                                                  return Transform.rotate(
+                                                    angle: _controller.value *
+                                                        2.0 *
+                                                        3.1415926535897932,
+                                                    child: child,
+                                                  );
+                                                },
+                                              );
+                                            } else if (snapshot.hasError) {
                                               return Text(
                                                   'Error: ${snapshot.error}');
                                             } else {
