@@ -332,19 +332,28 @@ Future<pw.Document> buildPdf(Uint8List imageBytes) async {
             child: pw.Column(
               mainAxisAlignment: pw.MainAxisAlignment.center,
               children: [
-                pw.Text(name),
-                pw.Image(
-                    width: 150,
-                    pw.MemoryImage(logoBytes),
-                    fit: pw.BoxFit.contain),
-                pw.Text(date[0][18]),
-                pw.SizedBox(height: 20),
+                pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: pw.CrossAxisAlignment.end,
+                    children: [
+                      pw.Image(
+                          width: 100,
+                          pw.MemoryImage(logoBytes),
+                          fit: pw.BoxFit.contain),
+                      pw.Text(name, style: pw.TextStyle(fontSize: 18)),
+                    ]),
+
+                pw.SizedBox(height: 8),
                 pw.Image(pw.MemoryImage(imageBytes),
                     fit: pw.BoxFit.contain), // 전달받은 이미지 사용
                 pw.SizedBox(height: 20),
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.end,
-                  children: [pw.Text('© 2023 Metamong. All rights reserved.')],
+                  children: [
+                    pw.Text(
+                        '${date[0][18]}\n© 2023 Metamong. All rights reserved.',
+                        textAlign: pw.TextAlign.right)
+                  ],
                 ),
               ],
             ),

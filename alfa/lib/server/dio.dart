@@ -85,6 +85,35 @@ class Server {
     // User user = Provider.of<User>(context, listen: false);
   }
 
+  Future loadPay(String user_id) async {
+    Response response;
+    Dio dio = Dio();
+    response =
+        await dio.post("$url/info/loadpay", data: {"user_id": "$user_id"});
+
+// 결제내역 로딩 성공
+    if (response.data['loadpay'] == "success") {
+      print(response.data['data']);
+      var payInfo = response.data['data'];
+      DataManager.savePayInfo(payInfo);
+      // print('회원 정보 페이지 > 결제 내역 확인 : ' + response.data['data']);
+
+      // String user_name = response.data['data'][0]['user_name'];
+      // String user_email = response.data['data'][0]['user_id'];
+      // String user_num = response.data['data'][0]['user_num'];
+      // String user_type = response.data['data'][0]['user_type'];
+
+      // await DataManager.saveData('name', user_name);
+      // await DataManager.saveData('id', user_email);
+      // await DataManager.saveData('num', user_num);
+      // await DataManager.saveData('type', user_type);
+
+// 로그인 실패
+    } else if (response.data['result'] == "failed") {
+      print('결제 내역 불러오기 실패');
+    }
+  }
+
 // Main_input.dart에서 4개 값 입력 후 Research 버튼 클릭 시 실행
   Future insertAl(double tens, double yiel, double elongation, double hard,
       String user_id, String pay_date) async {
