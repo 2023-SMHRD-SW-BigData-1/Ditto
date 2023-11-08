@@ -2,11 +2,9 @@ import 'dart:typed_data';
 import 'package:alfa/Controller/bar.dart';
 import 'package:alfa/Controller/reslutTrigger.dart';
 import 'package:alfa/get_pages.dart';
-import 'package:alfa/provider/shared.dart';
 import 'package:alfa/view/widgets/main/Main_barChart.dart';
 import 'package:alfa/view/widgets/main/Main_chart.dart';
 import 'package:alfa/view/widgets/main/Main_input.dart';
-import 'package:alfa/view/widgets/main/Main_lineStepChart.dart';
 import 'package:alfa/view/widgets/main/Main_result.dart';
 import 'package:alfa/view/widgets/main/Main_sidebar.dart';
 import 'package:flutter/material.dart';
@@ -247,20 +245,6 @@ Future<List<ReulstRowData>> generateRowData() async {
   return results.map((result) => ReulstRowData(result: [result])).toList();
 }
 
-// Future<List<ReulstRowData>> generateRowData() async {
-//   // Future.wait를 사용하여 모든 비동기 작업을 병렬로 기다립니다.
-//   return Future.wait(List.generate(rows, (index) async {
-//     // resultList() 호출 결과를 기다립니다.
-//     var result = await resultList();
-//     // 비동기 결과를 받아서 ReulstRowData 객체를 생성합니다.
-//     return ReulstRowData(
-//       result: [result[index]],
-//     );
-//   })
-
-//   );
-// }
-
 pw.Document buildPdf(Uint8List imageBytes) {
   final pdf = pw.Document();
   pdf.addPage(
@@ -269,13 +253,15 @@ pw.Document buildPdf(Uint8List imageBytes) {
       build: (pw.Context context) {
         return pw.Center(
             child: pw.Container(
-                child: pw.Column(children: [
-          pw.Image(
-              pw.MemoryImage(
-                imageBytes,
-              ),
-              fit: pw.BoxFit.contain),
-        ])));
+                child: pw.Column(
+                    mainAxisAlignment: pw.MainAxisAlignment.center,
+                    children: [
+              pw.Image(
+                  pw.MemoryImage(
+                    imageBytes,
+                  ),
+                  fit: pw.BoxFit.contain),
+            ])));
       },
     ),
   );

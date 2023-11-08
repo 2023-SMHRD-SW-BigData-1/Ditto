@@ -128,6 +128,8 @@ flutter:
     - assets/image/logo/mysql.png
     - assets/image/logo/node.png
     - assets/image/logo/python.png
+    - assets/image/user.jpeg
+    - assets/image/userVIP.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
