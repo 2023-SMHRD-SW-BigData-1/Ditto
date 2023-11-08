@@ -11,7 +11,7 @@ VTable<ReulstRowData> createTable(items) {
   if (items.isNotEmpty && items.first.result.isNotEmpty) {
     var firstResult = items.first.result.first;
     tableDescription =
-        'Tensild : ${firstResult.tensile}Mpa, Yield : ${firstResult.yield}Mpa, Elongation : ${firstResult.elongation}%, Hardness : ${firstResult.hardness}Hv';
+        'Tensile\t:\t${firstResult.tensile}Mpa,\tYield\t:\t${firstResult.yield}Mpa, Elongation : ${firstResult.elongation}%, Hardness : ${firstResult.hardness}Hv';
   }
 
   return VTable<ReulstRowData>(
@@ -56,28 +56,39 @@ VTable<ReulstRowData> createTable(items) {
           if (row.result.first.sol1_deg.toString() == '0' &&
               row.result.first.sol1_time.toString() == '0') {
             return '-' + "\t / \t" + '-';
+          } else {
+            return row.result.first.sol1_deg.toString() +
+                "\t / \t" +
+                row.result.first.sol1_time.toString();
           }
-          return row.result.first.sol1_deg.toString() +
-              "\t / \t" +
-              row.result.first.sol1_time.toString();
         },
         alignment: Alignment.centerRight,
       ),
       VTableColumn(
-        label: '냉각방법 1차',
-        width: 80,
-        grow: 0.5,
-        alignment: Alignment.centerRight,
-        transformFunction: (row) => row.result.first.quench,
-      ),
+          label: '냉각방법 1차',
+          width: 80,
+          grow: 0.5,
+          alignment: Alignment.centerRight,
+          transformFunction: (row) {
+            if (row.result.first.quench == '0') {
+              return '-';
+            } else {
+              return row.result.first.quench;
+            }
+          }),
       VTableColumn(
         label: '용체화 2차 (℃/h)',
         width: 110,
         grow: 0.5,
         transformFunction: (row) {
-          return row.result.first.sol2_deg.toString() +
-              '\t / \t' +
-              row.result.first.sol2_time.toString();
+          if (row.result.first.sol2_deg.toString() == '0' &&
+              row.result.first.sol2_time.toString() == '0') {
+            return '-' + "\t / \t" + '-';
+          } else {
+            return row.result.first.sol2_deg.toString() +
+                "\t / \t" +
+                row.result.first.sol2_time.toString();
+          }
         },
         alignment: Alignment.centerRight,
       ),
@@ -86,7 +97,11 @@ VTable<ReulstRowData> createTable(items) {
         width: 80,
         grow: 0.5,
         transformFunction: (row) {
-          return row.result.first.quench2.toString();
+          if (row.result.first.quench2 == '0') {
+            return '-';
+          } else {
+            return row.result.first.quench2;
+          }
         },
         alignment: Alignment.centerRight,
       ),
@@ -95,9 +110,14 @@ VTable<ReulstRowData> createTable(items) {
         width: 120,
         grow: 0.5,
         transformFunction: (row) {
-          return row.result.first.age_deg.toString() +
-              '\t / \t' +
-              row.result.first.age_time.toString();
+          if (row.result.first.age_deg.toString() == '0' &&
+              row.result.first.age_time.toString() == '0') {
+            return '-' + "\t / \t" + '-';
+          } else {
+            return row.result.first.age_deg.toString() +
+                "\t / \t" +
+                row.result.first.age_time.toString();
+          }
         },
         alignment: Alignment.centerRight,
       ),
