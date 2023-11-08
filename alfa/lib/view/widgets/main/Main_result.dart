@@ -15,8 +15,8 @@ VTable<ReulstRowData> createTable(items) {
     columns: [
       VTableColumn(
         label: '정확도',
-        width: 150,
-        grow: 2,
+        width: 30,
+        grow: 1,
         transformFunction: (row) {
           return row.result.first.percentage.toString();
         },
@@ -24,14 +24,14 @@ VTable<ReulstRowData> createTable(items) {
       VTableColumn(
         label: '조성',
         width: 150,
-        grow: 2,
+        grow: 3,
         transformFunction: (row) {
           return row.result.first.name.toString();
         },
       ),
       VTableColumn(
         label: 'Casting',
-        width: 120,
+        width: 50,
         grow: 0.5,
         alignment: Alignment.centerRight,
         transformFunction: (row) {
@@ -40,7 +40,7 @@ VTable<ReulstRowData> createTable(items) {
       ),
       VTableColumn(
         label: '용체화 1차 (℃/h)',
-        width: 120,
+        width: 110,
         grow: 0.5,
         transformFunction: (row) {
           return row.result.first.sol1_deg.toString() +
@@ -51,14 +51,14 @@ VTable<ReulstRowData> createTable(items) {
       ),
       VTableColumn(
         label: '냉각방법 1차',
-        width: 120,
+        width: 80,
         grow: 0.5,
         alignment: Alignment.centerRight,
         transformFunction: (row) => row.result.first.quench,
       ),
       VTableColumn(
         label: '용체화 2차 (℃/h)',
-        width: 120,
+        width: 110,
         grow: 0.5,
         transformFunction: (row) {
           return row.result.first.sol2_deg.toString() +
@@ -69,7 +69,7 @@ VTable<ReulstRowData> createTable(items) {
       ),
       VTableColumn(
         label: '냉각방법 2차',
-        width: 120,
+        width: 80,
         grow: 0.5,
         transformFunction: (row) {
           return row.result.first.quench2.toString();
@@ -88,6 +88,7 @@ VTable<ReulstRowData> createTable(items) {
         alignment: Alignment.centerRight,
       ),
     ],
+    rowHeight: 60,
   );
 }
 
@@ -113,27 +114,27 @@ class MainResult {
   final int percentage;
   final String name;
   final String casting;
-  final int sol1_time;
   final int sol1_deg;
+  final int sol1_time;
   final String quench;
-  final int sol2_time;
   final int sol2_deg;
+  final int sol2_time;
   final String quench2;
-  final int age_time;
   final int age_deg;
+  final int age_time;
 
   const MainResult(
     this.percentage,
     this.name,
     this.casting,
-    this.sol1_time,
     this.sol1_deg,
+    this.sol1_time,
     this.quench,
-    this.sol2_time,
     this.sol2_deg,
+    this.sol2_time,
     this.quench2,
-    this.age_time,
     this.age_deg,
+    this.age_time,
   );
 
   @override

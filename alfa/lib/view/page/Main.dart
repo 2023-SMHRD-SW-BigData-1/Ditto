@@ -179,9 +179,12 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                                   Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
-                                                            .spaceBetween,
+                                                            .spaceEvenly,
                                                     children: <Widget>[
                                                       Main_chart(),
+                                                      SizedBox(
+                                                        width: 100,
+                                                      ),
                                                       SizedBox(
                                                         width: 500,
                                                         height: 500,
