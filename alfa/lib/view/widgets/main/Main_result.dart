@@ -1,17 +1,23 @@
 import 'package:alfa/provider/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:vtable/vtable.dart';
-import 'package:alfa/provider/shared.dart';
 
 Widget resultTabel(List<ReulstRowData> items) {
   return createTable(items);
 }
 
 VTable<ReulstRowData> createTable(items) {
+  String tableDescription = '';
+  if (items.isNotEmpty && items.first.result.isNotEmpty) {
+    var firstResult = items.first.result.first;
+    tableDescription =
+        '${firstResult.tensile}, ${firstResult.yield}, ${firstResult.elongation}, ${firstResult.hardness}';
+  }
+
   return VTable<ReulstRowData>(
     items: items,
     startsSorted: false,
-    tableDescription: '${items.length} items',
+    tableDescription: tableDescription,
     columns: [
       VTableColumn(
         label: '추천 순위',
@@ -110,8 +116,22 @@ Future<List<MainResult>> resultList() async {
   if (data is List) {
     // 데이터를 MainResult 객체로 변환합니다.
     return List<MainResult>.from(data.map((item) {
-      return MainResult(item[0], item[2], item[3], item[4], item[5], item[6],
-          item[7], item[8], item[9], item[10], item[11]);
+      return MainResult(
+          item[0],
+          item[2],
+          item[3],
+          item[4],
+          item[5],
+          item[6],
+          item[7],
+          item[8],
+          item[9],
+          item[10],
+          item[11],
+          item[12],
+          item[13],
+          item[14],
+          item[15]);
     }));
   } else {
     throw Exception('Data is not in the expected format or is incomplete.');
@@ -130,20 +150,27 @@ class MainResult {
   final String quench2;
   final int age_deg;
   final int age_time;
+  final double tensile;
+  final double yield;
+  final double elongation;
+  final double hardness;
 
   const MainResult(
-    this.percentage,
-    this.name,
-    this.casting,
-    this.sol1_deg,
-    this.sol1_time,
-    this.quench,
-    this.sol2_deg,
-    this.sol2_time,
-    this.quench2,
-    this.age_deg,
-    this.age_time,
-  );
+      this.percentage,
+      this.name,
+      this.casting,
+      this.sol1_deg,
+      this.sol1_time,
+      this.quench,
+      this.sol2_deg,
+      this.sol2_time,
+      this.quench2,
+      this.age_deg,
+      this.age_time,
+      this.tensile,
+      this.yield,
+      this.elongation,
+      this.hardness);
 
   @override
   String toString() => name;
