@@ -24,7 +24,6 @@ file_path = 'C:/Users/smhrd/Desktop/ALFA_model.pkl'
 
 # 머신러닝 모델 로드
 loaded_model = joblib.load(file_path)
-print('/result 이전 확인용 출력', loaded_model)
 
 def predict_value(data):
     # 머신러닝 모델 호출 및 예측 수행
@@ -292,13 +291,52 @@ def predict():
         
         
         resData = cursor.fetchall()
-        print(resData)
         
+        print('res data : ', resData)
+        print('type res data : ', type(resData))
+        print('new count : ', new_count)
+        print('type new count : ', type(new_count))
+        # new_cnt = new_count.tolist()
+        # print('new_cnt : ', new_cnt)
+        # str_count = [str(num) for num in new_count]
+        count_new = tuple(new_count)
+        converted_tuple = tuple(int(x) if isinstance(x, np.int64) else x for x in count_new)
+        # res = [count_new, resData]
+        # for i in range(0, len(new_count)):
+        #     new_count = (new_count[i], ) + resData[i]
+        #     new_res = f"count_new{i}"
+            # total_res = (new_res)
         
+        if (len(converted_tuple) == 1):
+            total_res = (converted_tuple[0], ) + resData[0]
+        elif (len(converted_tuple) == 2):
+            count_new1 = (converted_tuple[0], ) + resData[0]
+            count_new2 = (converted_tuple[1], ) + resData[1]
+            total_res = (count_new1, count_new2)
+        else :
+            count_new1 = (converted_tuple[0], ) + resData[0]
+            count_new2 = (converted_tuple[1], ) + resData[1]
+            count_new3 = (converted_tuple[2], ) + resData[2]
+            total_res = (count_new1, count_new2, count_new3)
+            
+            
+        # print(total_res)
+        # print('total_res type : ', type(total_res))
+        
+
+        # print(converted_tuple)
+        # print(resData[0])
         db.commit()
+        real_total_res = np.ndim(total_res)
+        if real_total_res == 1:
+            real_real_total_res = [total_res]
+            return jsonify(real_real_total_res)
+        else :
+            return jsonify(total_res)
+            
+        # print('개수, 데이터 확인',total_res)
         
         # cursor.close()
-        return jsonify(resData)
    
     except Exception as e:
         return jsonify({'error': str(e)})

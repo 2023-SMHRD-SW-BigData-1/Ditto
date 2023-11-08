@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:alfa/provider/shared.dart';
+import 'package:tuple/tuple.dart';
 
 class Main_chart extends StatefulWidget {
   const Main_chart({super.key});
@@ -13,66 +14,44 @@ class _Main_chartState extends State<Main_chart> {
   late TooltipBehavior _tooltipBehavior;
 
   Future<List<ChartData>> fetchChartData() async {
-    List<double> numbers = await parseData();
+    Tuple2<List<double>, List<String>> result = await parseData();
+    List<double> numbers = result.item1; // 숫자 리스트
+    List<String> elements = result.item2; // 요소 이름 리스트
 
-    final List<ChartData> chartData = [
-      ChartData('Al', numbers[0], "55%", Color.fromRGBO(67, 79, 149, 1)),
-      ChartData('Cu', numbers[1], "31%", Color.fromRGBO(182, 24, 24, 1)),
-      ChartData('Si', numbers[2], "7.7%", Color.fromRGBO(228, 0, 124, 1)),
-      ChartData('Mg', numbers[3], "3.7%", Color.fromRGBO(255, 189, 57, 1)),
-    ];
+    double sum = numbers.reduce((value, element) => value + element);
+    double num1 = sum - 100;
+    double num2 = 100 - num1;
+    numbers[0] = num2;
+
+    final List<ChartData> chartData = [];
+    for (int i = 0; i < numbers.length; i++) {
+      chartData.add(ChartData(elements[i], numbers[i]));
+    }
 
     return chartData;
   }
 
-  List<double> parse(String text) {
-    List<double> numbers = [];
-    RegExp regex = RegExp(r'\d+\.\d+');
-    Iterable<Match> matches = regex.allMatches(text);
+  Tuple2<List<double>, List<String>> parse(String text) {
+    List<double> numbers = [100];
+    List<String> elements = ['Al'];
+    RegExp regex = RegExp(r'(\d+\.\d+)\s+([A-Za-z]+)');
+    List<Match> matches = regex.allMatches(text).toList();
 
     for (Match match in matches) {
-      String matchText = match.group(0)!;
-      try {
-        double number = double.parse(matchText);
-        numbers.add(number);
-        // print('check : $numbers');
-      } catch (e) {
-        // 파싱 에러가 발생하면 무시
-      }
+      numbers.add(double.parse(match.group(1)!));
+      elements.add(match.group(2)!);
     }
 
-    return numbers;
+    return Tuple2(numbers, elements);
   }
 
-  Future<void> resultList() async {
-    // if (data is List) {
-    //   // 데이터를 MainResult 객체로 변환합니다.
-    //   return List<MainResult>.from(data.map((item) {
-    // void ext() {
-    List<double> numbers = await parseData();
-
-    print('ext : $numbers');
-
-    // for (double number in numbers) {
-    //   print('check : $number');
-    // }
-  }
-
-  Future<List<double>> parseData() async {
+  Future<Tuple2<List<double>, List<String>>> parseData() async {
     var data = await DataManager.loadArray('finalResultKey');
     print('data? : ${data[0]}');
 
-    List<double> numbers = parse(data[0][1]);
-    return numbers;
+    Tuple2<List<double>, List<String>> result = parse(data[0][2]);
+    return result;
   }
-  // ext();
-
-  // return MainResult(item[1]);
-  // }));
-  // } else {
-  //   throw Exception('Data is not in the expected format or is incomplete.');
-  // }
-  // }
 
   @override
   void initState() {
@@ -119,10 +98,9 @@ class _Main_chartState extends State<Main_chart> {
 }
 
 class ChartData {
-  ChartData(this.x, this.y, this.text, [this.color]);
+  ChartData(this.x, this.y, [this.color]);
   final String x;
   final double y;
-  final String text;
   final Color? color;
 }
 

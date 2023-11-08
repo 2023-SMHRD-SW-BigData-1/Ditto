@@ -148,9 +148,12 @@ class Server {
         //
         if (response.statusCode == 200) {
           // 성공적으로 서버에서 응답을 받았을 때 실행할 코드
+          print('응답확인 ${response.body}');
+
           var res = jsonDecode(response.body);
 
           print('서버 응답: ${res}, ${res.length}');
+          // print('서버 응답: ${res[1]}, ${res[1].length}');
           DataManager.saveArray(res);
         } else {
           // 요청이 실패했을 때 실행할 코드

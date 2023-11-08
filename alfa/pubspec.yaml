@@ -60,7 +60,7 @@ dependencies:
   path: any
   video_player: ^2.7.2
   crypto: ^3.0.3
-
+  tuple: ^2.0.2
   # bootpay
   bootpay_webview_flutter: ^4.2.3
 

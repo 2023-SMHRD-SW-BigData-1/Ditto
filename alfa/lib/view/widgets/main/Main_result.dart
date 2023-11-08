@@ -10,9 +10,17 @@ Widget resultTabel(List<ReulstRowData> items) {
 VTable<ReulstRowData> createTable(items) {
   return VTable<ReulstRowData>(
     items: items,
-    startsSorted: true,
+    startsSorted: false,
     tableDescription: '${items.length} items',
     columns: [
+      VTableColumn(
+        label: '정확도',
+        width: 150,
+        grow: 2,
+        transformFunction: (row) {
+          return row.result.first.percentage.toString();
+        },
+      ),
       VTableColumn(
         label: '조성',
         width: 150,
@@ -93,8 +101,8 @@ Future<List<MainResult>> resultList() async {
   if (data is List) {
     // 데이터를 MainResult 객체로 변환합니다.
     return List<MainResult>.from(data.map((item) {
-      return MainResult(item[1], item[2], item[3], item[4], item[5], item[6],
-          item[7], item[8], item[9], item[10]);
+      return MainResult(item[0], item[2], item[3], item[4], item[5], item[6],
+          item[7], item[8], item[9], item[10], item[11]);
     }));
   } else {
     throw Exception('Data is not in the expected format or is incomplete.');
@@ -102,6 +110,7 @@ Future<List<MainResult>> resultList() async {
 }
 
 class MainResult {
+  final int percentage;
   final String name;
   final String casting;
   final int sol1_time;
@@ -114,6 +123,7 @@ class MainResult {
   final int age_deg;
 
   const MainResult(
+    this.percentage,
     this.name,
     this.casting,
     this.sol1_time,
