@@ -337,7 +337,7 @@ Future<pw.Document> buildPdf(Uint8List imageBytes) async {
                     width: 150,
                     pw.MemoryImage(logoBytes),
                     fit: pw.BoxFit.contain),
-                pw.Text(date[0]),
+                pw.Text(date[0][18]),
                 pw.SizedBox(height: 20),
                 pw.Image(pw.MemoryImage(imageBytes),
                     fit: pw.BoxFit.contain), // 전달받은 이미지 사용
