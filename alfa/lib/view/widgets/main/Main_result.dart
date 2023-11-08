@@ -88,7 +88,7 @@ VTable<ReulstRowData> createTable(items) {
         alignment: Alignment.centerRight,
       ),
     ],
-    rowHeight: 60,
+    rowHeight: 50,
   );
 }
 

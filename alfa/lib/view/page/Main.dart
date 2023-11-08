@@ -189,6 +189,7 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                               List<ReulstRowData> myData =
                                                   snapshot.data!;
                                               return Container(
+                                                padding: EdgeInsets.all(10),
                                                 decoration: BoxDecoration(
                                                     border: Border.all(
                                                         color: Color.fromRGBO(
@@ -203,7 +204,7 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                                 child: Column(
                                                   children: [
                                                     SizedBox(
-                                                      width: 1300,
+                                                      width: 1400,
                                                       height: 350,
                                                       child:
                                                           resultTabel(myData),
@@ -215,10 +216,10 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                                       children: <Widget>[
                                                         Main_chart(),
                                                         SizedBox(
-                                                          width: 100,
+                                                          width: 50,
                                                         ),
                                                         SizedBox(
-                                                          width: 500,
+                                                          width: 550,
                                                           height: 300,
                                                           child:
                                                               Main_barChart(),
