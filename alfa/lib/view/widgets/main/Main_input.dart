@@ -165,9 +165,9 @@ Widget Main_input() {
       Positioned(
           right: 0,
           child: Tooltip(
-            verticalOffset: -90,
+            verticalOffset: -55,
             message:
-                "Input the desired mechanical properties\nhere to explore the optimal heat treatment processes.\nFill in the appropriate values for each category and click\n'Research' to view the results.",
+                "Al 합금 열처리에 대한 표준 데이터를 기반으로 값을 입력해 주세요.\n단, 조건을 만족하지 않을 경우 적절하지 않은 결과가 나올 수 있습니다.",
             child: Icon(Icons.help_outline_outlined),
           ))
     ]);

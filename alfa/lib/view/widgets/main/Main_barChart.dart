@@ -135,7 +135,7 @@ class Main_barChartState extends State<Main_barChart> {
   }
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    final titles = <String>['용체화 1차', '용체화2차', '시효경과처리'];
+    final titles = <String>['용체화 1차', '용체화2차', '시효경화처리'];
 
     final Widget text = Text(
       titles[value.toInt()],

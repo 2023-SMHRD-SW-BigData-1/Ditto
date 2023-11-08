@@ -54,19 +54,61 @@ class _SecondRouteState extends State<Payment> {
           children: <Widget>[
             Container(
               width: 400.0,
-              height: 300.0,
+              height: 380.0,
+              decoration: BoxDecoration(
+                  border: Border.symmetric(
+                      vertical: BorderSide(
+                          color: const Color.fromRGBO(217, 217, 217, 100)))),
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 240,
+                    height: 300,
                     width: double.infinity,
                     margin: EdgeInsets.all(10),
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.black)),
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 80,
+                          width: double.infinity,
+                          child: Image.asset(
+                            'assets/image/AdobeStock_618436697.jpeg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          '-\t라이센스 결제는 일정 기간 동안 무제한 액세스 또는 사용 권한을 제공할 수 있습니다.\n\n-\t장기적인 라이센스로 중요한 비즈니스 프로젝트에 적합합니다.\n\n-\t업데이트 및 지원을 포함한 추가 혜택을 받을 수 있습니다.',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
                   ),
-                  ElevatedButton(
-                    onPressed: () => goBootpay2(context),
-                    child: Text('라이센스 결제'),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 30,
+                    width: 300,
+                    child: ElevatedButton(
+                      onPressed: () => goBootpay2(context),
+                      child: Text(
+                        '라이센스 결제',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          alignment: Alignment.center,
+                          elevation: 0,
+                          backgroundColor: Colors.white.withOpacity(0),
+                          padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                  color: Color.fromRGBO(182, 24, 24, 1),
+                                  width: 1),
+                              borderRadius: BorderRadius.circular(5))),
+                    ),
                   ),
                 ],
               ),
@@ -74,19 +116,60 @@ class _SecondRouteState extends State<Payment> {
             SizedBox(height: 10),
             Container(
               width: 400.0,
-              height: 300.0,
+              height: 380.0,
+              decoration: BoxDecoration(
+                  border: Border.symmetric(
+                      vertical: BorderSide(
+                          color: const Color.fromRGBO(217, 217, 217, 100)))),
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 240,
+                    height: 300,
                     width: double.infinity,
                     margin: EdgeInsets.all(10),
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.black)),
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 80,
+                          width: double.infinity,
+                          child: Image.asset(
+                            'assets/image/macro-1452987_1280.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                            '-\t1회용 결제는 한 번에 사용 가능한 기간 또는 서비스에 제한이 있을 수 있습니다\n\n-\t프로젝트 기간에 맞게 유연하게 선택할 수 있습니다.',
+                            style: TextStyle(fontSize: 16)),
+                      ],
+                    ),
                   ),
-                  ElevatedButton(
-                    onPressed: () => goBootpay1(context),
-                    child: Text('1회 결제'),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 30,
+                    width: 300,
+                    child: ElevatedButton(
+                      onPressed: () => goBootpay1(context),
+                      child: Text(
+                        '1회 결제',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          alignment: Alignment.center,
+                          elevation: 0,
+                          backgroundColor: Colors.white.withOpacity(0),
+                          padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                  color: Color.fromRGBO(62, 68, 102, 1),
+                                  width: 1),
+                              borderRadius: BorderRadius.circular(5))),
+                    ),
                   ),
                 ],
               ),
