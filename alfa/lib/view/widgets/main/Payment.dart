@@ -64,7 +64,7 @@ class _SecondRouteState extends State<Payment> {
                     decoration:
                         BoxDecoration(border: Border.all(color: Colors.black)),
                   ),
-                  TextButton(
+                  ElevatedButton(
                     onPressed: () => goBootpay2(context),
                     child: Text('라이센스 결제'),
                   ),
@@ -84,7 +84,7 @@ class _SecondRouteState extends State<Payment> {
                     decoration:
                         BoxDecoration(border: Border.all(color: Colors.black)),
                   ),
-                  TextButton(
+                  ElevatedButton(
                     onPressed: () => goBootpay1(context),
                     child: Text('1회 결제'),
                   ),

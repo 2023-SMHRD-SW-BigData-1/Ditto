@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:alfa/Controller/bar.dart';
+import 'package:alfa/provider/shared.dart';
 import 'package:alfa/view/widgets/main/Main_listview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -103,15 +104,54 @@ class _Main_sidebarState extends State<Main_sidebar> {
                 Sized_bar(),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  height: 150,
+                  height: 60,
                   width: 280,
                   decoration: BoxDecoration(
                       color: const Color.fromARGB(54, 0, 0, 0),
                       borderRadius: BorderRadius.circular(10)),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: <Widget>[
+                        FutureBuilder(
+                            future: DataManager.loadData('type'),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                // 에러가 발생한 경우
+                                return Text('Error: ${snapshot.error}');
+                              } else {
+                                return Icon(
+                                  Icons.person_outline,
+                                  color: snapshot.data.toString() == '0'
+                                      ? Colors.white
+                                      : Color.fromRGBO(250, 250, 210, 1),
+                                  size: 40,
+                                );
+                              }
+                            }),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        FutureBuilder(
+                            future: DataManager.loadData('id'),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<String> snapshot) {
+                              if (snapshot.hasError) {
+                                // 에러가 발생한 경우
+                                return Text('Error: ${snapshot.error}');
+                              } else {
+                                return Text(
+                                  snapshot.data.toString(),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700),
+                                );
+                              }
+                            })
+                      ],
+                    ),
+                  ),
                 ),
-                SizedBox(
-                  height: 5,
-                )
               ]),
             );
           },

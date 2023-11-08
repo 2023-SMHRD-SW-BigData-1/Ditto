@@ -65,9 +65,7 @@ class _Main_chartState extends State<Main_chart> {
     return FutureBuilder<List<ChartData>>(
       future: fetchChartData(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator(); // 로딩 중 표시
-        } else if (snapshot.hasError) {
+        if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
           final chartData = snapshot.data;
