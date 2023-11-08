@@ -72,12 +72,14 @@ class _Main_chartState extends State<Main_chart> {
           return SizedBox(
             width: 500,
             height: 300,
-            child: SfCircularChart(
+            child: SfCartesianChart(
+              primaryXAxis: CategoryAxis(),
+              primaryYAxis: NumericAxis(minimum: 0, maximum: 40, interval: 10),
               tooltipBehavior: _tooltipBehavior,
               legend: Legend(isVisible: true),
-              series: <CircularSeries>[
-                DoughnutSeries<ChartData, String>(
-                  dataSource: chartData,
+              series: <ChartSeries>[
+                BarSeries<ChartData, String>(
+                  dataSource: chartData!,
                   pointColorMapper: (ChartData data, _) => data.color,
                   xValueMapper: (ChartData data, _) => data.x,
                   yValueMapper: (ChartData data, _) => data.y,
