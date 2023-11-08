@@ -11,7 +11,7 @@ VTable<ReulstRowData> createTable(items) {
   if (items.isNotEmpty && items.first.result.isNotEmpty) {
     var firstResult = items.first.result.first;
     tableDescription =
-        'Tensile\t:\t${firstResult.tensile}Mpa,\tYield\t:\t${firstResult.yield}Mpa, Elongation : ${firstResult.elongation}%, Hardness : ${firstResult.hardness}Hv';
+        'Tensile\t:\t${firstResult.tensile}Mpa\t\t|\t\tYield\t:\t${firstResult.yield}Mpa\t\t|\t\tElongation\t:\t${firstResult.elongation}%\t\t|\t\tHardness\t:\t${firstResult.hardness}Hv';
   }
 
   return VTable<ReulstRowData>(
@@ -106,7 +106,7 @@ VTable<ReulstRowData> createTable(items) {
         alignment: Alignment.centerRight,
       ),
       VTableColumn(
-        label: '시효경과처리 (℃/h)',
+        label: '시효경화처리 (℃/h)',
         width: 120,
         grow: 0.5,
         transformFunction: (row) {

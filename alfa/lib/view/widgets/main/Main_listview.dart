@@ -60,8 +60,8 @@ class Element {
 }
 
 List<Element> _elements = <Element>[
-  Element(DateTime(2020, 6, 24, 18), 'Got to gym', Icons.fitness_center),
-  Element(DateTime(2020, 6, 24, 9), 'Work', Icons.work),
+  Element(DateTime(2020, 6, 23, 18), 'Got to gym', Icons.fitness_center),
+  Element(DateTime(2020, 6, 23, 9), 'Work', Icons.work),
 ];
 
 Widget _getGroupSeparator(Element element) {
