@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:alfa/Controller/bar.dart';
+import 'package:alfa/Controller/reslutTrigger.dart';
 import 'package:alfa/provider/shared.dart';
 import 'package:alfa/view/widgets/main/Main_listview.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _Main_sidebarState extends State<Main_sidebar> {
   @override
   Widget build(BuildContext context) {
     final _bar = Provider.of<bar>(context, listen: false);
+    final resTrigger = Provider.of<resultTrigger>(context);
 
     return RepaintBoundary(
       child: GestureDetector(
@@ -43,7 +45,7 @@ class _Main_sidebarState extends State<Main_sidebar> {
                         Container(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/');
+                              resTrigger.Trigger = false;
                             },
                             child: Row(
                               children: [

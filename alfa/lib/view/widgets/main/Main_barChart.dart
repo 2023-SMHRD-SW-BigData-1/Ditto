@@ -1,3 +1,4 @@
+import 'package:alfa/provider/shared.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -15,15 +16,19 @@ class Main_barChartState extends State<Main_barChart> {
 
   late List<BarChartGroupData> rawBarGroups;
   late List<BarChartGroupData> showingBarGroups;
-
+  List item = [];
   int touchedGroupIndex = -1;
 
   @override
   void initState() {
     super.initState();
-    final barGroup1 = makeGroupData(0, 5, 12);
-    final barGroup2 = makeGroupData(1, 16, 12);
-    final barGroup3 = makeGroupData(2, 18, 5);
+
+    DataManager.loadArray('finalResultKey').then((value) {
+      item = value;
+    });
+    final barGroup1 = makeGroupData(0, item[0][4], item[0][5]);
+    final barGroup2 = makeGroupData(1, item[0][7], item[0][8]);
+    final barGroup3 = makeGroupData(2, item[0][10], item[0][11]);
 
     final items = [
       barGroup1,
