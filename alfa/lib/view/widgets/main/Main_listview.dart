@@ -62,18 +62,6 @@ class Element {
 List<Element> _elements = <Element>[
   Element(DateTime(2020, 6, 24, 18), 'Got to gym', Icons.fitness_center),
   Element(DateTime(2020, 6, 24, 9), 'Work', Icons.work),
-  Element(DateTime(2020, 6, 25, 8), 'Buy groceries', Icons.shopping_basket),
-  Element(DateTime(2020, 6, 25, 16), 'Cinema', Icons.movie),
-  Element(DateTime(2020, 6, 25, 20), 'Eat', Icons.fastfood),
-  Element(DateTime(2020, 6, 26, 12), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 27, 12), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 27, 13), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 27, 14), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 27, 15), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 28, 12), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 29, 12), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 29, 12), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 30, 12), 'Car wash', Icons.local_car_wash),
 ];
 
 Widget _getGroupSeparator(Element element) {

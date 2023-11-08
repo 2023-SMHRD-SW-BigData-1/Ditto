@@ -308,15 +308,15 @@ def predict():
             # total_res = (new_res)
         
         if (len(converted_tuple) == 1):
-            total_res = (converted_tuple[0], ) + resData[0]
+            total_res = (1, ) + resData[0]
         elif (len(converted_tuple) == 2):
-            count_new1 = (converted_tuple[0], ) + resData[0]
-            count_new2 = (converted_tuple[1], ) + resData[1]
+            count_new1 = (1, ) + resData[0]
+            count_new2 = (2, ) + resData[1]
             total_res = (count_new1, count_new2)
         else :
-            count_new1 = (converted_tuple[0], ) + resData[0]
-            count_new2 = (converted_tuple[1], ) + resData[1]
-            count_new3 = (converted_tuple[2], ) + resData[2]
+            count_new1 = (1, ) + resData[0]
+            count_new2 = (2, ) + resData[1]
+            count_new3 = (3, ) + resData[2]
             total_res = (count_new1, count_new2, count_new3)
             
             
