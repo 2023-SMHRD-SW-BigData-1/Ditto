@@ -14,11 +14,11 @@ VTable<ReulstRowData> createTable(items) {
     tableDescription: '${items.length} items',
     columns: [
       VTableColumn(
-        label: '정확도',
+        label: '추천 순위',
         width: 30,
         grow: 1,
         transformFunction: (row) {
-          return row.result.first.percentage.toString() + '%';
+          return row.result.first.percentage.toString();
         },
       ),
       VTableColumn(
@@ -35,7 +35,11 @@ VTable<ReulstRowData> createTable(items) {
         grow: 0.5,
         alignment: Alignment.centerRight,
         transformFunction: (row) {
-          return row.result.first.casting.toString();
+          if (row.result.first.casting.toString() == '1') {
+            return 'As-cast';
+          } else {
+            return 'Die-cast';
+          }
         },
       ),
       VTableColumn(
@@ -43,6 +47,10 @@ VTable<ReulstRowData> createTable(items) {
         width: 110,
         grow: 0.5,
         transformFunction: (row) {
+          if (row.result.first.sol1_deg.toString() == '0' &&
+              row.result.first.sol1_time.toString() == '0') {
+            return '-' + "\t / \t" + '-';
+          }
           return row.result.first.sol1_deg.toString() +
               "\t / \t" +
               row.result.first.sol1_time.toString();
