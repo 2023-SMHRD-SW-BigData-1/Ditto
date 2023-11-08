@@ -18,7 +18,7 @@ VTable<ReulstRowData> createTable(items) {
         width: 30,
         grow: 1,
         transformFunction: (row) {
-          return row.result.first.percentage.toString();
+          return row.result.first.percentage.toString() + '%';
         },
       ),
       VTableColumn(

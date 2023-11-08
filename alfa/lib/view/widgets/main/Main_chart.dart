@@ -71,7 +71,7 @@ class _Main_chartState extends State<Main_chart> {
           final chartData = snapshot.data;
           return SizedBox(
             width: 500,
-            height: 500,
+            height: 300,
             child: SfCircularChart(
               tooltipBehavior: _tooltipBehavior,
               legend: Legend(isVisible: true),

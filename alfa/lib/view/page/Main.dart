@@ -188,30 +188,45 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                             } else {
                                               List<ReulstRowData> myData =
                                                   snapshot.data!;
-                                              return Column(
-                                                children: [
-                                                  SizedBox(
-                                                    width: 1300,
-                                                    height: 200,
-                                                    child: resultTabel(myData),
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: <Widget>[
-                                                      Main_chart(),
-                                                      SizedBox(
-                                                        width: 100,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 500,
-                                                        height: 500,
-                                                        child: Main_barChart(),
-                                                      )
-                                                    ],
-                                                  )
-                                                ],
+                                              return Container(
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Color.fromRGBO(
+                                                            62, 68, 102, 1),
+                                                        width: 3),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                20))),
+                                                width: 1500,
+                                                height: 700,
+                                                child: Column(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 1300,
+                                                      height: 350,
+                                                      child:
+                                                          resultTabel(myData),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: <Widget>[
+                                                        Main_chart(),
+                                                        SizedBox(
+                                                          width: 100,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 500,
+                                                          height: 300,
+                                                          child:
+                                                              Main_barChart(),
+                                                        )
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
                                               );
                                             }
                                           },
