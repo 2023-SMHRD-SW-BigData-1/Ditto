@@ -11,7 +11,7 @@ VTable<ReulstRowData> createTable(items) {
   if (items.isNotEmpty && items.first.result.isNotEmpty) {
     var firstResult = items.first.result.first;
     tableDescription =
-        '${firstResult.tensile}, ${firstResult.yield}, ${firstResult.elongation}, ${firstResult.hardness}';
+        'Tensild : ${firstResult.tensile}Mpa, Yield : ${firstResult.yield}Mpa, Elongation : ${firstResult.elongation}%, Hardness : ${firstResult.hardness}Hv';
   }
 
   return VTable<ReulstRowData>(
