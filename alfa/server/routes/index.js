@@ -115,7 +115,7 @@ router.post('/info/loadpay', (req, res) => {
 
 // ---------------------------------------------------------------------------------------- 메인 사이드바 시작
 router.post('/main/report', (req, res) => {
-    let sql = "select DISTINCT researchDate from new_alloy_info where user_id = ?;"
+    let sql = "select DISTINCT DATE_FORMAT(researchDate, '%Y-%m-%d %H:%i:%s') AS researchDate from new_alloy_info where user_id = 'test';"
 
     conn.query(sql, [req.body.user_id], (err, rows) => {
         if (rows != undefined) {

@@ -26,7 +26,7 @@ class _Main_listviewState extends State<Main_listview> {
   Future load() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String jsonData =
-        prefs.getString('payInfo')!; // 'myDataKey'는 데이터를 식별하는 키입니다.
+        prefs.getString('report')!; // 'myDataKey'는 데이터를 식별하는 키입니다.
     print(jsonData);
     if (jsonData != null) {
       List<Map<String, dynamic>> loadedData =

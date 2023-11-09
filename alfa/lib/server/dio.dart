@@ -124,7 +124,7 @@ class Server {
 // 결제내역 로딩 성공
     if (response.data['report'] == "success") {
       print('data');
-      print(response.data['data'][0]);
+      print(response.data['data']);
       var report = response.data['data'];
       await DataManager.report(report);
       // print('회원 정보 페이지 > 결제 내역 확인 : ' + response.data['data']);
