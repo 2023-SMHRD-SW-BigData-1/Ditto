@@ -57,6 +57,7 @@ class _Main_listviewState extends State<Main_listview> {
                     elevation: 0),
                 onPressed: () async {
                   await server.report1(element['researchDate'].toString());
+                  load();
                   resTrigger.Trigger = true;
                 },
                 child: ListTile(
