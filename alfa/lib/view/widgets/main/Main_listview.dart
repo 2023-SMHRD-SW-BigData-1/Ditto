@@ -43,7 +43,6 @@ class _Main_listviewState extends State<Main_listview> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 775,
       child: OverflowBox(
         minWidth: 200,
         maxWidth: 300,
