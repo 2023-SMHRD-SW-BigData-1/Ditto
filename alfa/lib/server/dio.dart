@@ -146,14 +146,18 @@ class Server {
       print(response.data['data']);
       var report = response.data['data'];
       List rep1 = [];
-
+      List values = [];
       for (var i = 0; i < report.length; i++) {
         Map<String, dynamic> rep = report[i];
-        List<dynamic> values = rep.values.toList();
+
+        values = rep.values.toList();
+        values.insert(0, i + 1);
+        // rep1 = [i + 1];
         rep1.add(values);
       }
 
       print('values');
+      // print(values);
       print(rep1);
 
       await DataManager.report1(rep1);
