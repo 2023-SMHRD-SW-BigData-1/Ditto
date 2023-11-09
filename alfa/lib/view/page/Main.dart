@@ -4,7 +4,6 @@ import 'package:alfa/Controller/reslutTrigger.dart';
 import 'package:alfa/get_pages.dart';
 import 'package:alfa/provider/shared.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:alfa/view/widgets/main/Main_barChart.dart';
 import 'package:alfa/view/widgets/main/Main_bchart2.dart';
 import 'package:alfa/view/widgets/main/Main_chart.dart';
 import 'package:alfa/view/widgets/main/Main_input.dart';
