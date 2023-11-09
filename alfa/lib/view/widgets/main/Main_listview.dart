@@ -1,5 +1,7 @@
+import 'package:alfa/Controller/reslutTrigger.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:alfa/server/dio.dart';
@@ -37,7 +39,7 @@ class _Main_listviewState extends State<Main_listview> {
 
   @override
   Widget build(BuildContext context) {
-    var formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
+    final resTrigger = Provider.of<resultTrigger>(context);
     return SizedBox(
       height: 775,
       child: OverflowBox(
@@ -53,8 +55,9 @@ class _Main_listviewState extends State<Main_listview> {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(62, 68, 102, 1),
                     elevation: 0),
-                onPressed: () {
-                  server.report1(element['researchDate'].toString());
+                onPressed: () async {
+                  await server.report1(element['researchDate'].toString());
+                  resTrigger.Trigger = true;
                 },
                 child: ListTile(
                   title: Text(
