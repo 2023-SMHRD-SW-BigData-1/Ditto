@@ -38,7 +38,9 @@ class Main_bchartState extends State<Main_bchart2> {
     return FutureBuilder<List<ChartData>>(
         future: loadArr(),
         builder: (context, snapshot) {
-          if (snapshot.hasError) {
+          if (snapshot.hasData == false) {
+            return Text('');
+          } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
             final chartData = snapshot.data;

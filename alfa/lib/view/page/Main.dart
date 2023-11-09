@@ -35,6 +35,7 @@ class _MainState extends State<Main> {
 
   void mainLoad() async {
     await DataManager.loadData('id').then((value) => id = value);
+    await server.report(id);
     await server.loadPay(id);
   }
 
