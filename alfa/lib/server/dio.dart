@@ -145,7 +145,18 @@ class Server {
       print('data');
       print(response.data['data']);
       var report = response.data['data'];
-      await DataManager.report1(report);
+      List rep1 = [];
+
+      for (var i = 0; i < report.length; i++) {
+        Map<String, dynamic> rep = report[i];
+        List<dynamic> values = rep.values.toList();
+        rep1.add(values);
+      }
+
+      print('values');
+      print(rep1);
+
+      await DataManager.report1(rep1);
 
 // 이전 기록 로딩 실패
     } else if (response.data['researchDate'] == "failed") {
