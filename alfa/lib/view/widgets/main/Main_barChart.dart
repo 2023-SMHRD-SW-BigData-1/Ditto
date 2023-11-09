@@ -28,6 +28,7 @@ class Main_barChartState extends State<Main_barChart> {
     await DataManager.loadArray('finalResultKey').then((value) {
       item = value;
     });
+
     print('item');
     print(item[0][4]);
     // final barGroup1 = makeGroupData(0, 11, 25);
