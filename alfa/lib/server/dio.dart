@@ -121,26 +121,34 @@ class Server {
     response =
         await dio.post("$url/main/report", data: {"user_id": "$user_id"});
 
-// 결제내역 로딩 성공
+// 이전 기록 로딩 성공
     if (response.data['report'] == "success") {
       print('data');
-      print(response.data['data'][0]);
+      print(response.data['data']);
       var report = response.data['data'];
       await DataManager.report(report);
-      // print('회원 정보 페이지 > 결제 내역 확인 : ' + response.data['data']);
 
-      // String user_name = response.data['data'][0]['user_name'];
-      // String user_email = response.data['data'][0]['user_id'];
-      // String user_num = response.data['data'][0]['user_num'];
-      // String user_type = response.data['data'][0]['user_type'];
-
-      // await DataManager.saveData('name', user_name);
-      // await DataManager.saveData('id', user_email);
-      // await DataManager.saveData('num', user_num);
-      // await DataManager.saveData('type', user_type);
-
-// 로그인 실패
+// 이전 기록 로딩 실패
     } else if (response.data['report'] == "failed") {
+      print('기록 불러오기 실패');
+    }
+  }
+
+  Future report1(String date) async {
+    Response response;
+    Dio dio = Dio();
+    response =
+        await dio.post("$url/main/report1", data: {"researchDate": "$date"});
+
+// 이전 기록 로딩 성공
+    if (response.data['researchDate'] == "success") {
+      print('data');
+      print(response.data['data']);
+      var report = response.data['data'];
+      await DataManager.report1(report);
+
+// 이전 기록 로딩 실패
+    } else if (response.data['researchDate'] == "failed") {
       print('기록 불러오기 실패');
     }
   }

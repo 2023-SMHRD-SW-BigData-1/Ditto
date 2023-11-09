@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'package:alfa/server/dio.dart';
 
 class Main_listview extends StatefulWidget {
   const Main_listview({super.key});
@@ -52,7 +53,9 @@ class _Main_listviewState extends State<Main_listview> {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(62, 68, 102, 1),
                     elevation: 0),
-                onPressed: () {},
+                onPressed: () {
+                  server.report1(element['researchDate'].toString());
+                },
                 child: ListTile(
                   title: Text(
                     element['researchDate']
