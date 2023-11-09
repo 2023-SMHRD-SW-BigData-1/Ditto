@@ -113,6 +113,32 @@ router.post('/info/loadpay', (req, res) => {
 });
 // ---------------------------------------------------------------------------------------- 정보 페이지 결제 내역 종료
 
+// ---------------------------------------------------------------------------------------- 메인 사이드바 시작
+router.post('/main/report', (req, res) => {
+    let sql = "select * from new_alloy_info where user_id = ?;"
+
+    conn.query(sql, [req.body.user_id], (err, rows) => {
+        if (rows != undefined) {
+            console.log(rows)
+            // var rows1 = [];
+            // var num = rows.length
+            // if(num == 1){
+            //     rows1 = [rows];
+            // }else {
+            //     rows1 = rows;
+            // }
+            res.json({ report: 'success', data: rows })
+
+        } else if (err) {
+            console.log('err')
+            res.json({ report: 'failed' })
+        }
+
+    });
+});
+// ---------------------------------------------------------------------------------------- 메인 사이드바 시작
+
+
 // ---------------------------------------------------------------------------------------- 예측 시작
 // dio.dart의 insertAl
 // 2. url/main/stepOne 주소에서 받음

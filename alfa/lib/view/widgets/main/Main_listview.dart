@@ -97,10 +97,7 @@ class _Main_listviewState extends State<Main_listview> {
               }
 
               return Column(
-                children: [
-                  if (showDateHeader) _getGroupSeparator(element),
-                  _getItem(context, element)
-                ],
+                children: [if (showDateHeader) _getItem(context, element)],
               );
             }),
       ),

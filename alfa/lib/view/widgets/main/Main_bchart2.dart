@@ -15,9 +15,9 @@ class Main_bchartState extends State<Main_bchart2> {
 
   Future<List<ChartData>> loadArr() async {
     var data = await DataManager.loadArray('finalResultKey');
-    print(data);
+    // print(data);
     // final List<ChartData> chartData;
-    List<ChartData> chartData = <ChartData>[
+    final List<ChartData> chartData = <ChartData>[
       ChartData('용체화1차 (℃/h)', data[0][4], data[0][5]),
       ChartData('용체화2차 (℃/h)', data[0][7], data[0][8]),
       ChartData('시효경화처리 (℃/h)', data[0][10], data[0][11])
@@ -35,10 +35,13 @@ class Main_bchartState extends State<Main_bchart2> {
 
   @override
   Widget build(BuildContext context) {
+    // Future.delayed(Duration(milliseconds: 300), () {});
     return FutureBuilder<List<ChartData>>(
         future: loadArr(),
         builder: (context, snapshot) {
-          if (snapshot.hasError) {
+          if (snapshot.hasData == false) {
+            return Text('');
+          } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
             final chartData = snapshot.data;
