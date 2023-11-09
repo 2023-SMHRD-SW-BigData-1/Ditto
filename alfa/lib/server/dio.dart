@@ -32,9 +32,10 @@ class Server {
 
 // 로그인 실패
     } else if (response.data['result'] == "pw err") {
-      await DataManager.saveData('id', 'null');
+      await DataManager.saveData('id', 'pw err');
       print('dio login : 비밀번호를 잘못 입력함');
     } else if (response.data['result'] == 'empty id') {
+      await DataManager.saveData('id', 'empty id');
       print('dio login : 아이디가 없음');
     }
   }

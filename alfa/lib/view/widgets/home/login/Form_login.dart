@@ -84,13 +84,21 @@ class _Form_bulidState extends State<Form_login> {
 
                     void login() async {
                       await server.login(user_id, pwHash);
-
-                      if (DataManager.loadData('name') != 'null') {
+                      var loginId = await DataManager.loadData('id');
+                      if (loginId != 'pw err' && loginId != 'empty id') {
                         Navigator.of(context).pop();
                         Future.delayed(Duration(milliseconds: 300), () {
                           html.window.location.reload();
                         });
-                      } else {}
+                      } else if (loginId == 'pw err') {
+                        Future.delayed(Duration(milliseconds: 100), () {
+                          html.window.alert('비밀 번호가 일치하지 않습니다.');
+                        });
+                      } else if (loginId == 'empty id') {
+                        Future.delayed(Duration(milliseconds: 100), () {
+                          html.window.alert('아이디가 존재하지 않습니다.');
+                        });
+                      }
                     }
 
                     login();
