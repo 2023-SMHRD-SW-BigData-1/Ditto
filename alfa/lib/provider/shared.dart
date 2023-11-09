@@ -65,6 +65,14 @@ class DataManager {
     return List<dynamic>.from(decodedArray);
   }
 
+  static Future<List<Map<String, dynamic>>> loadArray2(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'payInfo';
+    final encodedArray = prefs.getString(key) ?? '[]'; // 기본값으로 빈 배열 설정
+    final decodedArray = json.decode(encodedArray); // JSON 문자열을 배열로 역직렬화
+    return List<Map<String, dynamic>>.from(decodedArray);
+  }
+
   static Future<void> savePayInfo(List<dynamic> array) async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'payInfo';

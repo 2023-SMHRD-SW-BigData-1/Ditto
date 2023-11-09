@@ -4,6 +4,7 @@ import 'package:alfa/view/widgets/home/login/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:alfa/provider/shared.dart';
 
 class TopNavigationBar extends StatefulWidget {
   const TopNavigationBar({super.key});
@@ -35,6 +36,12 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
                     hoverColor: Colors.transparent,
                     onPressed: () {
                       Get.rootDelegate.toNamed(Routes.HOME);
+                      DataManager.removeData('alloyNum');
+                      DataManager.removeData('finalResultKey');
+                      DataManager.removeData('stepOne');
+                      DataManager.removeData('payInfo');
+                      DataManager.removeData('loadPayDate');
+                      DataManager.removeData('payInfo');
                     },
                     icon: Image.asset(
                       'assets/image/Logo.png',

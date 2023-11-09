@@ -94,7 +94,7 @@ class Server {
 
 // 결제내역 로딩 성공
     if (response.data['loadpay'] == "success") {
-      print(response.data['data']);
+      // print(response.data['data']);
       var payInfo = response.data['data'];
       DataManager.savePayInfo(payInfo);
       // print('회원 정보 페이지 > 결제 내역 확인 : ' + response.data['data']);

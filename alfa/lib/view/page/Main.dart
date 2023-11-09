@@ -17,6 +17,7 @@ import 'package:screenshot/screenshot.dart';
 import 'package:printing/printing.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:alfa/server/dio.dart';
 
 class Main extends StatefulWidget {
   const Main({Key? key}) : super(key: key);
@@ -26,6 +27,18 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
+  String id = '';
+  @override
+  void initState() {
+    mainLoad();
+    super.initState();
+  }
+
+  void mainLoad() async {
+    await DataManager.loadData('id').then((value) => id = value);
+    await server.loadPay(id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,8 +116,17 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                               : Duration(milliseconds: 100),
                         ),
                         TextButton(
-                            onPressed: () =>
-                                Get.rootDelegate.toNamed(Routes.HOME),
+                            onPressed: () {
+                              Get.rootDelegate.toNamed(Routes.HOME);
+                              DataManager.removeData('alloyNum');
+                              DataManager.removeData('finalResultKey');
+                              DataManager.removeData('stepOne');
+                              DataManager.removeData('payInfo');
+                              DataManager.removeData('loadPayDate');
+                              DataManager.removeData('payDate');
+                              DataManager.removeData('payPrice');
+                              DataManager.removeData('payment');
+                            },
                             child: Text(
                               'AL.F.A',
                               textAlign: TextAlign.center,

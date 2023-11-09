@@ -143,6 +143,15 @@ Widget Main_input() {
                               });
                             });
                           }
+                          // await Future.delayed(Duration(seconds: 5));
+                          // DataManager.removeData('alloyNum');
+                          // DataManager.removeData('finalResultKey');
+                          // DataManager.removeData('stepOne');
+                          // DataManager.removeData('payInfo');
+                          // DataManager.removeData('loadPayDate');
+                          // DataManager.removeData('payDate');
+                          // DataManager.removeData('payPrice');
+                          // DataManager.removeData('payment');
                         });
                       }
                     },

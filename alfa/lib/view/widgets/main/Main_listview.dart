@@ -1,4 +1,7 @@
+import 'package:alfa/provider/shared.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class Main_listview extends StatefulWidget {
   const Main_listview({super.key});
@@ -8,16 +11,70 @@ class Main_listview extends StatefulWidget {
 }
 
 class _Main_listviewState extends State<Main_listview> {
+  List<Map<String, dynamic>> data = [];
   late List<Element> sortedElements;
-
+  late Future<List<dynamic>> pay;
   @override
   void initState() {
     super.initState();
-
+    Future.delayed(Duration(milliseconds: 500), () {
+      load();
+    });
     sortedElements = _elements..sort((a, b) => b.date.compareTo(a.date));
   }
 
+  // void load() {
+  //   pay = DataManager.loadArray2('payInfo');
+  //   print('pay');
+  //   print(pay);
+  //   List<Map<String, dynamic>> yap = pay[1];
+  // }
+
+  Future load() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String jsonData =
+        prefs.getString('payInfo')!; // 'myDataKey'는 데이터를 식별하는 키입니다.
+    print(jsonData);
+    if (jsonData != null) {
+      List<Map<String, dynamic>> loadedData =
+          (json.decode(jsonData) as List).cast<Map<String, dynamic>>();
+      setState(() {
+        data = loadedData;
+      });
+      print('jsonData');
+      print(data);
+    }
+    return data;
+  }
+
   @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     appBar: AppBar(
+  //       title: Text('Shared Preferences Example'),
+  //     ),
+  //     body: Center(
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: <Widget>[
+  //           Text('Loaded Data:'),
+  //           Expanded(
+  //             child: ListView.builder(
+  //               itemCount: data.length,
+  //               itemBuilder: (BuildContext context, int index) {
+  //                 return ListTile(
+  //                   title: Text('Date: ${data[index]['pay_date']}'),
+  //                   subtitle: Text('Price: ${data[index]['pay_price']}'),
+  //                 );
+  //               },
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
   Widget build(BuildContext context) {
     return SizedBox(
       height: 775,
@@ -49,6 +106,37 @@ class _Main_listviewState extends State<Main_listview> {
       ),
     );
   }
+  // Widget build(BuildContext context) {
+  //   return SizedBox(
+  //     height: 775,
+  //     child: OverflowBox(
+  //       minWidth: 200,
+  //       maxWidth: 300,
+  //       child: ListView.builder(
+  //           itemCount: sortedElements.length,
+  //           itemBuilder: (context, index) {
+  //             final element = sortedElements[index];
+
+  //             bool showDateHeader = true;
+  //             if (index > 0) {
+  //               final previousElement = sortedElements[index - 1];
+  //               if (previousElement.date.year == element.date.year &&
+  //                   previousElement.date.month == element.date.month &&
+  //                   previousElement.date.day == element.date.day) {
+  //                 showDateHeader = false;
+  //               }
+  //             }
+
+  //             return Column(
+  //               children: [
+  //                 if (showDateHeader) _getGroupSeparator(element),
+  //                 _getItem(context, element)
+  //               ],
+  //             );
+  //           }),
+  //     ),
+  //   );
+  // }
 }
 
 class Element {
