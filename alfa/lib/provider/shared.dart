@@ -80,6 +80,13 @@ class DataManager {
     await prefs.setString(key, encodedArray);
   }
 
+  static Future<void> report1(List<dynamic> array) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'finalResultKey';
+    final encodedArray = json.encode(array); // 배열을 JSON 문자열로 직렬화
+    await prefs.setString(key, encodedArray);
+  }
+
   static Future<void> savePayInfo(List<dynamic> array) async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'payInfo';

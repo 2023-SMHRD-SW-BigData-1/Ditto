@@ -115,7 +115,7 @@ router.post('/info/loadpay', (req, res) => {
 
 // ---------------------------------------------------------------------------------------- 메인 사이드바 시작
 router.post('/main/report', (req, res) => {
-    let sql = "select DISTINCT DATE_FORMAT(researchDate, '%Y-%m-%d %H:%i:%s') AS researchDate from new_alloy_info where user_id = 'test';"
+    let sql = "select DISTINCT DATE_FORMAT(researchDate, '%Y-%m-%d %H:%i:%s') AS researchDate from new_alloy_info where user_id = 'test' ORDER BY researchDate DESC;"
 
     conn.query(sql, [req.body.user_id], (err, rows) => {
         if (rows != undefined) {
@@ -137,6 +137,31 @@ router.post('/main/report', (req, res) => {
     });
 });
 // ---------------------------------------------------------------------------------------- 메인 사이드바 시작
+
+
+router.post('/main/report1', (req, res) => {
+    let sql = "select * from new_alloy_info where researchDate = ?;"
+
+    conn.query(sql, [req.body.researchDate], (err, rows) => {
+        if (rows != undefined) {
+            console.log(rows)
+            // var rows1 = [];
+            // var num = rows.length
+            // if(num == 1){
+            //     rows1 = [rows];
+            // }else {
+            //     rows1 = rows;
+            // }
+            res.json({ researchDate: 'success', data: rows })
+
+        } else if (err) {
+            console.log('err')
+            res.json({ researchDate: 'failed' })
+        }
+
+    });
+});
+
 
 // ---------------------------------------------------------------------------------------- 예측 시작
 // dio.dart의 insertAl
