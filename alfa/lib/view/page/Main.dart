@@ -5,6 +5,7 @@ import 'package:alfa/get_pages.dart';
 import 'package:alfa/provider/shared.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:alfa/view/widgets/main/Main_barChart.dart';
+import 'package:alfa/view/widgets/main/Main_bchart2.dart';
 import 'package:alfa/view/widgets/main/Main_chart.dart';
 import 'package:alfa/view/widgets/main/Main_input.dart';
 import 'package:alfa/view/widgets/main/Main_result.dart';
@@ -231,8 +232,7 @@ class _MainBodyState extends State<MainBody> with TickerProviderStateMixin {
                                                         SizedBox(
                                                           width: 550,
                                                           height: 300,
-                                                          child:
-                                                              Main_barChart(),
+                                                          child: Main_bchart2(),
                                                         )
                                                       ],
                                                     )

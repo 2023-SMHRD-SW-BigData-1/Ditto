@@ -13,19 +13,24 @@ class Main_barChart extends StatefulWidget {
 
 class Main_barChartState extends State<Main_barChart> {
   final double width = 7;
-
-  late List<BarChartGroupData> rawBarGroups;
-  late List<BarChartGroupData> showingBarGroups;
+  List<BarChartGroupData> rawBarGroups = [];
+  List<BarChartGroupData> showingBarGroups = [];
   List item = [];
   int touchedGroupIndex = -1;
 
   @override
   void initState() {
     super.initState();
+    loadArr();
+  }
 
-    DataManager.loadArray('finalResultKey').then((value) {
+  void loadArr() async {
+    await DataManager.loadArray('finalResultKey').then((value) {
       item = value;
     });
+    print('item');
+    print(item[0][4]);
+    // final barGroup1 = makeGroupData(0, 11, 25);
     final barGroup1 = makeGroupData(0, item[0][4], item[0][5]);
     final barGroup2 = makeGroupData(1, item[0][7], item[0][8]);
     final barGroup3 = makeGroupData(2, item[0][10], item[0][11]);

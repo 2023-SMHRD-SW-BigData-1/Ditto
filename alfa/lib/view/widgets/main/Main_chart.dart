@@ -54,7 +54,7 @@ class _Main_chartState extends State<Main_chart> {
     print('data? : ${data[0]}');
 
     Tuple2<List<double>, List<String>> result = parse(data[0][2]);
-    print(result);
+    print('result:  $result');
 
     return result;
   }
