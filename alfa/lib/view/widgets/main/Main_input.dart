@@ -100,6 +100,7 @@ Widget Main_input() {
                                       pay_date);
                                 }
                                 await Future.delayed(Duration(seconds: 2));
+                                await server.report(user_id);
                                 await DataManager.loadData('stepOne')
                                     .then((value) async {
                                   var result = value;
@@ -132,6 +133,7 @@ Widget Main_input() {
                                     pay_date);
                               });
                               await Future.delayed(Duration(seconds: 2));
+                              await server.report(user_id);
                               await DataManager.loadData('stepOne')
                                   .then((value) async {
                                 var result = value;

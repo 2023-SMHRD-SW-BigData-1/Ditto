@@ -205,7 +205,7 @@ class Server {
     if (result == "success") {
       // 6-1. 테스트용 문구 확인
       print('stepOne : $result');
-
+      // await server.report(user_id);
       // 7. DB에 1번에서 보낸 값이 제대로 들어갔기 때문에 똑같은 값을 모델링 하기 위해 flask 서버로 전송하기
       void sendDataToPython() async {
         // 7-1. flask 서버로 post 방식으로 전송, body 에 똑같이 값을 담고 json 형태로 보내줌 //

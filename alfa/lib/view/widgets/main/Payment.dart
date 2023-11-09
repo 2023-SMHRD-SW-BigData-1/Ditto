@@ -274,7 +274,7 @@ class _SecondRouteState extends State<Payment> {
     StatItem item1 = StatItem();
     item1.itemName = "1회용"; // 주문정보에 담길 상품명
     item1.unique = "ITEM_CODE_ONCE"; // 해당 상품의 고유 키
-    item1.price = 500; // 상품의 가격
+    item1.price = 150000; // 상품의 가격
     // item1.cat1 = '컴퓨터';
     // item1.cat2 = '주변기기';
 
@@ -301,13 +301,13 @@ class _SecondRouteState extends State<Payment> {
     item1.name = "1회용"; // 주문정보에 담길 상품명
     item1.qty = 1; // 해당 상품의 주문 수량
     item1.id = "ITEM_CODE_ONCE"; // 해당 상품의 고유 키
-    item1.price = 500; // 상품의 가격
+    item1.price = 150000; // 상품의 가격
 
     Item item2 = Item();
     item2.name = "라이센스"; // 주문정보에 담길 상품명
     item2.qty = 1; // 해당 상품의 주문 수량
     item2.id = "ITEM_CODE_license"; // 해당 상품의 고유 키
-    item2.price = 100000; // 상품의 가격
+    item2.price = 3000000; // 상품의 가격
     List<Item> itemList1 = [item1];
     List<Item> itemList2 = [item2];
 
@@ -322,9 +322,9 @@ class _SecondRouteState extends State<Payment> {
     // payload.method = '네이버페이';
     // payload.methods = ['카드', '휴대폰', '가상계좌', '계좌이체', '카카오페이'];
     payload.orderName = "1회용 결제"; //결제할 상품명
-    payload.price = 500; //정기결제시 0 혹은 주석
+    payload.price = 150000; //정기결제시 0 혹은 주석
     payload2.orderName = "라이센스 결제"; //결제할 상품명
-    payload2.price = 100000; //정기결제시 0 혹은 주석
+    payload2.price = 3000000; //정기결제시 0 혹은 주석
 
     payload.orderId = DateTime.now()
         // .millisecondsSinceEpoch
