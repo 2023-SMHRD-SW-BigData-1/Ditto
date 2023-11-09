@@ -1,11 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'dart:html' as html;
 import 'package:alfa/server/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:get/get.dart';
-import '../../../../get_pages.dart';
 import 'package:alfa/provider/shared.dart';
 import 'package:crypto/crypto.dart';
 

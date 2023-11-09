@@ -17,7 +17,6 @@ class _User_infoState extends State<User_info> {
   @override
   void initState() {
     super.initState();
-    // 앱이 시작할 때 세션 데이터를 불러옵니다.
   }
 
   @override

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:alfa/view/widgets/home/join/TextFromFieldComponent.dart';
 import 'package:alfa/view/widgets/home/join/consent.dart';
 import 'package:flutter/material.dart';
@@ -113,39 +112,39 @@ class _Form_updateState extends State<Form_join> {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromRGBO(62, 68, 102, 1)),
                       onPressed: () {
-                        // if (_formkey.currentState!.validate()) {
-                        String user_id = _email.text;
-                        String user_pw = _pw.text;
-                        String user_name = _name.text;
-                        String user_num = _tel.text;
+                        if (_formkey.currentState!.validate()) {
+                          String user_id = _email.text;
+                          String user_pw = _pw.text;
+                          String user_name = _name.text;
+                          String user_num = _tel.text;
 
-                        var bytes = utf8.encode(user_pw);
-                        var pwHash = sha256.convert(bytes).toString();
+                          var bytes = utf8.encode(user_pw);
+                          var pwHash = sha256.convert(bytes).toString();
 
-                        Future<void> data() async {
-                          await server.join(
-                              user_id, pwHash, user_name, user_num);
+                          Future<void> data() async {
+                            await server.join(
+                                user_id, pwHash, user_name, user_num);
 
-                          await DataManager.loadData('joinResult')
-                              .then((value) => joinRes = value);
+                            await DataManager.loadData('joinResult')
+                                .then((value) => joinRes = value);
 
-                          if (joinRes == 'failed') {
-                            Future.delayed(Duration(milliseconds: 100), () {
-                              html.window.alert('이미 사용중인 아이디 입니다');
-                              html.window.location.reload();
-                            });
-                          } else if (joinRes == 'success') {
-                            Future.delayed(Duration(milliseconds: 100), () {
-                              html.window.alert('환영합니다');
-                              html.window.location.reload();
-                            });
-                            Get.rootDelegate.toNamed(Routes.HOME);
+                            if (joinRes == 'failed') {
+                              Future.delayed(Duration(milliseconds: 100), () {
+                                html.window.alert('이미 사용중인 아이디 입니다');
+                                html.window.location.reload();
+                              });
+                            } else if (joinRes == 'success') {
+                              Future.delayed(Duration(milliseconds: 100), () {
+                                html.window.alert('환영합니다');
+                                html.window.location.reload();
+                              });
+                              Get.rootDelegate.toNamed(Routes.HOME);
+                            }
                           }
-                        }
 
-                        data();
+                          data();
+                        }
                       },
-                      // }},
                       child: Text('회원가입'))),
             ],
           ),
@@ -169,49 +168,3 @@ Widget minText(String text) {
         color: Colors.grey[600], fontSize: 14, fontWeight: FontWeight.w300),
   );
 }
-
-// Widget joinBtn(_formkey, checked, String _name, String _pw, String _email,
-//     String _tel, String joinRes) {
-//   void removeRes() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     prefs.remove('joinResult');
-//   }
-
-//   // return Builder(builder: (context) {
-//   //   final _User = Provider.of<User>(context);
-//   //   _User.result = joinRes;
-//     return ElevatedButton(
-//         style: ElevatedButton.styleFrom(
-//             backgroundColor: Color.fromRGBO(62, 68, 102, 1)),
-//         onPressed: () {
-//           if (!checked) {}
-//           if (_formkey.currentState!.validate()) {
-//             String user_id = _email;
-//             String user_pw = _pw;
-//             String user_name = _name;
-//             String user_num = _tel;
-//             // Get.rootDelegate.toNamed(Routes.JOINDB);
-//             Future<void> data() async {
-//               await server.join(user_id, user_pw, user_name, user_num);
-//               print('joinRes : ' + _User.result);
-//             }
-
-//             data();
-
-//             if (_User.result != '') {
-//               // Get.rootDelegate.toNamed(Routes.JOIN);
-//               // html.window.location.reload();
-//               removeRes();
-//             } else if (_User.result == 'success') {
-//               Get.rootDelegate.toNamed(Routes.HOME);
-//               Future.delayed(Duration(milliseconds: 300), () {
-//                 html.window.location.reload();
-//                 // _formkey.currentState!.save();
-//                 removeRes();
-//               });
-//             }
-//           }
-//         },
-//         child: Text('회원가입'));
-//   });
-// }

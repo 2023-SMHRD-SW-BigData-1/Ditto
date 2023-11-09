@@ -68,9 +68,8 @@ class _Home_secondState extends State<Home_second> {
 
   _onScroll() {
     if (_scrollController.position.extentAfter < 100.0) {
-      // 100.0 픽셀이 남았을 때
-      _scrollController.jumpTo(_scrollController.position.pixels -
-          (items.length / 2) * 140.0); // 각 아이템과 스페이스의 폭 합산(예: 120 + 20)
+      _scrollController.jumpTo(
+          _scrollController.position.pixels - (items.length / 2) * 140.0);
     }
   }
 

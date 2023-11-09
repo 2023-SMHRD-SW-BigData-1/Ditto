@@ -22,15 +22,10 @@ class Payment extends StatefulWidget {
 class _SecondRouteState extends State<Payment> {
   Payload payload = Payload();
   Payload payload2 = Payload();
-  //
+
   String webApplicationId = '653b6e9700c78a001c21b705';
   String androidApplicationId = '5b8f6a4d396fa665fdc2b5e8';
   String iosApplicationId = '5b8f6a4d396fa665fdc2b5e9';
-
-  // extra.browserOpenType = [];
-  // String webApplicationId = '5b9f51264457636ab9a07cdb';
-  // String androidApplicationId = '5b9f51264457636ab9a07cdc';
-  // String iosApplicationId = '5b9f51264457636ab9a07cdd';
 
   String get applicationId {
     return Bootpay().applicationId(

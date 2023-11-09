@@ -43,9 +43,6 @@ class _Main_chartState extends State<Main_chart> {
       numbers.add(double.parse(match.group(1)!));
       elements.add(match.group(2)!);
     }
-    // List<double> numbers_1 = numbers.reversed.toList();
-    // List<String> elements_1 = elements.reversed.toList();
-
     return Tuple2(numbers, elements);
   }
 

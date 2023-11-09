@@ -66,7 +66,6 @@ class CustomDataTableSource extends DataTableSource {
   @override
   DataRow getRow(int index) {
     if (index >= _data.length) {
-      // 데이터가 없는 경우 빈 DataRow를 반환합니다.
       return DataRow.byIndex(index: index, cells: const [
         DataCell(Text('')),
         DataCell(Text('')),
@@ -77,10 +76,8 @@ class CustomDataTableSource extends DataTableSource {
     return DataRow.byIndex(
       index: index,
       cells: [
-        DataCell(Text(
-            item['pay_date']?.toString() ?? 'N/A')), // 첫 번째 열은 거래일자를 나타냅니다.
-        DataCell(Text(
-            item['pay_price']?.toString() ?? 'N/A')), // 두 번째 열은 결제금액을 나타냅니다.
+        DataCell(Text(item['pay_date']?.toString() ?? 'N/A')),
+        DataCell(Text(item['pay_price']?.toString() ?? 'N/A')),
       ],
     );
   }

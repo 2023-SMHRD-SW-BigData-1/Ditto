@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:alfa/provider/shared.dart';
-import 'package:tuple/tuple.dart';
 
 class Main_bchart2 extends StatefulWidget {
   const Main_bchart2({super.key});

@@ -1,13 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:get/get.dart';
+
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:alfa/provider/shared.dart';
 import 'package:alfa/server/dio.dart';
-import 'dart:html' as html;
+
 import 'package:crypto/crypto.dart';
 
 class Google_login2 extends StatefulWidget {
@@ -56,19 +55,6 @@ class _MyAppState extends State<Google_login2> {
       ],
     );
   }
-  //   return MaterialApp(
-  //     title: 'Flutter Demo',
-  //     theme: ThemeData(
-  //       colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-  //       useMaterial3: true,
-  //     ),
-  //     home: ElevatedButton(
-  //         onPressed: () {
-  //           signInWithGoogle();
-  //         },
-  //         child: const Text("Google Login")),
-  //   );
-  // }
 
   Future<User?> signInWithGoogle() async {
     // Initialize Firebase

@@ -5,7 +5,6 @@ import 'package:alfa/view/widgets/home/Home_main/Home_first.dart';
 import 'package:alfa/view/widgets/home/Home_main/Home_second.dart';
 import 'package:alfa/view/widgets/home/Home_main/Home_third.dart';
 import 'package:alfa/view/widgets/home/Home_main/TopNavigationBar.dart';
-
 import 'package:alfa/view/widgets/home/login/Login_btn.dart';
 import 'package:flutter/material.dart';
 
@@ -60,7 +59,6 @@ class _HomeState extends State<Home> {
               ),
             ),
             TopNavigationBar(),
-
             FutureBuilder<String>(
               future: loadUserId(),
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -77,8 +75,6 @@ class _HomeState extends State<Home> {
                 }
               },
             ),
-
-            // loadUserId() == '' ? NavBarItem('Log in') : hovering(),
           ],
         ),
       ),

@@ -72,31 +72,6 @@ class _hoveringState extends State<hovering> {
           },
           child: Column(
             children: <Widget>[
-              // FutureBuilder<String>(
-              //   future: loadUserId(),
-              //   builder:
-              //       (BuildContext context, AsyncSnapshot<String> snapshot) {
-              //     if (snapshot.connectionState == ConnectionState.waiting) {
-              //       // 데이터가 로드 중인 경우
-              //       return Text(''); // 로딩 중 인디케이터 또는 다른 로딩 UI를 표시할 수 있습니다.
-              //     } else if (snapshot.hasError) {
-              //       // 에러가 발생한 경우
-              //       return Text('Error: ${snapshot.error}');
-              //     } else {
-              //       // 데이터가 정상적으로 로드된 경우
-              //       return Row(
-              //         children: <Widget>[
-              //           Text(
-              //             snapshot.data ?? '', // 데이터가 null인 경우 빈 문자열을 사용합니다.
-              //             style: TextStyle(fontSize: 14),
-              //           ),
-              //           Icon(Icons.arrow_drop_down)
-              //         ],
-              //       );
-              //     }
-              //   },
-              // ),
-
               Row(
                 children: <Widget>[
                   Text(
@@ -146,11 +121,6 @@ class _hoveringState extends State<hovering> {
                           ),
                           TextButton(
                               onPressed: () {
-                                //   .listen((html.BeforeUnloadEvent event) {
-                                // // 여기에 로직을 추가
-                                // event.returnValue = '커스텀 메시지'; // 사용자에게 경고 메시지를 표시할 수도 있음
-                                // }
-                                // );
                                 clearAllData();
                                 // Navigator.of(context).pop();
                                 Future.delayed(Duration(milliseconds: 300), () {

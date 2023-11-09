@@ -3,8 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-import 'package:syncfusion_flutter_pdf/pdf.dart';
-
 class Main_listview extends StatefulWidget {
   const Main_listview({super.key});
 

@@ -31,7 +31,6 @@ class Main_barChartState extends State<Main_barChart> {
 
     print('item');
     print(item[0][4]);
-    // final barGroup1 = makeGroupData(0, 11, 25);
     final barGroup1 = makeGroupData(0, item[0][4], item[0][5]);
     final barGroup2 = makeGroupData(1, item[0][7], item[0][8]);
     final barGroup3 = makeGroupData(2, item[0][10], item[0][11]);
